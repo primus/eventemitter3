@@ -154,5 +154,12 @@ EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   return this;
 };
 
+//
+// Expose the module.
+//
 EventEmitter.EventEmitter = EventEmitter;
-module.exports = EventEmitter;
+EventEmitter.EventEmitter2 = EventEmitter;
+EventEmitter.EventEmitter3 = EventEmitter;
+
+try { module.exports = EventEmitter; }
+catch (e) {}
