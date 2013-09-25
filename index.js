@@ -102,15 +102,13 @@ EventEmitter.prototype.on = function on(event, fn) {
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn) {
-  var ee = this;
-
   function eject() {
-    ee.removeListener(event, eject);
-    fn.apply(ee, arguments);
+    this.removeListener(event, eject);
+    fn.apply(this, arguments);
   }
 
   eject.fn = fn;
-  return ee.on(event, eject);
+  return this.on(event, eject);
 };
 
 /**
