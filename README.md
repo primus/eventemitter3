@@ -13,6 +13,11 @@ not need:
 It's a drop in replacement of your existing EventEmitters, but just faster. Free
 performance, who wouldn't want that.
 
+The source of the EventEmitter is compatible for browser usage, no fancy pancy
+`Array.isArray` stuff is used, it's just plain ol JavaScript that should even
+work IE5 if you want to. This module currently serves it's use in
+[Primus](http://github.com/primus/primus)'s client file.
+
 ## Installation
 
 ```bash
