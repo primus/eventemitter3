@@ -24,6 +24,14 @@ work IE5 if you want to. This module currently serves it's use in
 npm install --save eventemitter3
 ```
 
-For API methods see the offical Node.js documentation: 
+```js
+var EventEmitter = require('eventemitter3');
+
+// or
+
+var EventEmitter = require('eventemitter3').EventEmitter;
+```
+
+For API methods see the official Node.js documentation: 
 
 http://nodejs.org/api/events.html
