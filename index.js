@@ -125,7 +125,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn) {
     , events = [];
 
   for (var i = 0, length = listeners.length; i < length; i++) {
-    if (!(!fn || listeners[i] === fn || listeners[i].fn === fn)) {
+    if (fn && listeners[i] !== fn && listeners[i].fn !== fn) {
       events.push(listeners[i]);
     }
   }
