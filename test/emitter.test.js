@@ -175,4 +175,26 @@ describe('EventEmitter', function tests() {
       expect(e.emit('aaa')).to.equal(false);
     });
   });
+
+  it('inherits when used with require(util).inherits', function () {
+    function Beast() {
+      /* rawr, i'm a beast */
+    }
+
+    require('util').inherits(Beast, EventEmitter);
+
+    var moop = new Beast()
+      , meap = new Beast();
+
+    expect(moop).to.be.instanceOf(Beast);
+    expect(moop).to.be.instanceof(EventEmitter);
+
+    moop.on('data', function () {
+      throw new Error('I should not emit');
+    });
+
+    meap.emit('data', 'rawr');
+    meap.removeListener('foo');
+    meap.removeAllListeners();
+  });
 });
