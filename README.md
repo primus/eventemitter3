@@ -21,8 +21,15 @@ work IE5 if you want to. This module currently serves it's use in
 ## Installation
 
 ```bash
-npm install --save eventemitter3
+$ npm install --save eventemitter3
 ```
+or as a [component](http://component.io)
+
+```bash
+$ component install eventemitter3
+```
+
+then
 
 ```js
 var EventEmitter = require('eventemitter3');
