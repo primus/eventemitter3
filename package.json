@@ -26,8 +26,8 @@
     "url": "https://github.com/3rd-Eden/EventEmitter3/issues"
   },
   "devDependencies": {
-    "mocha": "~1.13.0",
-    "pre-commit": "0.0.4",
-    "chai": "~1.8.0"
+    "mocha": "1.13.x",
+    "pre-commit": "0.0.x",
+    "chai": "1.8.x"
   }
 }

@@ -34,30 +34,30 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 
   var listeners = this._events[event]
     , length = listeners.length
-    , handler = listeners[0]
     , len = arguments.length
+    , fn = listeners[0]
     , args
     , i;
 
   if (1 === length) {
     switch (len) {
       case 1:
-        handler.call(this);
+        fn.call(fn.context || this);
       break;
       case 2:
-        handler.call(this, a1);
+        fn.call(fn.context || this, a1);
       break;
       case 3:
-        handler.call(this, a1, a2);
+        fn.call(fn.context || this, a1, a2);
       break;
       case 4:
-        handler.call(this, a1, a2, a3);
+        fn.call(fn.context || this, a1, a2, a3);
       break;
       case 5:
-        handler.call(this, a1, a2, a3, a4);
+        fn.call(fn.context || this, a1, a2, a3, a4);
       break;
       case 6:
-        handler.call(this, a1, a2, a3, a4, a5);
+        fn.call(fn.context || this, a1, a2, a3, a4, a5);
       break;
 
       default:
@@ -65,18 +65,18 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
           args[i - 1] = arguments[i];
         }
 
-        handler.apply(this, args);
+        fn.apply(fn.context || this, args);
     }
 
-    if (handler.once) this.removeListener(event, handler);
+    if (fn.once) this.removeListener(event, fn);
   } else {
     for (i = 1, args = new Array(len -1); i < len; i++) {
       args[i - 1] = arguments[i];
     }
 
-    for (i = 0; i < length; i++) {
-      listeners[i].apply(this, args);
-      if (listeners[i].once) this.removeListener(event, handler[i]);
+    for (i = 0; i < length; fn = listeners[i++]) {
+      fn.apply(fn.context || this, args);
+      if (fn.once) this.removeListener(event, fn);
     }
   }
 
@@ -88,11 +88,14 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  *
  * @param {String} event Name of the event.
  * @param {Functon} fn Callback function.
+ * @param {Mixed} context The context of the function.
  * @api public
  */
-EventEmitter.prototype.on = function on(event, fn) {
+EventEmitter.prototype.on = function on(event, fn, context) {
   if (!this._events) this._events = {};
   if (!this._events[event]) this._events[event] = [];
+
+  fn.context = context;
   this._events[event].push(fn);
 
   return this;
@@ -103,11 +106,12 @@ EventEmitter.prototype.on = function on(event, fn) {
  *
  * @param {String} event Name of the event.
  * @param {Function} fn Callback function.
+ * @param {Mixed} context The context of the function.
  * @api public
  */
-EventEmitter.prototype.once = function once(event, fn) {
+EventEmitter.prototype.once = function once(event, fn, context) {
   fn.once = true;
-  return this.on(event, fn);
+  return this.on(event, fn, context);
 };
 
 /**
