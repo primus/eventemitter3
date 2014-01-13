@@ -109,6 +109,36 @@ describe('EventEmitter', function tests() {
       expect(e.listeners('foo').length).to.equal(0);
       expect(calls).to.equal(1);
     });
+
+    it('only emits once for multiple events', function () {
+      var e = new EventEmitter()
+        , multi = 0
+        , foo = 0
+        , bar = 0;
+
+      e.once('foo', function () {
+        foo++;
+      });
+
+      e.once('foo', function () {
+        bar++;
+      });
+
+      e.on('foo', function () {
+        multi++;
+      });
+
+      e.emit('foo');
+      e.emit('foo');
+      e.emit('foo');
+      e.emit('foo');
+      e.emit('foo');
+
+      expect(e.listeners('foo').length).to.equal(1);
+      expect(multi).to.equal(5);
+      expect(foo).to.equal(1);
+      expect(bar).to.equal(1);
+    });
   });
 
   describe('EventEmitter#removeListener', function () {
