@@ -15,6 +15,18 @@ describe('EventEmitter', function tests() {
       expect(e.emit('bar')).to.equal(false);
     });
 
+    it('emits with context', function (done) {
+      var e = new EventEmitter()
+        , context = 'bar';
+
+      e.on('foo', function (bar) {
+        expect(bar).to.equal('bar');
+        expect(this).to.equal(context);
+
+        done();
+      }, context).emit('foo', 'bar');
+    });
+
     it('should return true when there are events to emit', function (done) {
       var e = new EventEmitter();
 
@@ -138,6 +150,18 @@ describe('EventEmitter', function tests() {
       expect(multi).to.equal(5);
       expect(foo).to.equal(1);
       expect(bar).to.equal(1);
+    });
+
+    it('only emits once with context', function (done) {
+      var e = new EventEmitter()
+        , context = 'foo';
+
+      e.once('foo', function (bar) {
+        expect(this).to.equal(context);
+        expect(bar).to.equal('bar');
+
+        done();
+      }, context).emit('foo', 'bar');
     });
   });
 

@@ -10,6 +10,11 @@ not need:
 - No silly `setMaxListeners`.
 - No silly `listenerCount` function.. Just do `EventEmitter.listeners(event).length`
 
+And adds some features you want:
+
+- Emit events with a custom context without binding: `EE.on(event, fn, context)`
+  which also works with once `EE.once(event, fn, context)`
+
 It's a drop in replacement of your existing EventEmitters, but just faster. Free
 performance, who wouldn't want that.
 
