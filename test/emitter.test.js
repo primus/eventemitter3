@@ -122,6 +122,20 @@ describe('EventEmitter', function tests() {
       expect(calls).to.equal(1);
     });
 
+    it('only emits once if emits are nested inside the listener', function () {
+      var e = new EventEmitter()
+        , calls = 0;
+
+      e.once('foo', function () {
+        calls++;
+        e.emit('foo');
+      });
+
+      e.emit('foo');
+      expect(e.listeners('foo').length).to.equal(0);
+      expect(calls).to.equal(1);
+    });
+
     it('only emits once for multiple events', function () {
       var e = new EventEmitter()
         , multi = 0
