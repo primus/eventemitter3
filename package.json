@@ -1,6 +1,6 @@
 {
   "name": "eventemitter3",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface. This the source of the same EventEmitter that is used in Primus.",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,12 @@
     "Events",
     "reactor",
     "pub/sub",
+    "publish",
+    "subscribe",
     "event",
-    "emitter"
+    "emitter",
+    "addListener",
+    "addEventListener"
   ],
   "author": "Arnout Kazemier",
   "license": "MIT",
@@ -26,8 +30,8 @@
     "url": "https://github.com/3rd-Eden/EventEmitter3/issues"
   },
   "devDependencies": {
-    "mocha": "1.13.x",
+    "mocha": "1.18.x",
     "pre-commit": "0.0.x",
-    "chai": "1.8.x"
+    "chai": "1.9.x"
   }
 }
