@@ -16,7 +16,8 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter3 = require('../../').EventEmitter
-  , EventEmitter1 = require('events').EventEmitter;
+  , EventEmitter1 = require('events').EventEmitter
+  , Drip = require('drip').EventEmitter;
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -27,7 +28,8 @@ function handle() {
  */
 var ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
-  , ee1 = new EventEmitter1();
+  , ee1 = new EventEmitter1()
+  , drip = new Drip();
 
 (
   new benchmark.Suite()
@@ -40,6 +42,9 @@ var ee2 = new EventEmitter2()
 }).add('EventEmitter 3', function test2() {
   ee3.on('foo', handle);
   ee3.removeListener('foo', handle);
+}).add('Drip', function test2() {
+  drip.on('foo', handle);
+  drip.removeListener('foo', handle);
 }).on('cycle', function cycle(e) {
   var details = e.target;
 

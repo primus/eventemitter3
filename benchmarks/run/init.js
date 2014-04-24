@@ -16,7 +16,8 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter3 = require('../../').EventEmitter
-  , EventEmitter1 = require('events').EventEmitter;
+  , EventEmitter1 = require('events').EventEmitter
+  , Drip = require('drip').EventEmitter;
 
 (
   new benchmark.Suite()
@@ -26,6 +27,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   var ee = new EventEmitter2();
 }).add('EventEmitter 3', function test3() {
   var ee = new EventEmitter3();
+}).add('Drip', function test3() {
+  var drip = new Drip();
 }).on('cycle', function cycle(e) {
   var details = e.target;
 

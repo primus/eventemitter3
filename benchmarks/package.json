@@ -12,6 +12,7 @@
     "benchmark": "~1.0.0",
     "devnull": "0.0.10",
     "microtime": "~0.4.0",
-    "eventemitter2": "~0.4.13"
+    "eventemitter2": "*",
+    "drip": "*"
   }
 }
