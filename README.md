@@ -16,7 +16,7 @@ And adds some features you want:
   which also works with once `EE.once(event, fn, context)`
 
 It's a drop in replacement of your existing EventEmitters, but just faster. Free
-performance, who wouldn't want that.
+performance, who wouldn't want that?
 
 The source of the EventEmitter is compatible for browser usage, no fancy pancy
 `Array.isArray` stuff is used, it's just plain ol JavaScript that should even
