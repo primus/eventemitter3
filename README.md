@@ -1,6 +1,6 @@
 # EventEmitter3
 
-EventEmitter3 is a faster alternative to EventEmitter2 and the build-in
+EventEmitter3 is a faster alternative to EventEmitter2 and the built-in
 EventEmitter that ships within Node.js. It removes some features that you might
 not need:
 
@@ -20,7 +20,7 @@ performance, who wouldn't want that?
 
 The source of the EventEmitter is compatible for browser usage, no fancy pancy
 `Array.isArray` stuff is used, it's just plain ol JavaScript that should even
-work IE5 if you want to. This module currently serves it's use in
+work IE5 if you want to. This module currently serves its use in
 [Primus](http://github.com/primus/primus)'s client file.
 
 ## Installation
