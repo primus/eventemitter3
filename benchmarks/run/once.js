@@ -15,8 +15,9 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('../../').EventEmitter
+  , EventEmitter3 = require('eventemitter3').EventEmitter
   , EventEmitter1 = require('events').EventEmitter
+  , Master = require('../../').EventEmitter
   , Drip = require('drip').EventEmitter;
 
 function handle() {
@@ -29,6 +30,7 @@ function handle() {
 var ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
   , ee1 = new EventEmitter1()
+  , master = new Master()
   , drip = new Drip();
 
 (
@@ -42,6 +44,9 @@ var ee2 = new EventEmitter2()
 }).add('EventEmitter 3', function test2() {
   ee3.once('foo', handle);
   ee3.emit('foo');
+}).add('EventEmitter 3 (master)', function test2() {
+  master.once('foo', handle);
+  master.emit('foo');
 }).add('Drip', function test2() {
   drip.once('foo', handle);
   drip.emit('foo');

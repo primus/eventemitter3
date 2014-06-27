@@ -15,8 +15,9 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('../../').EventEmitter
+  , EventEmitter3 = require('eventemitter3').EventEmitter
   , EventEmitter1 = require('events').EventEmitter
+  , Master = require('../../').EventEmitter
   , Drip = require('drip').EventEmitter;
 
 function foo() {
@@ -43,12 +44,14 @@ function baz() {
 var ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
   , ee1 = new EventEmitter1()
+  , master = new Master()
   , drip = new Drip();
 
 ee3.on('foo', foo).on('foo', bar).on('foo', baz);
 ee2.on('foo', foo).on('foo', bar).on('foo', baz);
 ee1.on('foo', foo).on('foo', bar).on('foo', baz);
 drip.on('foo', foo).on('foo', bar).on('foo', baz);
+master.on('foo', foo).on('foo', bar).on('foo', baz);
 
 (
   new benchmark.Suite()
@@ -67,6 +70,11 @@ drip.on('foo', foo).on('foo', bar).on('foo', baz);
   ee3.emit('foo', 'bar');
   ee3.emit('foo', 'bar', 'baz');
   ee3.emit('foo', 'bar', 'baz', 'boom');
+}).add('EventEmitter 3 (master)', function test2() {
+  master.emit('foo');
+  master.emit('foo', 'bar');
+  master.emit('foo', 'bar', 'baz');
+  master.emit('foo', 'bar', 'baz', 'boom');
 }).add('Drip', function test2() {
   drip.emit('foo');
   drip.emit('foo', 'bar');

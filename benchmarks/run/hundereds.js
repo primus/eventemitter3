@@ -15,8 +15,9 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('../../').EventEmitter
+  , EventEmitter3 = require('eventemitter3').EventEmitter
   , EventEmitter1 = require('events').EventEmitter
+  , Master = require('../../').EventEmitter
   , Drip = require('drip').EventEmitter;
 
 function foo() {
@@ -31,6 +32,7 @@ function foo() {
 var ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
   , ee1 = new EventEmitter1()
+  , master = new Master()
   , drip = new Drip()
   , j, i;
 
@@ -40,6 +42,7 @@ for (i = 0; i < 10; i++) {
     ee2.on('event:' + i, foo);
     ee3.on('event:' + i, foo);
     drip.on('event:' + i, foo);
+    master.on('event:' + i, foo);
   }
 }
 
@@ -56,6 +59,10 @@ for (i = 0; i < 10; i++) {
 }).add('EventEmitter 3', function test2() {
   for (i = 0; i < 10; i++) {
     ee3.emit('event:' + i);
+  }
+}).add('EventEmitter 3 (master)', function test2() {
+  for (i = 0; i < 10; i++) {
+    master.emit('event:' + i);
   }
 }).add('Drip', function test2() {
   for (i = 0; i < 10; i++) {

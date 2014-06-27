@@ -13,6 +13,7 @@
     "devnull": "0.0.10",
     "microtime": "~0.4.0",
     "eventemitter2": "*",
+    "eventemitter3": "*",
     "drip": "*"
   }
 }

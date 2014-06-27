@@ -1,5 +1,7 @@
 'use strict';
 
+return;
+
 /**
  * Benchmark related modules.
  */
@@ -14,8 +16,9 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
 /**
  * Preparation code.
  */
-var EventEmitter3 = require('../../').EventEmitter
-  , EventEmitter1 = require('events').EventEmitter;
+var EventEmitter3 = require('eventemitter3').EventEmitter
+  , EventEmitter1 = require('events').EventEmitter
+  , Master = require('../../').EventEmitter;
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -25,7 +28,8 @@ function handle() {
  * Instances.
  */
 var ee3 = new EventEmitter3()
-  , ee1 = new EventEmitter1();
+  , ee1 = new EventEmitter1()
+  , master = new Master();
 
 ee1.setMaxListeners(Infinity);
 
@@ -43,6 +47,9 @@ ee1.setMaxListeners(Infinity);
 }).add('EventEmitter 3', function test2() {
   ee3.on('foo', handle);
   ee3.listeners('foo');
+}).add('EventEmitter 3 (master)', function test2() {
+  master.on('foo', handle);
+  master.listeners('foo');
 }).on('cycle', function cycle(e) {
   var details = e.target;
 
