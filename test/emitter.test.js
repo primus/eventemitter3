@@ -27,6 +27,49 @@ describe('EventEmitter', function tests() {
       }, context).emit('foo', 'bar');
     });
 
+    it('emits with context, multiple arguments (force apply)', function (done) {
+      var e = new EventEmitter()
+        , context = 'bar';
+
+      e.on('foo', function (bar) {
+        expect(bar).to.equal('bar');
+        expect(this).to.equal(context);
+
+        done();
+      }, context).emit('foo', 'bar', 1,2,3,4,5,6,7,8,9,0);
+    });
+
+    it('emits with context, multiple listeners (force loop)', function () {
+      var e = new EventEmitter();
+
+      e.on('foo', function (bar) {
+        expect(bar).to.equal('bar');
+        expect(this).to.equal('bar');
+      }, 'bar');
+
+      e.on('foo', function (bar) {
+        expect(bar).to.equal('bar');
+        expect(this).to.equal('foo');
+      }, 'foo');
+
+      e.emit('foo', 'bar');
+    });
+
+    it('emits with different contexts', function () {
+      var e = new EventEmitter()
+        , pattern = '';
+
+      function writer() {
+        pattern += this;
+      }
+
+      e.on('write', writer, 'foo');
+      e.once('write', writer, 'bar');
+
+      e.emit('write');
+      expect(pattern).to.equal('foobar');
+    });
+
     it('should return true when there are events to emit', function (done) {
       var e = new EventEmitter();
 
