@@ -8,8 +8,15 @@
  * @api public
  */
 function EventEmitter() {
-  this._events = {};
 }
+
+/**
+ * Holds the assigned EventEmitters by name.
+ *
+ * @type {Object}
+ * @private
+ */
+EventEmitter.prototype._events = undefined;
 
 /**
  * Return a list of assigned event listeners.
@@ -19,6 +26,7 @@ function EventEmitter() {
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event) {
+  if (!this._events) return [];
   return Array.apply(this, this._events[event] || []);
 };
 
@@ -171,5 +179,6 @@ EventEmitter.EventEmitter = EventEmitter;
 EventEmitter.EventEmitter2 = EventEmitter;
 EventEmitter.EventEmitter3 = EventEmitter;
 
-try { module.exports = EventEmitter; }
-catch (e) {}
+if ('object' === typeof module && module.exports) {
+  module.exports = EventEmitter;
+}

@@ -257,6 +257,9 @@ describe('EventEmitter', function tests() {
     expect(moop).to.be.instanceOf(Beast);
     expect(moop).to.be.instanceof(EventEmitter);
 
+    moop.listeners();
+    meap.listeners();
+
     moop.on('data', function () {
       throw new Error('I should not emit');
     });
