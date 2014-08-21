@@ -1,6 +1,6 @@
 {
   "name": "eventemitter3",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface. This the source of the same EventEmitter that is used in Primus.",
   "main": "index.js",
   "scripts": {
