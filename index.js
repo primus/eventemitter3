@@ -43,32 +43,19 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     if (fn.__EE3_once) this.removeListener(event, fn);
 
     switch (len) {
-      case 1:
-        fn.call(fn.__EE3_context || this);
-      break;
-      case 2:
-        fn.call(fn.__EE3_context || this, a1);
-      break;
-      case 3:
-        fn.call(fn.__EE3_context || this, a1, a2);
-      break;
-      case 4:
-        fn.call(fn.__EE3_context || this, a1, a2, a3);
-      break;
-      case 5:
-        fn.call(fn.__EE3_context || this, a1, a2, a3, a4);
-      break;
-      case 6:
-        fn.call(fn.__EE3_context || this, a1, a2, a3, a4, a5);
-      break;
-
-      default:
-        for (i = 1, args = new Array(len -1); i < len; i++) {
-          args[i - 1] = arguments[i];
-        }
-
-        fn.apply(fn.__EE3_context || this, args);
+      case 1: return fn.call(fn.__EE3_context), true;
+      case 2: return fn.call(fn.__EE3_context, a1), true;
+      case 3: return fn.call(fn.__EE3_context, a1, a2), true;
+      case 4: return fn.call(fn.__EE3_context, a1, a2, a3), true;
+      case 5: return fn.call(fn.__EE3_context, a1, a2, a3, a4), true;
+      case 6: return fn.call(fn.__EE3_context, a1, a2, a3, a4, a5), true;
     }
+
+    for (i = 1, args = new Array(len -1); i < len; i++) {
+      args[i - 1] = arguments[i];
+    }
+
+    fn.apply(fn.__EE3_context, args);
   } else {
     for (i = 1, args = new Array(len -1); i < len; i++) {
       args[i - 1] = arguments[i];
@@ -76,7 +63,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 
     for (i = 0; i < length; fn = listeners[++i]) {
       if (fn.__EE3_once) this.removeListener(event, fn);
-      fn.apply(fn.__EE3_context || this, args);
+      fn.apply(fn.__EE3_context, args);
     }
   }
 
@@ -95,7 +82,7 @@ EventEmitter.prototype.on = function on(event, fn, context) {
   if (!this._events) this._events = {};
   if (!this._events[event]) this._events[event] = [];
 
-  fn.__EE3_context = context;
+  fn.__EE3_context = context || this;
   this._events[event].push(fn);
 
   return this;
