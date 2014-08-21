@@ -37,7 +37,7 @@ ee3.on('foo', handle, logger);
 ee2.on('foo', handle.bind(logger));
 ee1.on('foo', handle.bind(logger));
 drip.on('foo', handle.bind(logger));
-master.on('foo', handle.bind(logger));
+master.on('foo', handle, logger);
 
 (
   new benchmark.Suite()
