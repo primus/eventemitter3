@@ -37,7 +37,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     , len = arguments.length
     , fn = listeners[0]
     , args
-    , i;
+    , i, j;
 
   if (1 === length) {
     if (fn.__EE3_once) this.removeListener(event, fn);
@@ -57,13 +57,20 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 
     fn.apply(fn.__EE3_context, args);
   } else {
-    for (i = 1, args = new Array(len -1); i < len; i++) {
-      args[i - 1] = arguments[i];
-    }
+    for (i = 0; i < length; i++) {
+      if (listeners[i].__EE3_once) this.removeListener(event, listeners[i]);
 
-    for (i = 0; i < length; fn = listeners[++i]) {
-      if (fn.__EE3_once) this.removeListener(event, fn);
-      fn.apply(fn.__EE3_context, args);
+      switch (len) {
+        case 1: listeners[i].call(fn.__EE3_context); break;
+        case 2: listeners[i].call(fn.__EE3_context, a1); break;
+        case 3: listeners[i].call(fn.__EE3_context, a1, a2); break;
+        default:
+          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+            args[j - 1] = arguments[j];
+          }
+
+          listeners[i].apply(fn.__EE3_context, args);
+      }
     }
   }
 
