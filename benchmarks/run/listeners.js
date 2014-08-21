@@ -1,7 +1,5 @@
 'use strict';
 
-return;
-
 /**
  * Benchmark related modules.
  */
@@ -33,6 +31,12 @@ var ee3 = new EventEmitter3()
 
 ee1.setMaxListeners(Infinity);
 
+for (var i = 0; i < 25; i++) {
+  ee1.on('event', handle);
+  ee3.on('event', handle);
+  master.on('event', handle);
+}
+
 //
 // EE2 doesn't correctly handle listeners as they can be removed by doing a
 // ee2.listeners('foo').length = 0; kills the event emitter, same counts for
@@ -42,13 +46,10 @@ ee1.setMaxListeners(Infinity);
 (
   new benchmark.Suite()
 ).add('EventEmitter 1', function test1() {
-  ee1.on('foo', handle);
   ee1.listeners('foo');
 }).add('EventEmitter 3', function test2() {
-  ee3.on('foo', handle);
   ee3.listeners('foo');
 }).add('EventEmitter 3 (master)', function test2() {
-  master.on('foo', handle);
   master.listeners('foo');
 }).on('cycle', function cycle(e) {
   var details = e.target;
