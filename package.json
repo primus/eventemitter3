@@ -1,6 +1,6 @@
 {
   "name": "eventemitter3",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface. This the source of the same EventEmitter that is used in Primus.",
   "main": "index.js",
   "scripts": {
@@ -15,14 +15,17 @@
     "EventEmitter2",
     "EventEmitter3",
     "Events",
-    "reactor",
+    "addEventListener",
+    "addListener",
+    "emit",
+    "emits",
+    "emitter",
+    "event",
+    "once",
     "pub/sub",
     "publish",
-    "subscribe",
-    "event",
-    "emitter",
-    "addListener",
-    "addEventListener"
+    "reactor",
+    "subscribe"
   ],
   "author": "Arnout Kazemier",
   "license": "MIT",
