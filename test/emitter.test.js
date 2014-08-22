@@ -64,10 +64,12 @@ describe('EventEmitter', function tests() {
       }
 
       e.on('write', writer, 'foo');
+      e.on('write', writer, 'baz');
       e.once('write', writer, 'bar');
+      e.once('write', writer, 'banana');
 
       e.emit('write');
-      expect(pattern).to.equal('foobar');
+      expect(pattern).to.equal('foobazbarbanana');
     });
 
     it('should return true when there are events to emit', function (done) {
