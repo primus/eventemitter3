@@ -246,6 +246,33 @@ describe('EventEmitter', function tests() {
       expect(e.removeListener('bar')).to.equal(e);
       expect(e.listeners('bar').length).to.equal(0);
     });
+
+    it('should only remove once events when using the once flag', function () {
+      var e = new EventEmitter();
+
+      function foo() {}
+      e.on('foo', foo);
+
+      expect(e.removeListener('foo', function () {}, true)).to.equal(e);
+      expect(e.listeners('foo').length).to.equal(1);
+      expect(e.removeListener('foo', foo, true)).to.equal(e);
+      expect(e.listeners('foo').length).to.equal(1);
+      expect(e.removeListener('foo', foo)).to.equal(e);
+      expect(e.listeners('foo').length).to.equal(0);
+
+      e.on('foo', foo);
+      e.once('foo', foo);
+
+      expect(e.removeListener('foo', function () {}, true)).to.equal(e);
+      expect(e.listeners('foo').length).to.equal(2);
+      expect(e.removeListener('foo', foo, true)).to.equal(e);
+      expect(e.listeners('foo').length).to.equal(1);
+
+      e.once('foo', foo);
+
+      expect(e.removeListener('foo', foo)).to.equal(e);
+      expect(e.listeners('foo').length).to.equal(0);
+    });
   });
 
   describe('EventEmitter#removeAllListeners', function () {
