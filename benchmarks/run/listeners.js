@@ -62,7 +62,7 @@ for (var i = 0; i < 25; i++) {
     , details.hz
   );
 }).on('complete', function completed() {
-  logger.info('Benchmark: "%s" is was the fastest.'
+  logger.info('Benchmark: "%s" is the fastest.'
     , this.filter('fastest').pluck('name')
   );
 }).run();
