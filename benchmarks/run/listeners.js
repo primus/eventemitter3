@@ -39,18 +39,18 @@ for (var i = 0; i < 25; i++) {
 
 //
 // EE2 doesn't correctly handle listeners as they can be removed by doing a
-// ee2.listeners('foo').length = 0; kills the event emitter, same counts for
+// ee2.listeners('event').length = 0; kills the event emitter, same counts for
 // Drip
 //
 
 (
   new benchmark.Suite()
 ).add('EventEmitter 1', function test1() {
-  ee1.listeners('foo');
+  ee1.listeners('event');
 }).add('EventEmitter 3', function test2() {
-  ee3.listeners('foo');
+  ee3.listeners('event');
 }).add('EventEmitter 3 (master)', function test2() {
-  master.listeners('foo');
+  master.listeners('event');
 }).on('cycle', function cycle(e) {
   var details = e.target;
 
