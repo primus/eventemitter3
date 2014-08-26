@@ -1,5 +1,8 @@
 # EventEmitter3
 
+[![Build Status](https://travis-ci.org/3rd-Eden/EventEmitter3.svg?branch=master)](https://travis-ci.org/3rd-Eden/EventEmitter3)
+[![NPM version](https://badge.fury.io/js/eventemitter3.svg)](http://badge.fury.io/js/eventemitter3)
+
 EventEmitter3 is a faster alternative to EventEmitter2 and the built-in
 EventEmitter that ships within Node.js. It removes some features that you might
 not need:
@@ -44,6 +47,6 @@ var EventEmitter = require('eventemitter3');
 var EventEmitter = require('eventemitter3').EventEmitter;
 ```
 
-For API methods see the official Node.js documentation: 
+For API methods see the official Node.js documentation:
 
 http://nodejs.org/api/events.html
