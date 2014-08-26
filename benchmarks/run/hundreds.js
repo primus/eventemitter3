@@ -3,11 +3,10 @@
 /**
  * Benchmark related modules.
  */
-var benchmark = require('benchmark')
-  , microtime = require('microtime');
+var benchmark = require('benchmark');
 
 /**
- * Logger
+ * Logger.
  */
 var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
 
