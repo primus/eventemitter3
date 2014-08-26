@@ -9,9 +9,8 @@
   "author": "",
   "license": "BSD",
   "dependencies": {
-    "benchmark": "~1.0.0",
+    "benchmark": "1.0.x",
     "devnull": "0.0.10",
-    "microtime": "~0.4.0",
     "eventemitter2": "*",
     "eventemitter3": "*",
     "drip": "*"

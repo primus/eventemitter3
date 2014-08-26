@@ -3,8 +3,7 @@
 /**
  * Benchmark related modules.
  */
-var benchmark = require('benchmark')
-  , microtime = require('microtime');
+var benchmark = require('benchmark');
 
 /**
  * Logger.
