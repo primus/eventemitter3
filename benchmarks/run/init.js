@@ -17,7 +17,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter3 = require('eventemitter3').EventEmitter
   , EventEmitter1 = require('events').EventEmitter
   , Master = require('../../').EventEmitter
-  , Drip = require('drip').EventEmitter;
+  , Drip = require('drip').EventEmitter
+  , EE = require('event-emitter');
 
 (
   new benchmark.Suite()
@@ -31,6 +32,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   var ee = new Master();
 }).add('Drip', function test3() {
   var drip = new Drip();
+}).add('event-emitter', function test3() {
+  var ee = EE({});
 }).on('cycle', function cycle(e) {
   var details = e.target;
 

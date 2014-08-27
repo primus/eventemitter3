@@ -13,6 +13,7 @@
     "devnull": "0.0.10",
     "eventemitter2": "*",
     "eventemitter3": "*",
+    "event-emitter": "*",
     "drip": "*"
   }
 }

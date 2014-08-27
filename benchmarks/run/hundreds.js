@@ -17,7 +17,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter3 = require('eventemitter3').EventEmitter
   , EventEmitter1 = require('events').EventEmitter
   , Master = require('../../').EventEmitter
-  , Drip = require('drip').EventEmitter;
+  , Drip = require('drip').EventEmitter
+  , EE = require('event-emitter');
 
 function foo() {
   if (arguments.length > 100) console.log('damn');
@@ -33,10 +34,12 @@ var ee2 = new EventEmitter2()
   , ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
+  , ee = EE({})
   , j, i;
 
 for (i = 0; i < 10; i++) {
   for (j = 0; j < 10; j++) {
+    ee.on('event:' + i, foo);
     ee1.on('event:' + i, foo);
     ee2.on('event:' + i, foo);
     ee3.on('event:' + i, foo);
@@ -66,6 +69,10 @@ for (i = 0; i < 10; i++) {
 }).add('Drip', function test2() {
   for (i = 0; i < 10; i++) {
     drip.emit('event:' + i);
+  }
+}).add('event-emitter', function test2() {
+  for (i = 0; i < 10; i++) {
+    ee.emit('event:' + i);
   }
 }).on('cycle', function cycle(e) {
   var details = e.target;

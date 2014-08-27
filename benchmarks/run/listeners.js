@@ -39,7 +39,7 @@ for (var i = 0; i < 25; i++) {
 //
 // EE2 doesn't correctly handle listeners as they can be removed by doing a
 // ee2.listeners('event').length = 0; kills the event emitter, same counts for
-// Drip
+// Drip. The event-emitter module doesn't even implement this.
 //
 
 (
