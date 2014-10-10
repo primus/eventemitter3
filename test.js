@@ -1,7 +1,7 @@
-'use strict';
-
 /* istanbul ignore next */
 describe('EventEmitter', function tests() {
+  'use strict';
+
   var EventEmitter = require('./').EventEmitter
     , assume = require('assume');
 
