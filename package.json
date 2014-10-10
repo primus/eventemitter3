@@ -1,7 +1,7 @@
 {
   "name": "eventemitter3",
   "version": "0.1.5",
-  "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface. This the source of the same EventEmitter that is used in Primus.",
+  "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --ui bdd test.js",
@@ -35,7 +35,7 @@
     "url": "https://github.com/primus/EventEmitter3/issues"
   },
   "devDependencies": {
-    "chai": "1.9.x",
+    "assume": "0.0.x",
     "istanbul": "0.3.x",
     "mocha": "1.18.x",
     "pre-commit": "0.0.x"
