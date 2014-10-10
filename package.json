@@ -4,7 +4,8 @@
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface. This the source of the same EventEmitter that is used in Primus.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
+    "test": "mocha --reporter spec --ui bdd test.js",
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- --reporter spec --ui bdd test.js"
   },
   "repository": {
     "type": "git",
@@ -33,8 +34,9 @@
     "url": "https://github.com/3rd-Eden/EventEmitter3/issues"
   },
   "devDependencies": {
+    "chai": "1.9.x",
+    "istanbul": "0.3.2",
     "mocha": "1.18.x",
-    "pre-commit": "0.0.x",
-    "chai": "1.9.x"
+    "pre-commit": "0.0.x"
   }
 }

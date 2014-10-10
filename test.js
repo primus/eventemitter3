@@ -1,7 +1,7 @@
 'use strict';
 
 describe('EventEmitter', function tests() {
-  var EventEmitter = require('../').EventEmitter
+  var EventEmitter = require('./').EventEmitter
     , chai = require('chai')
     , expect = chai.expect;
 
