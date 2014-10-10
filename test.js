@@ -8,6 +8,31 @@ describe('EventEmitter', function tests() {
 
   chai.Assertion.includeStack = true;
 
+  it('inherits when used with require(util).inherits', function () {
+    function Beast() {
+      /* rawr, i'm a beast */
+    }
+
+    require('util').inherits(Beast, EventEmitter);
+
+    var moop = new Beast()
+      , meap = new Beast();
+
+    expect(moop).to.be.instanceOf(Beast);
+    expect(moop).to.be.instanceof(EventEmitter);
+
+    moop.listeners();
+    meap.listeners();
+
+    moop.on('data', function () {
+      throw new Error('I should not emit');
+    });
+
+    meap.emit('data', 'rawr');
+    meap.removeListener('foo');
+    meap.removeAllListeners();
+  });
+
   describe('EventEmitter#emit', function () {
     it('should return false when there are not events to emit', function () {
       var e = new EventEmitter();
@@ -38,6 +63,49 @@ describe('EventEmitter', function tests() {
 
         done();
       }, context).emit('foo', 'bar', 1,2,3,4,5,6,7,8,9,0);
+    });
+
+    it('can emit the function with multiple arguments', function () {
+      var e = new EventEmitter();
+
+      for(var i = 0; i < 100; i++) {
+        (function (j) {
+          for (var i = 0, args = []; i < j; i++) {
+            args.push(j);
+          }
+
+          e.once('args', function () {
+            expect(arguments.length).to.equal(args.length);
+          });
+          e.emit.apply(e, ['args'].concat(args));
+        })(i);
+      }
+    });
+
+    it('can emit the function with multiple arguments, multiple listeners', function () {
+      var e = new EventEmitter();
+
+      for(var i = 0; i < 100; i++) {
+        (function (j) {
+          for (var i = 0, args = []; i < j; i++) {
+            args.push(j);
+          }
+
+          e.once('args', function () {
+            expect(arguments.length).to.equal(args.length);
+          });
+          e.once('args', function () {
+            expect(arguments.length).to.equal(args.length);
+          });
+          e.once('args', function () {
+            expect(arguments.length).to.equal(args.length);
+          });
+          e.once('args', function () {
+            expect(arguments.length).to.equal(args.length);
+          });
+          e.emit.apply(e, ['args'].concat(args));
+        })(i);
+      }
     });
 
     it('emits with context, multiple listeners (force loop)', function () {
@@ -317,28 +385,17 @@ describe('EventEmitter', function tests() {
     });
   });
 
-  it('inherits when used with require(util).inherits', function () {
-    function Beast() {
-      /* rawr, i'm a beast */
-    }
+  describe('#setMaxListeners', function () {
+    it('is a function', function () {
+      var e = new EventEmitter();
 
-    require('util').inherits(Beast, EventEmitter);
-
-    var moop = new Beast()
-      , meap = new Beast();
-
-    expect(moop).to.be.instanceOf(Beast);
-    expect(moop).to.be.instanceof(EventEmitter);
-
-    moop.listeners();
-    meap.listeners();
-
-    moop.on('data', function () {
-      throw new Error('I should not emit');
+      expect(e.setMaxListeners).is.a('function');
     });
 
-    meap.emit('data', 'rawr');
-    meap.removeListener('foo');
-    meap.removeAllListeners();
+    it('returns self when called', function () {
+      var e = new EventEmitter();
+
+      expect(e.setMaxListeners()).to.equal(e);
+    });
   });
 });
