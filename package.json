@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --ui bdd test.js",
-    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- --reporter spec --ui bdd test.js"
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- --reporter spec --ui bdd test.js",
+    "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/3rd-Eden/EventEmitter3.git"
+    "url": "git://github.com/primus/EventEmitter3.git"
   },
   "keywords": [
     "EventEmitter",
@@ -31,7 +32,7 @@
   "author": "Arnout Kazemier",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/3rd-Eden/EventEmitter3/issues"
+    "url": "https://github.com/primus/EventEmitter3/issues"
   },
   "devDependencies": {
     "chai": "1.9.x",
