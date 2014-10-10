@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/primus/EventEmitter3.svg?branch=master)](https://travis-ci.org/primus/EventEmitter3)
 [![NPM version](https://badge.fury.io/js/eventemitter3.svg)](http://badge.fury.io/js/eventemitter3)
-[![Coverage Status](https://img.shields.io/coveralls/primus/eventemitter3.svg)](https://coveralls.io/r/primus/eventemitter3?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/primus/EventEmitter3.svg)](https://coveralls.io/r/primus/EventEmitter3?branch=master)
 
 EventEmitter3 is a faster alternative to EventEmitter2 and the built-in
 EventEmitter that ships within Node.js. It removes some features that you might
