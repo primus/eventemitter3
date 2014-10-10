@@ -1,5 +1,6 @@
 'use strict';
 
+/* istanbul ignore next */
 describe('EventEmitter', function tests() {
   var EventEmitter = require('./').EventEmitter
     , chai = require('chai')
