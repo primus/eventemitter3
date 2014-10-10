@@ -223,6 +223,7 @@ EventEmitter.EventEmitter = EventEmitter;
 EventEmitter.EventEmitter2 = EventEmitter;
 EventEmitter.EventEmitter3 = EventEmitter;
 
-if ('object' === typeof module && module.exports) {
-  module.exports = EventEmitter;
-}
+//
+// Expose the module.
+//
+module.exports = EventEmitter;
