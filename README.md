@@ -1,8 +1,6 @@
 # EventEmitter3
 
-[![Build Status](https://travis-ci.org/primus/EventEmitter3.svg?branch=master)](https://travis-ci.org/primus/EventEmitter3)
-[![NPM version](https://badge.fury.io/js/eventemitter3.svg)](http://badge.fury.io/js/eventemitter3)
-[![Coverage Status](https://img.shields.io/coveralls/primus/EventEmitter3.svg)](https://coveralls.io/r/primus/EventEmitter3?branch=master)
+[![Version npm](http://img.shields.io/npm/v/eventemitter3.svg?style=flat-square)](http://browsenpm.org/package/eventemitter3)[![Build Status](http://img.shields.io/travis/primus/EventEmitter3/master.svg?style=flat-square)](https://travis-ci.org/primus/EventEmitter3)[![Dependencies](https://img.shields.io/david/primus/EventEmitter3.svg?style=flat-square)](https://david-dm.org/primus/EventEmitter3)[![Coverage Status](http://img.shields.io/coveralls/primus/EventEmitter3/master.svg?style=flat-square)](https://coveralls.io/r/primus/EventEmitter3?branch=master)[![IRC channel](http://img.shields.io/badge/IRC-irc.freenode.net%23primus-00a8ff.svg?style=flat-square)](http://webchat.freenode.net/?channels=primus)
 
 EventEmitter3 is a faster alternative to EventEmitter2 and the built-in
 EventEmitter that ships within Node.js. It removes some features that you might
