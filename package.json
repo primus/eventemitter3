@@ -37,7 +37,7 @@
   "devDependencies": {
     "assume": "0.0.x",
     "istanbul": "0.3.x",
-    "mocha": "1.18.x",
+    "mocha": "2.0.x",
     "pre-commit": "0.0.x"
   }
 }
