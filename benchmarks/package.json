@@ -11,9 +11,10 @@
   "dependencies": {
     "benchmark": "1.0.x",
     "devnull": "0.0.10",
+    "drip": "*",
+    "event-emitter": "*",
     "eventemitter2": "*",
     "eventemitter3": "*",
-    "event-emitter": "*",
-    "drip": "*"
+    "fastemitter": "*"
   }
 }

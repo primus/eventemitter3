@@ -18,7 +18,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter1 = require('events').EventEmitter
   , Master = require('../../').EventEmitter
   , Drip = require('drip').EventEmitter
-  , EE = require('event-emitter');
+  , EE = require('event-emitter')
+  , FE = require('fastemitter');
 
 function foo() {
   if (arguments.length > 100) console.log('damn');
@@ -46,9 +47,11 @@ var ee2 = new EventEmitter2()
   , ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
+  , fe = new FE()
   , ee = EE({});
 
 ee.on('foo', foo).on('foo', bar).on('foo', baz);
+fe.on('foo', foo).on('foo', bar).on('foo', baz);
 ee3.on('foo', foo).on('foo', bar).on('foo', baz);
 ee2.on('foo', foo).on('foo', bar).on('foo', baz);
 ee1.on('foo', foo).on('foo', bar).on('foo', baz);
@@ -82,6 +85,11 @@ master.on('foo', foo).on('foo', bar).on('foo', baz);
   drip.emit('foo', 'bar');
   drip.emit('foo', 'bar', 'baz');
   drip.emit('foo', 'bar', 'baz', 'boom');
+}).add('fastemitter', function test2() {
+  fe.emit('foo');
+  fe.emit('foo', 'bar');
+  fe.emit('foo', 'bar', 'baz');
+  fe.emit('foo', 'bar', 'baz', 'boom');
 }).add('event-emitter', function test2() {
   ee.emit('foo');
   ee.emit('foo', 'bar');

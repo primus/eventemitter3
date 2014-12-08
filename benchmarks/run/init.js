@@ -18,7 +18,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter1 = require('events').EventEmitter
   , Master = require('../../').EventEmitter
   , Drip = require('drip').EventEmitter
-  , EE = require('event-emitter');
+  , EE = require('event-emitter')
+  , FE = require('fastemitter');
 
 (
   new benchmark.Suite()
@@ -32,6 +33,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   var ee = new Master();
 }).add('Drip', function test3() {
   var drip = new Drip();
+}).add('fastemitter', function test3() {
+  var fe = new FE();
 }).add('event-emitter', function test3() {
   var ee = EE({});
 }).on('cycle', function cycle(e) {

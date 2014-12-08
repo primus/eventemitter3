@@ -18,7 +18,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EventEmitter1 = require('events').EventEmitter
   , Master = require('../../').EventEmitter
   , Drip = require('drip').EventEmitter
-  , EE = require('event-emitter');
+  , EE = require('event-emitter')
+  , FE = require('fastemitter');
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -32,6 +33,7 @@ var ee2 = new EventEmitter2()
   , ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
+  , fe = new FE()
   , ee = EE({});
 
 (
@@ -51,6 +53,9 @@ var ee2 = new EventEmitter2()
 }).add('Drip', function test2() {
   drip.on('foo', handle);
   drip.removeListener('foo', handle);
+}).add('fastemitter', function test2() {
+  fe.on('foo', handle);
+  fe.removeListener('foo', handle);
 }).add('event-emitter', function test2() {
   ee.on('foo', handle);
   ee.off('foo', handle);

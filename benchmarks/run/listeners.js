@@ -15,7 +15,8 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  */
 var EventEmitter3 = require('eventemitter3').EventEmitter
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../').EventEmitter;
+  , Master = require('../../').EventEmitter
+  , FE = require('fastemitter');
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -26,14 +27,17 @@ function handle() {
  */
 var ee3 = new EventEmitter3()
   , ee1 = new EventEmitter1()
-  , master = new Master();
+  , master = new Master()
+  , fe = new FE();
 
 ee1.setMaxListeners(Infinity);
+fe.setMaxListeners(Infinity);
 
 for (var i = 0; i < 25; i++) {
   ee1.on('event', handle);
   ee3.on('event', handle);
   master.on('event', handle);
+  fe.on('event', handle);
 }
 
 //
@@ -46,6 +50,8 @@ for (var i = 0; i < 25; i++) {
   new benchmark.Suite()
 ).add('EventEmitter 1', function test1() {
   ee1.listeners('event');
+}).add('fastemitter', function test1() {
+  fe.listeners('event');
 }).add('EventEmitter 3', function test2() {
   ee3.listeners('event');
 }).add('EventEmitter 3 (master)', function test2() {
