@@ -93,7 +93,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
         case 2: listeners[i].fn.call(listeners[i].context, a1); break;
         case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
         default:
-          for (j = 1, args = new Array(len -1); j < len; j++) {
+          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
             args[j - 1] = arguments[j];
           }
 
