@@ -18,6 +18,8 @@ var EventEmitter3 = require('eventemitter3').EventEmitter
   , Master = require('../../').EventEmitter
   , FE = require('fastemitter');
 
+var MAX_LISTENERS = Math.pow(2, 32) - 1;
+
 function handle() {
   if (arguments.length > 100) console.log('damn');
 }
@@ -30,8 +32,8 @@ var ee3 = new EventEmitter3()
   , master = new Master()
   , fe = new FE();
 
-ee1.setMaxListeners(Infinity);
-fe.setMaxListeners(Infinity);
+ee1.setMaxListeners(MAX_LISTENERS);
+fe.setMaxListeners(MAX_LISTENERS);
 
 for (var i = 0; i < 25; i++) {
   ee1.on('event', handle);
