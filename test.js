@@ -186,6 +186,20 @@ describe('EventEmitter', function tests() {
 
       assume(pattern.join(';')).equals('foo1;foo2');
     });
+
+    [
+      'watch', 'unwatch', '__proto__', 'toString', 'toValue', 'hasOwnProperty',
+      'constructor'
+    ].forEach(function (key) {
+      it('can store event which is a known property: '+ key, function (next) {
+        var e = new EventEmitter();
+
+        e.on(key, function (key) {
+          assume(key).equals(key);
+          next();
+        }).emit(key, key);
+      });
+    });
   });
 
   describe('EventEmitter#listeners', function () {
