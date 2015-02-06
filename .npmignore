@@ -1,5 +1,7 @@
-node_modules
-components
-build
-coverage
-benchmarks
+benchmarks/
+components/
+coverage/
+build/
+component.json
+test.js
+.*
