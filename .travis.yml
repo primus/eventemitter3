@@ -2,8 +2,10 @@ language: node_js
 node_js:
   - "0.8"
   - "0.10"
+  - "0.12"
+  - "iojs"
 before_install:
-  - "npm install -g npm@1.4.x"
+  - 'if [ "${TRAVIS_NODE_VERSION}" == "0.8" ] ; then npm install -g npm@2.5.1; fi'
 script:
   - "npm run test-travis"
 after_script:
