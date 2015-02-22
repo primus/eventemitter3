@@ -1,8 +1,19 @@
 {
   "name": "eventemitter3",
-  "version": "0.0.1",
-  "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface. This the source of the same EventEmitter that is used in Primus.",
-  "repo": "3rd-Eden/EventEmitter3",
+  "repository": "primus/eventemitter3",
+  "description": "eventemitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
+  "version": "0.1.6",
+  "keywords": [
+    "addEventListener",
+    "addListener",
+    "emit",
+    "emits",
+    "emitter",
+    "event",
+    "EventEmitter",
+    "events",
+    "once"
+  ],
   "main": "index.js",
   "scripts": [
     "index.js"

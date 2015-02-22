@@ -29,10 +29,10 @@ work IE5 if you want to.
 ```bash
 $ npm install --save eventemitter3
 ```
-or as a [component](http://component.io)
+or as a component
 
 ```bash
-$ component install eventemitter3
+$ component install primus/eventemitter3
 ```
 
 then
