@@ -29,10 +29,16 @@ work IE5 if you want to.
 ```bash
 $ npm install --save eventemitter3
 ```
-or as a component
+or with Component
 
 ```bash
 $ component install primus/eventemitter3
+```
+
+or with Bower
+
+```bash
+$ bower install primus/eventemitter3
 ```
 
 then
@@ -48,3 +54,7 @@ var EventEmitter = require('eventemitter3').EventEmitter;
 For API methods see the official Node.js documentation:
 
 http://nodejs.org/api/events.html
+
+## License
+
+MIT
