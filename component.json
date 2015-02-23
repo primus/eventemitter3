@@ -18,19 +18,5 @@
   "scripts": [
     "index.js"
   ],
-  "license": "MIT",
-  "homepage": "https://github.com/primus/eventemitter3",
-  "authors": [
-    "Arnout Kazemier"
-  ],
-  "moduleType": [
-    "node"
-  ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "license": "MIT"
 }

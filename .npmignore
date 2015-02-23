@@ -3,5 +3,6 @@ components/
 coverage/
 build/
 component.json
+bower.json
 test.js
 .*
