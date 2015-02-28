@@ -8,40 +8,31 @@ not need:
 
 - Domain support.
 - Thrown errors when there are no error listeners specified.
-- That a `newListener` event is emitted when an event is emitted.
+- The`newListener` event that is emitted any time a listener is added.
 - No silly `setMaxListeners`, the function exists, but does nothing.
-- No silly `listenerCount` function.. Just do `EventEmitter.listeners(event).length`
+- No silly `listenerCount` function. Just do `EventEmitter.listeners(event).length`
 
-And adds some features you want:
+And adds some features you might want:
 
 - Emit events with a custom context without binding: `EE.on(event, fn, context)`
   which also works with once `EE.once(event, fn, context)`
 
-It's a drop in replacement of your existing EventEmitters, but just faster. Free
+It's a drop in replacement for existing EventEmitters, but just faster. Free
 performance, who wouldn't want that?
 
 The source of the EventEmitter is compatible for browser usage, no fancy pancy
-`Array.isArray` stuff is used, it's just plain ol JavaScript that should even
-work IE5 if you want to.
+`Array.isArray` stuff is used, it's just plain ol' JavaScript that should work
+even with IE5.
 
 ## Installation
 
 ```bash
-$ npm install --save eventemitter3
-```
-or with Component
-
-```bash
-$ component install primus/eventemitter3
+$ npm install --save eventemitter3        # npm
+$ component install primus/eventemitter3  # Component
+$ bower install primus/eventemitter3      # Bower
 ```
 
-or with Bower
-
-```bash
-$ bower install primus/eventemitter3
-```
-
-then
+## Usage
 
 ```js
 var EventEmitter = require('eventemitter3');
