@@ -1,7 +1,7 @@
 {
   "name": "eventemitter3",
   "main": "index.js",
-  "version": "0.1.6",
+  "version": "1.0.1",
   "homepage": "https://github.com/primus/eventemitter3",
   "authors": [
     "Arnout Kazemier"
