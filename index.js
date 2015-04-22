@@ -69,7 +69,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     , i;
 
   if ('function' === typeof listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, true);
+    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
       case 1: return listeners.fn.call(listeners.context), true;
@@ -90,7 +90,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       , j;
 
     for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, true);
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
         case 1: listeners[i].fn.call(listeners[i].context); break;
@@ -162,10 +162,11 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  *
  * @param {String} event The event we want to remove.
  * @param {Function} fn The listener that we need to find.
+ * @param {Mixed} context Only remove listeners matching this context.
  * @param {Boolean} once Only remove once listeners.
  * @api public
  */
-EventEmitter.prototype.removeListener = function removeListener(event, fn, once) {
+EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
   var prefix = '~'+ event;
 
   if (!this._events || !this._events[prefix]) return this;
@@ -178,7 +179,11 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, once)
       events.push(listeners);
     }
     if (!listeners.fn) for (var i = 0, length = listeners.length; i < length; i++) {
-      if (listeners[i].fn !== fn || (once && !listeners[i].once)) {
+      if (
+           listeners[i].fn !== fn
+        || (once && !listeners[i].once)
+        || (context && listeners[i].context !== context)
+      ) {
         events.push(listeners[i]);
       }
     }
