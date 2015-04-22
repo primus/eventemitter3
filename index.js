@@ -35,13 +35,16 @@ EventEmitter.prototype._events = undefined;
  * Return a list of assigned event listeners.
  *
  * @param {String} event The events that should be listed.
- * @returns {Array}
+ * @param {Boolean} exists We only need to know if there are listeners.
+ * @returns {Array|Boolean}
  * @api public
  */
-EventEmitter.prototype.listeners = function listeners(event) {
-  var prefix = '~'+ event;
+EventEmitter.prototype.listeners = function listeners(event, exists) {
+  var prefix = '~'+ event
+    , available = this._events && this._events[prefix];
 
-  if (!this._events || !this._events[prefix]) return [];
+  if (exists) return !!available;
+  if (!available) return [];
   if (this._events[prefix].fn) return [this._events[prefix].fn];
 
   for (var i = 0, l = this._events[prefix].length, ee = new Array(l); i < l; i++) {

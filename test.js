@@ -233,6 +233,30 @@ describe('EventEmitter', function tests() {
       e.listeners('foo').length = 0;
       assume(e.listeners('foo')).deep.equals([foo]);
     });
+
+    it('can return a boolean as indication if listeners exist', function () {
+      var e = new EventEmitter();
+
+      function foo() {}
+
+      e.once('once', foo);
+      e.once('multiple', foo);
+      e.once('multiple', foo);
+      e.on('on', foo);
+      e.on('multi', foo);
+      e.on('multi', foo);
+
+      assume(e.listeners('foo', true)).is.false();
+      assume(e.listeners('multiple', true)).is.true();
+      assume(e.listeners('on', true)).is.true();
+      assume(e.listeners('multi', true)).is.true();
+
+      e.removeAllListeners();
+
+      assume(e.listeners('multiple', true)).is.false();
+      assume(e.listeners('on', true)).is.false();
+      assume(e.listeners('multi', true)).is.false();
+    });
   });
 
   describe('EventEmitter#once', function () {
