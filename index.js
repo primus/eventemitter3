@@ -178,16 +178,23 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
     , events = [];
 
   if (fn) {
-    if (listeners.fn && (listeners.fn !== fn || (once && !listeners.once))) {
-      events.push(listeners);
-    }
-    if (!listeners.fn) for (var i = 0, length = listeners.length; i < length; i++) {
+    if (listeners.fn) {
       if (
-           listeners[i].fn !== fn
-        || (once && !listeners[i].once)
-        || (context && listeners[i].context !== context)
+           listeners.fn !== fn
+        || (once && !listeners.once)
+        || (context && listeners.context !== context)
       ) {
-        events.push(listeners[i]);
+        events.push(listeners);
+      }
+    } else {
+      for (var i = 0, length = listeners.length; i < length; i++) {
+        if (
+             listeners[i].fn !== fn
+          || (once && !listeners[i].once)
+          || (context && listeners[i].context !== context)
+        ) {
+          events.push(listeners[i]);
+        }
       }
     }
   }
