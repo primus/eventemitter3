@@ -1,6 +1,6 @@
 {
   "name": "eventemitter3",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "main": "index.js",
   "scripts": {
@@ -35,9 +35,9 @@
     "url": "https://github.com/primus/EventEmitter3/issues"
   },
   "devDependencies": {
-    "assume": "1.1.x",
+    "assume": "1.2.x",
     "istanbul": "0.3.x",
-    "mocha": "2.1.x",
+    "mocha": "2.2.x",
     "pre-commit": "1.0.x"
   }
 }
