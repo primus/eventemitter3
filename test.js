@@ -2,7 +2,7 @@
 describe('EventEmitter', function tests() {
   'use strict';
 
-  var EventEmitter = require('./').EventEmitter
+  var EventEmitter = require('./')
     , assume = require('assume');
 
   it('inherits when used with require(util).inherits', function () {
