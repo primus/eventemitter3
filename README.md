@@ -16,6 +16,8 @@ slight differences:
 - No `setMaxListeners` and it's pointless memory leak warnings. If you want to
   add `end` listeners you should be able to do that without modules complaining.
 - No `listenerCount` function. Use `EE.listeners(event).length` instead.
+- Support for custom context for events so there is no more `fn.bind` required.
+- `listeners` method can now do existence checking instead returning full arrays
 
 It's a drop in replacement for existing EventEmitters, but just faster. Free
 performance, who wouldn't want that? The EventEmitter is written in EcmaScript 3
@@ -62,6 +64,22 @@ function emitted() {
 EE.once('event-name', emitted, context);
 EE.on('another-event', emitted, context);
 EE.removeListener('another-event', emitted, context);
+```
+
+### Existence
+
+To check if there is already a listener for a given event you can supply the
+`listeners` method with an extra boolean argument. This will transform the
+output from an array, to a boolean value which indicates if there are listeners
+in place for the given event:
+
+```js
+var EE = new EventEmitter();
+EE.once('event-name', function () {});
+EE.on('another-event', function () {});
+
+EE.listeners('event-name', true); // returns true
+EE.listeners('unknown-name', true); // returns false
 ```
 
 ## License
