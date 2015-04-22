@@ -396,6 +396,8 @@ describe('EventEmitter', function tests() {
       assume(e.listeners('foo').length).equals(1);
       assume(e.removeListener('foo', function () {}, context)).equals(e);
       assume(e.listeners('foo').length).equals(1);
+      assume(e.removeListener('foo', foo, { baz: 'quux' })).equals(e);
+      assume(e.listeners('foo').length).equals(1);
       assume(e.removeListener('foo', foo, context)).equals(e);
       assume(e.listeners('foo').length).equals(0);
 
@@ -403,13 +405,16 @@ describe('EventEmitter', function tests() {
       e.on('foo', bar);
 
       assume(e.listeners('foo').length).equals(2);
+      assume(e.removeListener('foo', foo, { baz: 'quux' })).equals(e);
+      assume(e.listeners('foo').length).equals(2);
       assume(e.removeListener('foo', foo, context)).equals(e);
       assume(e.listeners('foo').length).equals(1);
       assume(e.listeners('foo')[0]).equals(bar);
 
       e.on('foo', foo, context);
-      e.removeAllListeners('foo');
 
+      assume(e.listeners('foo').length).equals(2);
+      assume(e.removeAllListeners('foo')).equals(e);
       assume(e.listeners('foo').length).equals(0);
     });
   });
