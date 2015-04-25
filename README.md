@@ -29,7 +29,7 @@ support.
 ```bash
 $ npm install --save eventemitter3        # npm
 $ component install primus/eventemitter3  # Component
-$ bower install primus/eventemitter3      # Bower
+$ bower install eventemitter3      # Bower
 ```
 
 ## Usage
