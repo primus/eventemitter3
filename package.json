@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test.js",
+    "sync": "node versions.js",
     "coverage": "istanbul cover ./node_modules/.bin/_mocha -- test.js",
     "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- test.js"
   },
@@ -34,6 +35,7 @@
   "bugs": {
     "url": "https://github.com/primus/EventEmitter3/issues"
   },
+  "pre-commit": "sync, test",
   "devDependencies": {
     "assume": "1.2.x",
     "istanbul": "0.3.x",
