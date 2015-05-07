@@ -30,6 +30,33 @@ describe('EventEmitter', function tests() {
     meap.removeAllListeners();
   });
 
+  if ('undefined' !== typeof Symbol) it('works with ES6 symbols', function (next) {
+    var e = new EventEmitter()
+      , event = Symbol('cows')
+      , unknown = Symbol('moo');
+
+    e.on(event, function (arg) {
+      assume(e.listeners(unknown).length).equals(0);
+      assume(arg).equals('bar');
+
+      e.once(unknown, function (onced) {
+        assume(e.listeners(unknown).length).equals(0);
+        assume(onced).equals('foo');
+        next();
+      });
+
+      assume(e.listeners(event).length).equals(1);
+      assume(e.listeners(unknown).length).equals(1);
+
+      e.removeListener(event);
+      assume(e.listeners(event).length).equals(0);
+      assume(e.emit(unknown, 'foo')).is.true();
+    });
+
+    assume(e.emit(unknown, 'bar')).is.false();
+    assume(e.emit(event, 'bar')).is.true();
+  });
+
   describe('EventEmitter#emit', function () {
     it('should return false when there are not events to emit', function () {
       var e = new EventEmitter();
