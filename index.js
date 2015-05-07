@@ -15,17 +15,6 @@ function EE(fn, context, once) {
 }
 
 /**
- * Prefix events so we're not overriding build-in properties.
- *
- * @param {String|Symbol} event The name of the event.
- * @returns {String|Symbol}
- * @api private
- */
-function prefixEvent(event) {
-  return typeof event !== 'symbol' ? '~' + event : event;
-}
-
-/**
  * Minimal EventEmitter interface that is molded against the Node.js
  * EventEmitter interface.
  *
@@ -51,7 +40,7 @@ EventEmitter.prototype._events = undefined;
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event, exists) {
-  var prefix = prefixEvent(event)
+  var prefix = typeof event !== 'symbol' ? '~' + event : event
     , available = this._events && this._events[prefix];
 
   if (exists) return !!available;
@@ -73,7 +62,7 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var prefix = prefixEvent(event);
+  var prefix = typeof event !== 'symbol' ? '~' + event : event;
 
   if (!this._events || !this._events[prefix]) return false;
 
@@ -133,7 +122,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
   var listener = new EE(fn, context || this)
-    , prefix = prefixEvent(event);
+    , prefix = typeof event !== 'symbol' ? '~' + event : event;
 
   if (!this._events) this._events = {};
   if (!this._events[prefix]) this._events[prefix] = listener;
@@ -157,7 +146,7 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
   var listener = new EE(fn, context || this, true)
-    , prefix = prefixEvent(event);
+    , prefix = typeof event !== 'symbol' ? '~' + event : event;
 
   if (!this._events) this._events = {};
   if (!this._events[prefix]) this._events[prefix] = listener;
@@ -181,7 +170,7 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var prefix = prefixEvent(event);
+  var prefix = typeof event !== 'symbol' ? '~' + event : event;
 
   if (!this._events || !this._events[prefix]) return this;
 
@@ -231,7 +220,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   if (!this._events) return this;
 
-  if (event) delete this._events[prefixEvent(event)];
+  if (event) delete this._events[typeof event !== 'symbol' ? '~' + event : event];
   else this._events = {};
 
   return this;
