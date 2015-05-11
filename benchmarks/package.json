@@ -10,7 +10,7 @@
   "license": "BSD",
   "dependencies": {
     "benchmark": "1.0.x",
-    "devnull": "0.0.10",
+    "devnull": "0.0.12",
     "drip": "*",
     "event-emitter": "*",
     "eventemitter2": "*",
