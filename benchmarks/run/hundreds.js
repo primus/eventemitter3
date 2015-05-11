@@ -14,12 +14,13 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3').EventEmitter
+  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../').EventEmitter
+  , Master = require('../../')
   , Drip = require('drip').EventEmitter
   , EE = require('event-emitter')
-  , FE = require('fastemitter');
+  , FE = require('fastemitter')
+  , CE = require('contra.emitter');
 
 function foo() {
   if (arguments.length > 100) console.log('damn');
@@ -37,10 +38,12 @@ var ee2 = new EventEmitter2()
   , drip = new Drip()
   , fe = new FE()
   , ee = EE({})
+  , ce = CE()
   , j, i;
 
 for (i = 0; i < 10; i++) {
   for (j = 0; j < 10; j++) {
+    ce.on('event:' + i, foo);
     ee.on('event:' + i, foo);
     fe.on('event:' + i, foo);
     ee1.on('event:' + i, foo);
@@ -53,33 +56,37 @@ for (i = 0; i < 10; i++) {
 
 (
   new benchmark.Suite()
-).add('EventEmitter 1', function test1() {
+).add('EventEmitter1', function() {
   for (i = 0; i < 10; i++) {
     ee1.emit('event:' + i);
   }
-}).add('EventEmitter 2', function test2() {
+}).add('EventEmitter2', function() {
   for (i = 0; i < 10; i++) {
     ee2.emit('event:' + i);
   }
-}).add('EventEmitter 3', function test2() {
+}).add('EventEmitter3@0.6.1', function() {
   for (i = 0; i < 10; i++) {
     ee3.emit('event:' + i);
   }
-}).add('EventEmitter 3 (master)', function test2() {
+}).add('EventEmitter3(master)', function() {
   for (i = 0; i < 10; i++) {
     master.emit('event:' + i);
   }
-}).add('Drip', function test2() {
+}).add('Drip', function() {
   for (i = 0; i < 10; i++) {
     drip.emit('event:' + i);
   }
-}).add('fastemitter', function test2() {
+}).add('fastemitter', function() {
   for (i = 0; i < 10; i++) {
     fe.emit('event:' + i);
   }
-}).add('event-emitter', function test2() {
+}).add('event-emitter', function() {
   for (i = 0; i < 10; i++) {
     ee.emit('event:' + i);
+  }
+}).add('contra.emitter', function() {
+  for (i = 0; i < 10; i++) {
+    ce.emit('event:' + i);
   }
 }).on('cycle', function cycle(e) {
   var details = e.target;

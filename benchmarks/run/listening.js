@@ -14,12 +14,13 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3').EventEmitter
+  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../').EventEmitter
+  , Master = require('../../')
   , Drip = require('drip').EventEmitter
   , EE = require('event-emitter')
-  , FE = require('fastemitter');
+  , FE = require('fastemitter')
+  , CE = require('contra.emitter');
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -34,31 +35,35 @@ var ee2 = new EventEmitter2()
   , master = new Master()
   , drip = new Drip()
   , fe = new FE()
-  , ee = EE({});
+  , ee = EE({})
+  , ce = CE();
 
 (
   new benchmark.Suite()
-).add('EventEmitter 1', function test1() {
+).add('EventEmitter1', function() {
   ee1.on('foo', handle);
   ee1.removeListener('foo', handle);
-}).add('EventEmitter 2', function test2() {
+}).add('EventEmitter2', function() {
   ee2.on('foo', handle);
   ee2.removeListener('foo', handle);
-}).add('EventEmitter 3', function test2() {
+}).add('EventEmitter3@0.6.1', function() {
   ee3.on('foo', handle);
   ee3.removeListener('foo', handle);
-}).add('EventEmitter 3 (master)', function test2() {
+}).add('EventEmitter3(master)', function() {
   master.on('foo', handle);
   master.removeListener('foo', handle);
-}).add('Drip', function test2() {
+}).add('Drip', function() {
   drip.on('foo', handle);
   drip.removeListener('foo', handle);
-}).add('fastemitter', function test2() {
+}).add('fastemitter', function() {
   fe.on('foo', handle);
   fe.removeListener('foo', handle);
-}).add('event-emitter', function test2() {
+}).add('event-emitter', function() {
   ee.on('foo', handle);
   ee.off('foo', handle);
+}).add('contra.emitter', function() {
+  ce.on('foo', handle);
+  ce.off('foo', handle);
 }).on('cycle', function cycle(e) {
   var details = e.target;
 

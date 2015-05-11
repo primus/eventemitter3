@@ -14,29 +14,33 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3').EventEmitter
+  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../').EventEmitter
+  , Master = require('../../')
   , Drip = require('drip').EventEmitter
   , EE = require('event-emitter')
-  , FE = require('fastemitter');
+  , FE = require('fastemitter')
+  , CE = require('contra.emitter');
+
 
 (
   new benchmark.Suite()
-).add('EventEmitter 1', function test1() {
-  var ee = new EventEmitter1();
-}).add('EventEmitter 2', function test2() {
-  var ee = new EventEmitter2();
-}).add('EventEmitter 3', function test3() {
-  var ee = new EventEmitter3();
-}).add('EventEmitter 3 (master)', function test3() {
-  var ee = new Master();
-}).add('Drip', function test3() {
+).add('EventEmitter1', function() {
+  var ee1 = new EventEmitter1();
+}).add('EventEmitter2', function() {
+  var ee2 = new EventEmitter2();
+}).add('EventEmitter3@0.6.1', function() {
+  var ee3 = new EventEmitter3();
+}).add('EventEmitter3(master)', function() {
+  var master = new Master();
+}).add('Drip', function() {
   var drip = new Drip();
-}).add('fastemitter', function test3() {
+}).add('fastemitter', function() {
   var fe = new FE();
-}).add('event-emitter', function test3() {
+}).add('event-emitter', function() {
   var ee = EE({});
+}).add('contra.emitter', function() {
+  var ce = CE();
 }).on('cycle', function cycle(e) {
   var details = e.target;
 
