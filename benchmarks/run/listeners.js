@@ -13,10 +13,11 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
 /**
  * Preparation code.
  */
-var EventEmitter3 = require('eventemitter3').EventEmitter
+var EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../').EventEmitter
+  , Master = require('../../')
   , FE = require('fastemitter');
+
 
 var MAX_LISTENERS = Math.pow(2, 32) - 1;
 
@@ -45,18 +46,19 @@ for (var i = 0; i < 25; i++) {
 //
 // EE2 doesn't correctly handle listeners as they can be removed by doing a
 // ee2.listeners('event').length = 0; kills the event emitter, same counts for
-// Drip. The event-emitter module doesn't even implement this.
+// Drip.
+// event-emitter and contra.emitter does not implement.
 //
 
 (
   new benchmark.Suite()
-).add('EventEmitter 1', function test1() {
+).add('EventEmitter1', function () {
   ee1.listeners('event');
-}).add('fastemitter', function test1() {
+}).add('fastemitter', function() {
   fe.listeners('event');
-}).add('EventEmitter 3', function test2() {
+}).add('EventEmitter3@0.6.1', function() {
   ee3.listeners('event');
-}).add('EventEmitter 3 (master)', function test2() {
+}).add('EventEmitter3(master)', function() {
   master.listeners('event');
 }).on('cycle', function cycle(e) {
   var details = e.target;

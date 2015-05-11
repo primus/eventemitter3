@@ -16,9 +16,9 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
 
 (
   new benchmark.Suite()
-).add('<test1>', function test1() {
+).add('<test1>', function() {
 
-}).add('<test2>', function test2() {
+}).add('<test2>', function() {
 
 }).on('cycle', function cycle(e) {
   var details = e.target;

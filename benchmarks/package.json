@@ -14,7 +14,8 @@
     "drip": "*",
     "event-emitter": "*",
     "eventemitter2": "*",
-    "eventemitter3": "*",
-    "fastemitter": "*"
+    "eventemitter3": "0.1.6",
+    "fastemitter": "*",
+    "contra.emitter": "*"
   }
 }
