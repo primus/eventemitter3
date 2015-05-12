@@ -5,6 +5,10 @@ describe('EventEmitter', function tests() {
   var EventEmitter = require('./')
     , assume = require('assume');
 
+  it('exposes a `prefixed` property', function () {
+    assume(EventEmitter.prefixed).equals(false);
+  });
+
   it('inherits when used with require(util).inherits', function () {
     function Beast() {
       /* rawr, i'm a beast */

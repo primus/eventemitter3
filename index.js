@@ -8,7 +8,7 @@
 // We also assume that `Object.create(null)` is available when the event name
 // is an ES6 Symbol.
 //
-var prefix = typeof Object.create !== 'function';
+var prefix = typeof Object.create !== 'function' ? '~' : false;
 
 /**
  * Representation of a single EventEmitter function.
@@ -50,7 +50,7 @@ EventEmitter.prototype._events = undefined;
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event, exists) {
-  var evt = prefix ? '~'+ event : event
+  var evt = prefix ? prefix + event : event
     , available = this._events && this._events[evt];
 
   if (exists) return !!available;
@@ -72,7 +72,7 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var evt = prefix ? '~'+ event : event;
+  var evt = prefix ? prefix + event : event;
 
   if (!this._events || !this._events[evt]) return false;
 
@@ -132,7 +132,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
   var listener = new EE(fn, context || this)
-    , evt = prefix ? '~'+ event : event;
+    , evt = prefix ? prefix + event : event;
 
   if (!this._events) this._events = prefix ? {} : Object.create(null);
   if (!this._events[evt]) this._events[evt] = listener;
@@ -156,7 +156,7 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
   var listener = new EE(fn, context || this, true)
-    , evt = prefix ? '~'+ event : event;
+    , evt = prefix ? prefix + event : event;
 
   if (!this._events) this._events = prefix ? {} : Object.create(null);
   if (!this._events[evt]) this._events[evt] = listener;
@@ -180,7 +180,7 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var evt = prefix ? '~'+ event : event;
+  var evt = prefix ? prefix + event : event;
 
   if (!this._events || !this._events[evt]) return this;
 
@@ -230,7 +230,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   if (!this._events) return this;
 
-  if (event) delete this._events[prefix ? '~'+ event : event];
+  if (event) delete this._events[prefix ? prefix + event : event];
   else this._events = prefix ? {} : Object.create(null);
 
   return this;
@@ -248,6 +248,11 @@ EventEmitter.prototype.addListener = EventEmitter.prototype.on;
 EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
   return this;
 };
+
+//
+// Expose the prefix.
+//
+EventEmitter.prefixed = prefix;
 
 //
 // Expose the module.
