@@ -2,7 +2,7 @@
   "name": "eventemitter3",
   "repository": "primus/eventemitter3",
   "description": "eventemitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "addEventListener",
     "addListener",
