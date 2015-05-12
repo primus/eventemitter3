@@ -46,7 +46,7 @@ var ee2 = new EventEmitter2()
 }).add('EventEmitter2', function() {
   ee2.on('foo', handle);
   ee2.removeListener('foo', handle);
-}).add('EventEmitter3@0.6.1', function() {
+}).add('EventEmitter3@0.1.6', function() {
   ee3.on('foo', handle);
   ee3.removeListener('foo', handle);
 }).add('EventEmitter3(master)', function() {

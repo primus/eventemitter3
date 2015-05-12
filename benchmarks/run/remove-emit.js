@@ -64,7 +64,7 @@ var ee2 = new EventEmitter2()
   ee2.emit('foo', 'bar');
   ee2.emit('foo', 'bar', 'baz');
   ee2.emit('foo', 'bar', 'baz', 'boom');
-}).add('EventEmitter3@0.6.1', function() {
+}).add('EventEmitter3@0.1.6', function() {
   ee3.emit('foo');
   ee3.emit('foo', 'bar');
   ee3.emit('foo', 'bar', 'baz');

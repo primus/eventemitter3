@@ -64,7 +64,7 @@ for (i = 0; i < 10; i++) {
   for (i = 0; i < 10; i++) {
     ee2.emit('event:' + i);
   }
-}).add('EventEmitter3@0.6.1', function() {
+}).add('EventEmitter3@0.1.6', function() {
   for (i = 0; i < 10; i++) {
     ee3.emit('event:' + i);
   }

@@ -29,7 +29,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   var ee1 = new EventEmitter1();
 }).add('EventEmitter2', function() {
   var ee2 = new EventEmitter2();
-}).add('EventEmitter3@0.6.1', function() {
+}).add('EventEmitter3@0.1.6', function() {
   var ee3 = new EventEmitter3();
 }).add('EventEmitter3(master)', function() {
   var master = new Master();

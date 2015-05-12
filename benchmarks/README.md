@@ -5,7 +5,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (80092), Cycles (8), Elapsed (5.647), Hz (1096819.8913914724)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (88855), Cycles (5), Elapsed (5.485), Hz (1749209.7788571692)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (111744), Cycles (5), Elapsed (5.47), Hz (2197651.5271676793)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (108822), Cycles (7), Elapsed (5.517), Hz (2131882.4282814)
@@ -27,7 +27,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (37685), Cycles (7), Elapsed (5.658), Hz (532636.1073151424)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (38578), Cycles (3), Elapsed (5.425), Hz (762300.4025491957)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (175358), Cycles (5), Elapsed (5.451), Hz (3445044.0467826594)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (171660), Cycles (6), Elapsed (5.43), Hz (3371419.644849449)
@@ -39,7 +39,7 @@ log:      Finished benchmarking: "event-emitter"
 metric:   Count (35121), Cycles (3), Elapsed (5.361), Hz (694423.8737320927)
 log:      Finished benchmarking: "contra.emitter"
 metric:   Count (3763), Cycles (5), Elapsed (5.404), Hz (73999.09635396695)
-info:     Benchmark: "EventEmitter3@0.6.1" is the fastest.
+info:     Benchmark: "EventEmitter3@0.1.6" is the fastest.
 ```
 
 Starting benchmark run/emit.js
@@ -49,7 +49,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (103117), Cycles (5), Elapsed (5.477), Hz (1189957.286075274)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (120168), Cycles (5), Elapsed (5.449), Hz (2362895.6234837566)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (175669), Cycles (6), Elapsed (5.479), Hz (3440778.8106829566)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (170520), Cycles (6), Elapsed (5.571), Hz (3363994.072967049)
@@ -71,7 +71,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (269360), Cycles (8), Elapsed (5.632), Hz (5317029.372342782)
 log:      Finished benchmarking: "fastemitter"
 metric:   Count (278301), Cycles (8), Elapsed (5.583), Hz (5503946.770137163)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (124613), Cycles (5), Elapsed (5.538), Hz (2451663.5877780304)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (127075), Cycles (8), Elapsed (5.649), Hz (2507745.057769042)
@@ -85,7 +85,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (1448843), Cycles (7), Elapsed (5.53), Hz (28614884.42105477)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (2021014), Cycles (8), Elapsed (5.562), Hz (39269318.213538975)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (4993728), Cycles (6), Elapsed (5.567), Hz (97916377.172198)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (4882942), Cycles (5), Elapsed (5.399), Hz (95718450.95231998)
@@ -97,7 +97,7 @@ log:      Finished benchmarking: "event-emitter"
 metric:   Count (11649), Cycles (4), Elapsed (5.386), Hz (229655.7906250341)
 log:      Finished benchmarking: "contra.emitter"
 metric:   Count (46646), Cycles (3), Elapsed (5.523), Hz (603381.7342078416)
-info:     Benchmark: "EventEmitter3@0.6.1" is the fastest.
+info:     Benchmark: "EventEmitter3@0.1.6" is the fastest.
 ```
 
 Starting benchmark run/once.js
@@ -107,7 +107,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (43422), Cycles (5), Elapsed (5.45), Hz (855313.2869111028)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (26634), Cycles (6), Elapsed (5.455), Hz (520416.6222005621)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (59702), Cycles (5), Elapsed (5.402), Hz (1166270.1245115455)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (61460), Cycles (6), Elapsed (5.588), Hz (1200318.797352782)
@@ -129,7 +129,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (24773), Cycles (5), Elapsed (5.471), Hz (448903.57892067777)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (24978), Cycles (5), Elapsed (5.437), Hz (492689.62686539674)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (61060), Cycles (8), Elapsed (5.57), Hz (1198579.6057034628)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (60832), Cycles (7), Elapsed (5.645), Hz (1190559.465872349)
@@ -151,7 +151,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (9580), Cycles (4), Elapsed (5.486), Hz (188745.0026768704)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (8929), Cycles (4), Elapsed (5.396), Hz (176205.64423712614)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (18746), Cycles (4), Elapsed (5.442), Hz (363743.4361172706)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (18997), Cycles (6), Elapsed (5.471), Hz (361006.2257442707)
@@ -173,7 +173,7 @@ log:      Finished benchmarking: "EventEmitter1"
 metric:   Count (79539), Cycles (5), Elapsed (5.474), Hz (1561366.087289596)
 log:      Finished benchmarking: "EventEmitter2"
 metric:   Count (50617), Cycles (3), Elapsed (5.478), Hz (971253.3687066672)
-log:      Finished benchmarking: "EventEmitter3@0.6.1"
+log:      Finished benchmarking: "EventEmitter3@0.1.6"
 metric:   Count (75810), Cycles (8), Elapsed (5.546), Hz (1494051.2716477334)
 log:      Finished benchmarking: "EventEmitter3(master)"
 metric:   Count (83171), Cycles (5), Elapsed (5.599), Hz (1619007.7247514057)
