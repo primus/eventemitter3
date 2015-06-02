@@ -55,10 +55,10 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
 
   if (exists) return !!available;
   if (!available) return [];
-  if (this._events[evt].fn) return [this._events[evt].fn];
+  if (available.fn) return [available.fn];
 
-  for (var i = 0, l = this._events[evt].length, ee = new Array(l); i < l; i++) {
-    ee[i] = this._events[evt][i].fn;
+  for (var i = 0, l = available.length, ee = new Array(l); i < l; i++) {
+    ee[i] = available[i].fn;
   }
 
   return ee;
