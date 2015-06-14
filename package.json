@@ -4,9 +4,9 @@
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "main": "index.js",
   "scripts": {
-    "test-browser": "zuul --browser-name ${BROWSER_NAME} --browser-version ${BROWSER_VERSION} -- test.js",
     "test-node": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- test.js",
     "coverage": "istanbul cover ./node_modules/.bin/_mocha -- test.js",
+    "test-browser": "zuul -- test.js",
     "sync": "node versions.js",
     "test": "mocha test.js"
   },
