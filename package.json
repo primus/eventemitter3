@@ -4,14 +4,15 @@
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js",
-    "sync": "node versions.js",
+    "test-browser": "zuul --browser-name ${BROWSER_NAME} --browser-version ${BROWSER_VERSION} -- test.js",
+    "test-node": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- test.js",
     "coverage": "istanbul cover ./node_modules/.bin/_mocha -- test.js",
-    "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- test.js"
+    "sync": "node versions.js",
+    "test": "mocha test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/primus/EventEmitter3.git"
+    "url": "git://github.com/primus/eventemitter3.git"
   },
   "keywords": [
     "EventEmitter",
@@ -33,13 +34,14 @@
   "author": "Arnout Kazemier",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/primus/EventEmitter3/issues"
+    "url": "https://github.com/primus/eventemitter3/issues"
   },
   "pre-commit": "sync, test",
   "devDependencies": {
     "assume": "1.2.x",
     "istanbul": "0.3.x",
     "mocha": "2.2.x",
-    "pre-commit": "1.0.x"
+    "pre-commit": "1.0.x",
+    "zuul": "3.0.x"
   }
 }

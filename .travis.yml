@@ -1,16 +1,42 @@
 sudo: false
 language: node_js
-node_js:
-  - "0.8"
-  - "0.10"
-  - "0.12"
-  - "iojs"
+matrix:
+  fast_finish: true
+  include:
+    - node_js: "0.8"
+      env: TASK=test-node
+    - node_js: "0.10"
+      env: TASK=test-node
+    - node_js: "0.12"
+      env: TASK=test-node
+    - node_js: "iojs"
+      env: TASK=test-node
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=android BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=chrome BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=firefox BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=ie BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=ipad BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=iphone BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=opera BROWSER_VERSION=latest
+    - node_js: "iojs"
+      env: TASK=test-browser BROWSER_NAME=safari BROWSER_VERSION=latest
+env:
+  global:
+    - secure: FvDHR95HJSOUyfskQaR/QL2o7AH1drFOoMovkd9tS9KLLXpL6FZOXSOn2uD4yXp1uLcV788OR6/ZZOArRqUt+DbHGOEa/y/kc19VPr9eEw68HMSoqMEHCO9S5+xFmDGJ3uxifaaVmjBxVcEE/c4I9OIDV5dSZchuNld9CKkN71Y=
+    - secure: CdaWP+EV4tCc1VnVtTAm4ACNuOylRErMlhO7lRyr0aMoMeM1mLDneHPJBx+eZ4TY+/7f8CIPW12QHdye0PtR5r2pVkejVLeFQJfdxckPdwxeS0rcJQprqOm1W7D93SNBri5YkdBfGyV+OjTEUy6Mwpipl2RdspE+YuQ8Sl61biM=
 before_install:
-  - 'if [ "${TRAVIS_NODE_VERSION}" == "0.8" ] ; then npm install -g npm@2.7.3; fi'
+  - 'if [ "${TRAVIS_NODE_VERSION}" == "0.8" ]; then npm install -g npm@2.11.2; fi'
 script:
-  - "npm run test-travis"
+  - "npm run ${TASK}"
 after_script:
-  - "npm install coveralls@2.11.x && cat coverage/lcov.info | coveralls"
+  - 'if [ "${TASK}" == "test-node" ]; then npm i coveralls@2 && cat coverage/lcov.info | coveralls; fi'
 notifications:
   irc:
     channels:
