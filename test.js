@@ -6,7 +6,7 @@ describe('EventEmitter', function tests() {
     , assume = require('assume');
 
   it('exposes a `prefixed` property', function () {
-    assume(EventEmitter.prefixed).equals(false);
+    assume(EventEmitter.prefixed).is.either([false, '~']);
   });
 
   it('inherits when used with require(util).inherits', function () {
@@ -70,8 +70,8 @@ describe('EventEmitter', function tests() {
     });
 
     it('emits with context', function (done) {
-      var e = new EventEmitter()
-        , context = 'bar';
+      var context = { bar: 'baz' }
+        , e = new EventEmitter();
 
       e.on('foo', function (bar) {
         assume(bar).equals('bar');
@@ -82,8 +82,8 @@ describe('EventEmitter', function tests() {
     });
 
     it('emits with context, multiple arguments (force apply)', function (done) {
-      var e = new EventEmitter()
-        , context = 'bar';
+      var context = { bar: 'baz' }
+        , e = new EventEmitter();
 
       e.on('foo', function (bar) {
         assume(bar).equals('bar');
@@ -145,14 +145,14 @@ describe('EventEmitter', function tests() {
       var e = new EventEmitter();
 
       e.on('foo', function (bar) {
+        assume(this).eqls({ foo: 'bar' });
         assume(bar).equals('bar');
-        assume(this).equals('bar');
-      }, 'bar');
+      }, { foo: 'bar' });
 
       e.on('foo', function (bar) {
+        assume(this).eqls({ bar: 'baz' });
         assume(bar).equals('bar');
-        assume(this).equals('foo');
-      }, 'foo');
+      }, { bar: 'baz' });
 
       e.emit('foo', 'bar');
     });
@@ -354,8 +354,8 @@ describe('EventEmitter', function tests() {
     });
 
     it('only emits once with context', function (done) {
-      var e = new EventEmitter()
-        , context = 'foo';
+      var context = { foo: 'bar' }
+        , e = new EventEmitter();
 
       e.once('foo', function (bar) {
         assume(this).equals(context);
