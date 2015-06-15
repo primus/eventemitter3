@@ -7,9 +7,7 @@ browsers:
   - name: firefox
     version: [oldest, latest]
   - name: ie
-    version: 9..latest
-  - name: ipad
-    version: [oldest, latest]
+    version: oldest..latest
   - name: iphone
     version: [oldest, latest]
   - name: opera
