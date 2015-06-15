@@ -20,7 +20,7 @@ describe('EventEmitter', function tests() {
       , meap = new Beast();
 
     assume(moop).is.instanceOf(Beast);
-    assume(moop).is.instanceof(EventEmitter);
+    assume(moop).is.instanceOf(EventEmitter);
 
     moop.listeners();
     meap.listeners();
@@ -54,11 +54,11 @@ describe('EventEmitter', function tests() {
 
       e.removeListener(event);
       assume(e.listeners(event).length).equals(0);
-      assume(e.emit(unknown, 'foo')).is.true();
+      assume(e.emit(unknown, 'foo')).equals(true);
     });
 
-    assume(e.emit(unknown, 'bar')).is.false();
-    assume(e.emit(event, 'bar')).is.true();
+    assume(e.emit(unknown, 'bar')).equals(false);
+    assume(e.emit(event, 'bar')).equals(true);
   });
 
   describe('EventEmitter#emit', function () {
@@ -218,10 +218,11 @@ describe('EventEmitter', function tests() {
       assume(pattern.join(';')).equals('foo1;foo2');
     });
 
-    [
-      'watch', 'unwatch', '__proto__', 'toString', 'toValue', 'hasOwnProperty',
-      'constructor'
-    ].forEach(function (key) {
+    (function each(keys) {
+      var key = keys.shift();
+
+      if (!key) return;
+
       it('can store event which is a known property: '+ key, function (next) {
         var e = new EventEmitter();
 
@@ -230,7 +231,17 @@ describe('EventEmitter', function tests() {
           next();
         }).emit(key, key);
       });
-    });
+
+      each(keys);
+    })([
+      'hasOwnProperty',
+      'constructor',
+      '__proto__',
+      'toString',
+      'toValue',
+      'unwatch',
+      'watch'
+    ]);
   });
 
   describe('EventEmitter#listeners', function () {
@@ -277,16 +288,16 @@ describe('EventEmitter', function tests() {
       e.on('multi', foo);
       e.on('multi', foo);
 
-      assume(e.listeners('foo', true)).is.false();
-      assume(e.listeners('multiple', true)).is.true();
-      assume(e.listeners('on', true)).is.true();
-      assume(e.listeners('multi', true)).is.true();
+      assume(e.listeners('foo', true)).equals(false);
+      assume(e.listeners('multiple', true)).equals(true);
+      assume(e.listeners('on', true)).equals(true);
+      assume(e.listeners('multi', true)).equals(true);
 
       e.removeAllListeners();
 
-      assume(e.listeners('multiple', true)).is.false();
-      assume(e.listeners('on', true)).is.false();
-      assume(e.listeners('multi', true)).is.false();
+      assume(e.listeners('multiple', true)).equals(false);
+      assume(e.listeners('on', true)).equals(false);
+      assume(e.listeners('multi', true)).equals(false);
     });
   });
 
