@@ -20,7 +20,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , Drip = require('drip').EventEmitter
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , CE = require('contra.emitter');
+  , CE = require('contra/emitter');
 
 
 (
@@ -39,7 +39,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   var fe = new FE();
 }).add('event-emitter', function() {
   var ee = EE({});
-}).add('contra.emitter', function() {
+}).add('contra/emitter', function() {
   var ce = CE();
 }).on('cycle', function cycle(e) {
   var details = e.target;
@@ -49,7 +49,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
     , details.count
     , details.cycles
     , details.times.elapsed
-    , details.hz
+    , details.hz.toFixed(2)
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'

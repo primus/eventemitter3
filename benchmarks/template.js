@@ -28,7 +28,7 @@ var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
     , details.count
     , details.cycles
     , details.times.elapsed
-    , details.hz
+    , details.hz.toFixed(2)
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
