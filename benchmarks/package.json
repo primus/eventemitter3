@@ -11,11 +11,11 @@
   "dependencies": {
     "benchmark": "1.0.x",
     "devnull": "0.0.12",
-    "drip": "*",
-    "event-emitter": "*",
-    "eventemitter2": "*",
+    "drip": "latest",
+    "event-emitter": "latest",
+    "eventemitter2": "latest",
     "eventemitter3": "0.1.6",
-    "fastemitter": "*",
-    "contra.emitter": "*"
+    "fastemitter": "latest",
+    "contra": "latest"
   }
 }

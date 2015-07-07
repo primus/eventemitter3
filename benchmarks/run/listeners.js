@@ -47,7 +47,7 @@ for (var i = 0; i < 25; i++) {
 // EE2 doesn't correctly handle listeners as they can be removed by doing a
 // ee2.listeners('event').length = 0; kills the event emitter, same counts for
 // Drip.
-// event-emitter and contra.emitter does not implement.
+// event-emitter and contra/emitter does not implement.
 //
 
 (
@@ -68,7 +68,7 @@ for (var i = 0; i < 25; i++) {
     , details.count
     , details.cycles
     , details.times.elapsed
-    , details.hz
+    , details.hz.toFixed(2)
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
