@@ -15,7 +15,7 @@ var prefix = typeof Object.create !== 'function' ? '~' : false;
  *
  * @param {Function} fn Event handler to be called.
  * @param {Mixed} context Context for function execution.
- * @param {Boolean} once Only emit once
+ * @param {Boolean} [once=false] Only emit once
  * @api private
  */
 function EE(fn, context, once) {
@@ -127,7 +127,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  *
  * @param {String} event Name of the event.
  * @param {Functon} fn Callback function.
- * @param {Mixed} context The context of the function.
+ * @param {Mixed} [context=this] The context of the function.
  * @api public
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
@@ -151,7 +151,7 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  *
  * @param {String} event Name of the event.
  * @param {Function} fn Callback function.
- * @param {Mixed} context The context of the function.
+ * @param {Mixed} [context=this] The context of the function.
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
