@@ -126,7 +126,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  * Register a new EventListener for the given event.
  *
  * @param {String} event Name of the event.
- * @param {Functon} fn Callback function.
+ * @param {Function} fn Callback function.
  * @param {Mixed} [context=this] The context of the function.
  * @api public
  */
