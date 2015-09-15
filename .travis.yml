@@ -3,22 +3,24 @@ language: node_js
 matrix:
   fast_finish: true
   include:
-    - node_js: "0.8"
+    - node_js: "4"
+      env: TASK=test-browser
+    - node_js: "4"
       env: TASK=test-node
-    - node_js: "0.10"
+    - node_js: "3"
+      env: TASK=test-node
+    - node_js: "2"
+      env: TASK=test-node
+    - node_js: "1"
       env: TASK=test-node
     - node_js: "0.12"
       env: TASK=test-node
-    - node_js: "iojs"
+    - node_js: "0.10"
       env: TASK=test-node
-    - node_js: "iojs"
-      env: TASK=test-browser
 env:
   global:
     - secure: FvDHR95HJSOUyfskQaR/QL2o7AH1drFOoMovkd9tS9KLLXpL6FZOXSOn2uD4yXp1uLcV788OR6/ZZOArRqUt+DbHGOEa/y/kc19VPr9eEw68HMSoqMEHCO9S5+xFmDGJ3uxifaaVmjBxVcEE/c4I9OIDV5dSZchuNld9CKkN71Y=
     - secure: CdaWP+EV4tCc1VnVtTAm4ACNuOylRErMlhO7lRyr0aMoMeM1mLDneHPJBx+eZ4TY+/7f8CIPW12QHdye0PtR5r2pVkejVLeFQJfdxckPdwxeS0rcJQprqOm1W7D93SNBri5YkdBfGyV+OjTEUy6Mwpipl2RdspE+YuQ8Sl61biM=
-before_install:
-  - 'if [ "${TRAVIS_NODE_VERSION}" == "0.8" ]; then npm install -g npm@2.11.2; fi'
 script:
   - "npm run ${TASK}"
 after_script:
