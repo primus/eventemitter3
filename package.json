@@ -42,6 +42,6 @@
     "istanbul": "0.3.x",
     "mocha": "2.3.x",
     "pre-commit": "1.1.x",
-    "zuul": "3.5.x"
+    "zuul": "3.6.x"
   }
 }
