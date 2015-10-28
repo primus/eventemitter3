@@ -14,3 +14,8 @@ browsers:
     version: oldest..latest
   - name: safari
     version: oldest..latest
+  - name: microsoftedge
+    version: oldest..latest
+capabilities:
+  record-screenshots: false
+  record-video: false
