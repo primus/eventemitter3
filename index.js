@@ -72,6 +72,17 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+  return !! this.collect(event, a1, a2, a3, a4, a5);
+};
+
+/**
+ * Emit an event to all registered event listeners and collect function output.
+ *
+ * @param {String} event The name of the event.
+ * @returns {Boolean} Indication if we've emitted an event.
+ * @api public
+ */
+EventEmitter.prototype.collect = function collect(event, a1, a2, a3, a4, a5) {
   var evt = prefix ? prefix + event : event;
 
   if (!this._events || !this._events[evt]) return false;
@@ -119,7 +130,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       }
     }
 
-    return out;
+    return out.length ? out : false;
   }
 };
 
