@@ -76,7 +76,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 
   if (!this._events || !this._events[evt]) return false;
 
-  var listeners = this._events[evt]
+  var listeners = this._events[evt].slice()
     , len = arguments.length
     , args
     , i;
