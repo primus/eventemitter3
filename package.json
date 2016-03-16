@@ -40,8 +40,8 @@
   "devDependencies": {
     "assume": "1.3.x",
     "istanbul": "0.4.x",
-    "mocha": "2.3.x",
+    "mocha": "2.4.x",
     "pre-commit": "1.1.x",
-    "zuul": "3.9.x"
+    "zuul": "3.10.x"
   }
 }
