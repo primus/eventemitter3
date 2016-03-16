@@ -96,7 +96,7 @@ describe('EventEmitter', function tests() {
     it('can emit the function with multiple arguments', function () {
       var e = new EventEmitter();
 
-      for(var i = 0; i < 100; i++) {
+      for (var i = 0; i < 100; i++) {
         (function (j) {
           for (var i = 0, args = []; i < j; i++) {
             args.push(j);
@@ -253,14 +253,14 @@ describe('EventEmitter', function tests() {
     });
 
     it('returns an array of function', function () {
-       var e = new EventEmitter();
+      var e = new EventEmitter();
 
-       function foo() {}
+      function foo() {}
 
-       e.on('foo', foo);
-       assume(e.listeners('foo')).is.a('array');
-       assume(e.listeners('foo').length).equals(1);
-       assume(e.listeners('foo')).deep.equals([foo]);
+      e.on('foo', foo);
+      assume(e.listeners('foo')).is.a('array');
+      assume(e.listeners('foo').length).equals(1);
+      assume(e.listeners('foo')).deep.equals([foo]);
     });
 
     it('is not vulnerable to modifications', function () {
@@ -502,7 +502,67 @@ describe('EventEmitter', function tests() {
     });
   });
 
-  describe('#setMaxListeners', function () {
+  describe('EventEmitter#eventNames', function () {
+    it('returns an empty array when there are no events', function () {
+      var e = new EventEmitter();
+
+      assume(e.eventNames()).eql([]);
+
+      e.on('foo', function () {});
+      e.removeAllListeners('foo');
+
+      assume(e.eventNames()).eql([]);
+    });
+
+    it('returns an array listing the events that have listeners', function () {
+      var e = new EventEmitter();
+
+      function bar() {}
+
+      e.on('foo', function () {});
+      e.on('bar', bar);
+
+      assume(e.eventNames()).eql(['foo', 'bar']);
+
+      e.removeListener('bar', bar);
+
+      assume(e.eventNames()).eql(['foo']);
+    });
+
+    it('does not return inherited properties', function () {
+      var e = new EventEmitter();
+
+      function Dummy() {}
+      function Collection() {}
+
+      Dummy.prototype.foo = 'foo';
+      Collection.prototype = new Dummy();
+      Collection.prototype.constructor = Collection;
+
+      e._events = new Collection();
+
+      assume(e._events.foo).equal('foo');
+      assume(e.eventNames()).eql([]);
+    });
+
+    if ('undefined' !== typeof Symbol) it('includes ES6 symbols', function () {
+      var e = new EventEmitter()
+        , s = Symbol('s');
+
+      function foo() {}
+
+      e.on('foo', foo);
+      e.on(s, function () {});
+
+      assume(e.eventNames()).eql(['foo', s]);
+
+      e.removeListener('foo', foo);
+
+      assume(e.eventNames()).eql([s]);
+    });
+  });
+
+  describe('EventEmitter#setMaxListeners', function () {
     it('is a function', function () {
       var e = new EventEmitter();
 
