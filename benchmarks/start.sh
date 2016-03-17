@@ -7,7 +7,7 @@ fi
 
 benchmark=$1
 
-echo Starting benchmark ${benchmark##*/}
+echo Starting benchmark "${benchmark##*/}"
 echo
-node "$1"
+node "$benchmark"
 echo
