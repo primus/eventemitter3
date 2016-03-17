@@ -1,7 +1,7 @@
 {
   "name": "benchmarks",
   "version": "0.0.0",
-  "description": "",
+  "description": "eventemitter3 benchmarks",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,7 @@
   "author": "",
   "license": "BSD",
   "dependencies": {
-    "benchmark": "1.0.x",
+    "benchmark": "2.1.x",
     "devnull": "0.0.12",
     "drip": "latest",
     "event-emitter": "latest",

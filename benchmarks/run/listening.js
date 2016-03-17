@@ -76,6 +76,6 @@ var ee2 = new EventEmitter2()
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
-    , this.filter('fastest').pluck('name')
+    , this.filter('fastest').map('name')
   );
 }).run();

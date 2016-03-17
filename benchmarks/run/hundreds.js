@@ -100,6 +100,6 @@ for (i = 0; i < 10; i++) {
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
-    , this.filter('fastest').pluck('name')
+    , this.filter('fastest').map('name')
   );
 }).run();

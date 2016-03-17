@@ -22,7 +22,6 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , FE = require('fastemitter')
   , CE = require('contra/emitter');
 
-
 function foo() {
   if (arguments.length > 100) console.log('damn');
 
@@ -116,6 +115,6 @@ master.on('foo', foo).on('foo', bar).on('foo', baz);
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
-    , this.filter('fastest').pluck('name')
+    , this.filter('fastest').map('name')
   );
 }).run();

@@ -18,7 +18,6 @@ var EventEmitter3 = require('eventemitter3')
   , Master = require('../../')
   , FE = require('fastemitter');
 
-
 var MAX_LISTENERS = Math.pow(2, 32) - 1;
 
 function handle() {
@@ -72,6 +71,6 @@ for (var i = 0; i < 25; i++) {
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
-    , this.filter('fastest').pluck('name')
+    , this.filter('fastest').map('name')
   );
 }).run();

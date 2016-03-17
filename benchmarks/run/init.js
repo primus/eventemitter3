@@ -22,25 +22,24 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , FE = require('fastemitter')
   , CE = require('contra/emitter');
 
-
 (
   new benchmark.Suite()
 ).add('EventEmitter1', function() {
-  var ee1 = new EventEmitter1();
+  new EventEmitter1();
 }).add('EventEmitter2', function() {
-  var ee2 = new EventEmitter2();
+  new EventEmitter2();
 }).add('EventEmitter3@0.1.6', function() {
-  var ee3 = new EventEmitter3();
+  new EventEmitter3();
 }).add('EventEmitter3(master)', function() {
-  var master = new Master();
+  new Master();
 }).add('Drip', function() {
-  var drip = new Drip();
+  new Drip();
 }).add('fastemitter', function() {
-  var fe = new FE();
+  new FE();
 }).add('event-emitter', function() {
-  var ee = EE({});
+  EE({});
 }).add('contra/emitter', function() {
-  var ce = CE();
+  CE();
 }).on('cycle', function cycle(e) {
   var details = e.target;
 
@@ -53,6 +52,6 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   );
 }).on('complete', function completed() {
   logger.info('Benchmark: "%s" is the fastest.'
-    , this.filter('fastest').pluck('name')
+    , this.filter('fastest').map('name')
   );
 }).run();
