@@ -4,18 +4,19 @@
   "description": "eventemitter3 benchmarks",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "benchmark": "find run -name '*.js' -exec ./start.sh {} \\;"
   },
-  "author": "",
-  "license": "BSD",
+  "repository": "primus/eventemitter3",
+  "author": "Arnout Kazemier",
+  "license": "MIT",
   "dependencies": {
     "benchmark": "2.1.x",
+    "contra": "latest",
     "devnull": "0.0.12",
     "drip": "latest",
     "event-emitter": "latest",
     "eventemitter2": "latest",
     "eventemitter3": "0.1.6",
-    "fastemitter": "latest",
-    "contra": "latest"
+    "fastemitter": "latest"
   }
 }
