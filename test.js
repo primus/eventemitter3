@@ -11,7 +11,7 @@ describe('EventEmitter', function tests() {
 
   it('inherits when used with require(util).inherits', function () {
     function Beast() {
-      /* rawr, i'm a beast */
+      EventEmitter.call(this);
     }
 
     require('util').inherits(Beast, EventEmitter);
