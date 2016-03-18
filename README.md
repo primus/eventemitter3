@@ -84,6 +84,20 @@ EE.listeners('event-name', true); // returns true
 EE.listeners('unknown-name', true); // returns false
 ```
 
+### Tests and benchmarks
+
+This module is well tested. You can run:
+
+- `npm test` to run the tests under Node.js.
+- `npm run coverage` to get the code coverage.
+- `npm run test-browser` to run the tests in real browsers via Sauce Labs.
+
+We also have a set of benchmarks to compare EventEmitter3 with some available
+alternatives. To run the benchmarks run `npm run benchmark`.
+
+Tests and benchmarks are not included in the npm package. If you want to play
+with them you have to clone the GitHub repository.
+
 ## License
 
 [MIT](LICENSE)
