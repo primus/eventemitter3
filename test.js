@@ -529,7 +529,7 @@ describe('EventEmitter', function tests() {
       assume(e.eventNames()).eql(['foo']);
     });
 
-    it('does not return inherited properties', function () {
+    it('does not return inherited property identifiers', function () {
       var e = new EventEmitter();
 
       function Dummy() {}
@@ -547,18 +547,21 @@ describe('EventEmitter', function tests() {
 
     if ('undefined' !== typeof Symbol) it('includes ES6 symbols', function () {
       var e = new EventEmitter()
-        , s = Symbol('s');
+        , sym1 = Symbol()
+        , sym2 = Symbol();
 
       function foo() {}
 
       e.on('foo', foo);
-      e.on(s, function () {});
+      e.on(sym1, function () {});
 
-      assume(e.eventNames()).eql(['foo', s]);
+      Object.defineProperty(e._events, sym2, { value: 'bar' });
+
+      assume(e.eventNames()).eql(['foo', sym1]);
 
       e.removeListener('foo', foo);
 
-      assume(e.eventNames()).eql([s]);
+      assume(e.eventNames()).eql([sym1]);
     });
   });
 

@@ -1,6 +1,7 @@
 'use strict';
 
-var has = Object.prototype.hasOwnProperty;
+var enumerable = Object.prototype.propertyIsEnumerable
+  , has = Object.prototype.hasOwnProperty;
 
 //
 // We store our EE objects in a plain object whose properties are event names.
@@ -62,7 +63,11 @@ EventEmitter.prototype.eventNames = function eventNames() {
   }
 
   if (Object.getOwnPropertySymbols) {
-    return names.concat(Object.getOwnPropertySymbols(events));
+    var symbols = Object.getOwnPropertySymbols(events);
+
+    for (var i = 0, l = symbols.length; i < l; i++) {
+      if (enumerable.call(events, symbols[i])) names.push(symbols[i]);
+    }
   }
 
   return names;
