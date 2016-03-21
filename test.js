@@ -529,19 +529,17 @@ describe('EventEmitter', function tests() {
       assume(e.eventNames()).eql(['foo']);
     });
 
-    it('does not return inherited properties', function () {
+    it('does not return inherited property identifiers', function () {
       var e = new EventEmitter();
 
-      function Dummy() {}
       function Collection() {}
-
-      Dummy.prototype.foo = 'foo';
-      Collection.prototype = new Dummy();
-      Collection.prototype.constructor = Collection;
+      Collection.prototype.foo = function () {
+        return 'foo';
+      };
 
       e._events = new Collection();
 
-      assume(e._events.foo).equal('foo');
+      assume(e._events.foo()).equal('foo');
       assume(e.eventNames()).eql([]);
     });
 
