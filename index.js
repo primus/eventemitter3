@@ -17,7 +17,7 @@ var prefix = typeof Object.create !== 'function' ? '~' : false;
  *
  * @param {Function} fn Event handler to be called.
  * @param {Mixed} context Context for function execution.
- * @param {Boolean} [once=false] Only emit once
+ * @param {Boolean} once Only emit once
  * @api private
  */
 function EE(fn, context, once) {
@@ -99,6 +99,17 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+  return !! this.collect(event, a1, a2, a3, a4, a5);
+};
+
+/**
+ * Emit an event to all registered event listeners and collect function output.
+ *
+ * @param {String} event The name of the event.
+ * @returns {Boolean} Indication if we've emitted an event.
+ * @api public
+ */
+EventEmitter.prototype.collect = function collect(event, a1, a2, a3, a4, a5) {
   var evt = prefix ? prefix + event : event;
 
   if (!this._events || !this._events[evt]) return false;
@@ -112,49 +123,50 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
-      case 1: return listeners.fn.call(listeners.context), true;
-      case 2: return listeners.fn.call(listeners.context, a1), true;
-      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+      case 1: return listeners.fn.call(listeners.context);
+      case 2: return listeners.fn.call(listeners.context, a1);
+      case 3: return listeners.fn.call(listeners.context, a1, a2);
+      case 4: return listeners.fn.call(listeners.context, a1, a2, a3);
+      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4);
+      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5);
     }
 
     for (i = 1, args = new Array(len -1); i < len; i++) {
       args[i - 1] = arguments[i];
     }
 
-    listeners.fn.apply(listeners.context, args);
+    return listeners.fn.apply(listeners.context, args);
   } else {
     var length = listeners.length
+      , out = []
       , j;
 
     for (i = 0; i < length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
-        case 1: listeners[i].fn.call(listeners[i].context); break;
-        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+        case 1: out.push(listeners[i].fn.call(listeners[i].context)); break;
+        case 2: out.push(listeners[i].fn.call(listeners[i].context, a1)); break;
+        case 3: out.push(listeners[i].fn.call(listeners[i].context, a1, a2)); break;
         default:
           if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
             args[j - 1] = arguments[j];
           }
 
-          listeners[i].fn.apply(listeners[i].context, args);
+          out.push(listeners[i].fn.apply(listeners[i].context, args));
       }
     }
-  }
 
-  return true;
+    return out.length ? out : false;
+  }
 };
 
 /**
  * Register a new EventListener for the given event.
  *
  * @param {String} event Name of the event.
- * @param {Function} fn Callback function.
- * @param {Mixed} [context=this] The context of the function.
+ * @param {Functon} fn Callback function.
+ * @param {Mixed} context The context of the function.
  * @api public
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
@@ -178,7 +190,7 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  *
  * @param {String} event Name of the event.
  * @param {Function} fn Callback function.
- * @param {Mixed} [context=this] The context of the function.
+ * @param {Mixed} context The context of the function.
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
