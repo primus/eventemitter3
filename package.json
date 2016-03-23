@@ -39,7 +39,7 @@
   },
   "pre-commit": "sync, test",
   "devDependencies": {
-    "assume": "1.3.x",
+    "assume": "1.4.x",
     "istanbul": "0.4.x",
     "mocha": "2.4.x",
     "pre-commit": "1.1.x",
