@@ -108,7 +108,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     , args
     , i;
 
-  if ('function' === typeof listeners.fn) {
+  if (listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
