@@ -108,7 +108,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     , args
     , i;
 
-  if ('function' === typeof listeners.fn) {
+  if (listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
@@ -210,39 +210,37 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
   var evt = prefix ? prefix + event : event;
 
   if (!this._events || !this._events[evt]) return this;
+  if (!fn) return delete this._events[evt], this;
 
-  var listeners = this._events[evt]
-    , events = [];
+  var listeners = this._events[evt];
 
-  if (fn) {
-    if (listeners.fn) {
+  if (listeners.fn) {
+    if (
+         listeners.fn === fn
+      && (!once || listeners.once)
+      && (!context || listeners.context === context)
+    ) {
+      delete this._events[evt];
+    }
+  } else {
+    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
       if (
-           listeners.fn !== fn
-        || (once && !listeners.once)
-        || (context && listeners.context !== context)
+           listeners[i].fn !== fn
+        || (once && !listeners[i].once)
+        || (context && listeners[i].context !== context)
       ) {
-        events.push(listeners);
-      }
-    } else {
-      for (var i = 0, length = listeners.length; i < length; i++) {
-        if (
-             listeners[i].fn !== fn
-          || (once && !listeners[i].once)
-          || (context && listeners[i].context !== context)
-        ) {
-          events.push(listeners[i]);
-        }
+        events.push(listeners[i]);
       }
     }
-  }
 
-  //
-  // Reset the array, or remove it completely if we have no more listeners.
-  //
-  if (events.length) {
-    this._events[evt] = events.length === 1 ? events[0] : events;
-  } else {
-    delete this._events[evt];
+    //
+    // Reset the array, or remove it completely if we have no more listeners.
+    //
+    if (events.length) {
+      this._events[evt] = events.length === 1 ? events[0] : events;
+    } else {
+      delete this._events[evt];
+    }
   }
 
   return this;
