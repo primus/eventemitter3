@@ -1,16 +1,33 @@
 'use strict';
 
-var has = Object.prototype.hasOwnProperty;
+var has = Object.prototype.hasOwnProperty
+  , prefix = '~';
+
+/**
+ * This constructor is used to create a storage for our EE objects.
+ * An `Events` instance is a plain object whose properties are event names.
+ *
+ * @constructor
+ * @api private
+ */
+function Events() {}
 
 //
-// We store our EE objects in a plain object whose properties are event names.
+// We try to not inherit from `Object.prototype`. In some engines creating an
+// instance in this way is faster than calling `Object.create(null)` directly.
 // If `Object.create(null)` is not supported we prefix the event names with a
-// `~` to make sure that the built-in object properties are not overridden or
-// used as an attack vector.
-// We also assume that `Object.create(null)` is available when the event name
-// is an ES6 Symbol.
+// character to make sure that the built-in object properties are not
+// overridden or used as an attack vector.
 //
-var prefix = typeof Object.create !== 'function' ? '~' : false;
+if (Object.create) {
+  Events.prototype = Object.create(null);
+
+  //
+  // This hack is needed because the `__proto__` property is still inherited in
+  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
+  //
+  if (!new Events().__proto__) prefix = false;
+}
 
 /**
  * Representation of a single EventEmitter function.
@@ -18,6 +35,7 @@ var prefix = typeof Object.create !== 'function' ? '~' : false;
  * @param {Function} fn Event handler to be called.
  * @param {Mixed} context Context for function execution.
  * @param {Boolean} [once=false] Only emit once
+ * @constructor
  * @api private
  */
 function EE(fn, context, once) {
@@ -33,15 +51,10 @@ function EE(fn, context, once) {
  * @constructor
  * @api public
  */
-function EventEmitter() { /* Nothing to set */ }
-
-/**
- * Hold the assigned EventEmitters by name.
- *
- * @type {Object}
- * @private
- */
-EventEmitter.prototype._events = undefined;
+function EventEmitter() {
+  this._events = new Events();
+  this._eventsCount = 0;
+}
 
 /**
  * Return an array listing the events for which the emitter has registered
@@ -51,13 +64,13 @@ EventEmitter.prototype._events = undefined;
  * @api public
  */
 EventEmitter.prototype.eventNames = function eventNames() {
-  var events = this._events
-    , names = []
+  var names = []
+    , events
     , name;
 
-  if (!events) return names;
+  if (this._eventsCount === 0) return names;
 
-  for (name in events) {
+  for (name in (events = this._events)) {
     if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
   }
 
@@ -78,7 +91,7 @@ EventEmitter.prototype.eventNames = function eventNames() {
  */
 EventEmitter.prototype.listeners = function listeners(event, exists) {
   var evt = prefix ? prefix + event : event
-    , available = this._events && this._events[evt];
+    , available = this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
@@ -101,7 +114,7 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
   var evt = prefix ? prefix + event : event;
 
-  if (!this._events || !this._events[evt]) return false;
+  if (!this._events[evt]) return false;
 
   var listeners = this._events[evt]
     , len = arguments.length
@@ -162,14 +175,9 @@ EventEmitter.prototype.on = function on(event, fn, context) {
   var listener = new EE(fn, context || this)
     , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = prefix ? {} : Object.create(null);
-  if (!this._events[evt]) this._events[evt] = listener;
-  else {
-    if (!this._events[evt].fn) this._events[evt].push(listener);
-    else this._events[evt] = [
-      this._events[evt], listener
-    ];
-  }
+  if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
+  else if (!this._events[evt].fn) this._events[evt].push(listener);
+  else this._events[evt] = [this._events[evt], listener];
 
   return this;
 };
@@ -186,14 +194,9 @@ EventEmitter.prototype.once = function once(event, fn, context) {
   var listener = new EE(fn, context || this, true)
     , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = prefix ? {} : Object.create(null);
-  if (!this._events[evt]) this._events[evt] = listener;
-  else {
-    if (!this._events[evt].fn) this._events[evt].push(listener);
-    else this._events[evt] = [
-      this._events[evt], listener
-    ];
-  }
+  if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
+  else if (!this._events[evt].fn) this._events[evt].push(listener);
+  else this._events[evt] = [this._events[evt], listener];
 
   return this;
 };
@@ -210,8 +213,12 @@ EventEmitter.prototype.once = function once(event, fn, context) {
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
   var evt = prefix ? prefix + event : event;
 
-  if (!this._events || !this._events[evt]) return this;
-  if (!fn) return delete this._events[evt], this;
+  if (!this._events[evt]) return this;
+  if (!fn) {
+    if (--this._eventsCount === 0) this._events = new Events();
+    else delete this._events[evt];
+    return this;
+  }
 
   var listeners = this._events[evt];
 
@@ -221,7 +228,8 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
       && (!once || listeners.once)
       && (!context || listeners.context === context)
     ) {
-      delete this._events[evt];
+      if (--this._eventsCount === 0) this._events = new Events();
+      else delete this._events[evt];
     }
   } else {
     for (var i = 0, events = [], length = listeners.length; i < length; i++) {
@@ -237,11 +245,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
     //
     // Reset the array, or remove it completely if we have no more listeners.
     //
-    if (events.length) {
-      this._events[evt] = events.length === 1 ? events[0] : events;
-    } else {
-      delete this._events[evt];
-    }
+    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+    else if (--this._eventsCount === 0) this._events = new Events();
+    else delete this._events[evt];
   }
 
   return this;
@@ -254,10 +260,18 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
  * @api public
  */
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-  if (!this._events) return this;
+  var evt;
 
-  if (event) delete this._events[prefix ? prefix + event : event];
-  else this._events = prefix ? {} : Object.create(null);
+  if (event) {
+    evt = prefix ? prefix + event : event;
+    if (this._events[evt]) {
+      if (--this._eventsCount === 0) this._events = new Events();
+      else delete this._events[evt];
+    }
+  } else {
+    this._events = new Events();
+    this._eventsCount = 0;
+  }
 
   return this;
 };
