@@ -4,7 +4,7 @@ var has = Object.prototype.hasOwnProperty
   , prefix = '~';
 
 /**
- * This constructor is used to create a storage for our EE objects.
+ * Constructor to create a storage for our `EE` objects.
  * An `Events` instance is a plain object whose properties are event names.
  *
  * @constructor
@@ -30,11 +30,11 @@ if (Object.create) {
 }
 
 /**
- * Representation of a single EventEmitter function.
+ * Representation of a single event listener.
  *
- * @param {Function} fn Event handler to be called.
- * @param {Mixed} context Context for function execution.
- * @param {Boolean} [once=false] Only emit once
+ * @param {Function} fn The listener function.
+ * @param {Mixed} context The context to invoke the listener with.
+ * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
  * @constructor
  * @api private
  */
@@ -45,8 +45,8 @@ function EE(fn, context, once) {
 }
 
 /**
- * Minimal EventEmitter interface that is molded against the Node.js
- * EventEmitter interface.
+ * Minimal `EventEmitter` interface that is molded against the Node.js
+ * `EventEmitter` interface.
  *
  * @constructor
  * @api public
@@ -82,10 +82,10 @@ EventEmitter.prototype.eventNames = function eventNames() {
 };
 
 /**
- * Return a list of assigned event listeners.
+ * Return the listeners registered for a given event.
  *
- * @param {String} event The events that should be listed.
- * @param {Boolean} exists We only need to know if there are listeners.
+ * @param {String|Symbol} event The event name.
+ * @param {Boolean} exists Only check if there are listeners.
  * @returns {Array|Boolean}
  * @api public
  */
@@ -105,10 +105,10 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
 };
 
 /**
- * Emit an event to all registered event listeners.
+ * Calls each of the listeners registered for a given event.
  *
- * @param {String} event The name of the event.
- * @returns {Boolean} Indication if we've emitted an event.
+ * @param {String|Symbol} event The event name.
+ * @returns {Boolean} `true` if the event had listeners, else `false`.
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
@@ -164,11 +164,12 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 };
 
 /**
- * Register a new EventListener for the given event.
+ * Add a listener for a given event.
  *
- * @param {String} event Name of the event.
- * @param {Function} fn Callback function.
- * @param {Mixed} [context=this] The context of the function.
+ * @param {String|Symbol} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {Mixed} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
  * @api public
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
@@ -183,11 +184,12 @@ EventEmitter.prototype.on = function on(event, fn, context) {
 };
 
 /**
- * Add an EventListener that's only called once.
+ * Add a one-time listener for a given event.
  *
- * @param {String} event Name of the event.
- * @param {Function} fn Callback function.
- * @param {Mixed} [context=this] The context of the function.
+ * @param {String|Symbol} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {Mixed} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
@@ -202,12 +204,13 @@ EventEmitter.prototype.once = function once(event, fn, context) {
 };
 
 /**
- * Remove event listeners.
+ * Remove the listeners of a given event.
  *
- * @param {String} event The event we want to remove.
- * @param {Function} fn The listener that we need to find.
- * @param {Mixed} context Only remove listeners matching this context.
- * @param {Boolean} once Only remove once listeners.
+ * @param {String|Symbol} event The event name.
+ * @param {Function} fn Only remove the listeners that match this function.
+ * @param {Mixed} context Only remove the listeners that have this context.
+ * @param {Boolean} once Only remove one-time listeners.
+ * @returns {EventEmitter} `this`.
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
@@ -254,9 +257,10 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 };
 
 /**
- * Remove all listeners or only the listeners for the specified event.
+ * Remove all listeners, or those of the specified event.
  *
- * @param {String} event The event want to remove all listeners for.
+ * @param {String|Symbol} event The event name.
+ * @returns {EventEmitter} `this`.
  * @api public
  */
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
