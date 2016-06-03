@@ -1,5 +1,4 @@
 ui: mocha-bdd
-tunnel: ngrok
 browsers:
   - name: android
     version: [oldest, latest]
