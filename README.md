@@ -15,11 +15,14 @@ differences:
   listening.
 - The `newListener` event is removed as the use-cases for this functionality are
   really just edge cases.
-- No `setMaxListeners` and it's pointless memory leak warnings. If you want to
+- No `setMaxListeners` and its pointless memory leak warnings. If you want to
   add `end` listeners you should be able to do that without modules complaining.
-- No `listenerCount` function. Use `EE.listeners(event).length` instead.
+- No `listenerCount` method. Use `EE.listeners(event).length` instead.
 - Support for custom context for events so there is no need to use `fn.bind`.
-- `listeners` method can do existence checking instead of returning only arrays.
+- The `listeners` method can do existence checking instead of returning only
+  arrays.
+- The `removeListener` method removes all matching listeners, not only the
+  first.
 
 It's a drop in replacement for existing EventEmitters, but just faster. Free
 performance, who wouldn't want that? The EventEmitter is written in EcmaScript 3
