@@ -259,7 +259,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 /**
  * Remove all listeners, or those of the specified event.
  *
- * @param {String|Symbol} event The event name.
+ * @param {String|Symbol} [event] The event name.
  * @returns {EventEmitter} `this`.
  * @api public
  */
