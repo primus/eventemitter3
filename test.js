@@ -174,15 +174,17 @@ describe('EventEmitter', function tests() {
       assume(pattern).equals('foobazbarbanana');
     });
 
-    it('should return true when there are events to emit', function (done) {
-      var e = new EventEmitter();
+    it('should return true when there are events to emit', function () {
+      var e = new EventEmitter()
+        , called = 0;
 
       e.on('foo', function () {
-        process.nextTick(done);
+        called++;
       });
 
       assume(e.emit('foo')).equals(true);
       assume(e.emit('foob')).equals(false);
+      assume(called).equals(1);
     });
 
     it('receives the emitted events', function (done) {
