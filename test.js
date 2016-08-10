@@ -522,6 +522,7 @@ describe('EventEmitter', function tests() {
       }
       e.on('update', first);
       e.on('update', second);
+      e.once('update', second);
       e.on('update', third);
       e.once('update', third);
       e.emit('update');
