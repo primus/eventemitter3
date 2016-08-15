@@ -23,6 +23,8 @@ differences:
   arrays.
 - The `removeListener` method removes all matching listeners, not only the
   first.
+- When `removeListener` is called from within a handler for the same event 
+  on a different object, it immediately removes the listener.
 
 It's a drop in replacement for existing EventEmitters, but just faster. Free
 performance, who wouldn't want that? The EventEmitter is written in EcmaScript 3
