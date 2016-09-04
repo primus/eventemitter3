@@ -12,7 +12,6 @@
   "dependencies": {
     "benchmark": "2.1.x",
     "contra": "latest",
-    "devnull": "0.0.12",
     "drip": "latest",
     "event-emitter": "latest",
     "eventemitter2": "latest",

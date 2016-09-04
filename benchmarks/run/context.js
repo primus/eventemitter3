@@ -6,11 +6,6 @@
 var benchmark = require('benchmark');
 
 /**
- * Logger.
- */
-var logger = new(require('devnull'))({ timestamp: false, namespacing: 0 });
-
-/**
  * Preparation code.
  */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
@@ -21,6 +16,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , EE = require('event-emitter')
   , FE = require('fastemitter')
   , CE = require('contra/emitter');
+
+var ctx = { foo: 'bar' };
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -38,14 +35,14 @@ var ee2 = new EventEmitter2()
   , ee = EE({})
   , ce = CE();
 
-ee3.on('foo', handle, logger);
-ee2.on('foo', handle.bind(logger));
-ee1.on('foo', handle.bind(logger));
-drip.on('foo', handle.bind(logger));
-master.on('foo', handle, logger);
-ee.on('foo', handle.bind(logger));
-fe.on('foo', handle.bind(logger));
-ce.on('foo', handle.bind(logger));
+ee3.on('foo', handle, ctx);
+ee2.on('foo', handle.bind(ctx));
+ee1.on('foo', handle.bind(ctx));
+drip.on('foo', handle.bind(ctx));
+master.on('foo', handle, ctx);
+ee.on('foo', handle.bind(ctx));
+fe.on('foo', handle.bind(ctx));
+ce.on('foo', handle.bind(ctx));
 
 (
   new benchmark.Suite()
@@ -90,17 +87,7 @@ ce.on('foo', handle.bind(logger));
   ce.emit('foo', 'bar', 'baz');
   ce.emit('foo', 'bar', 'baz', 'boom');
 }).on('cycle', function cycle(e) {
-  var details = e.target;
-
-  logger.log('Finished benchmarking: "%s"', details.name);
-  logger.metric('Count (%d), Cycles (%d), Elapsed (%d), Hz (%d)'
-    , details.count
-    , details.cycles
-    , details.times.elapsed
-    , details.hz.toFixed(2)
-  );
+  console.log(e.target.toString());
 }).on('complete', function completed() {
-  logger.info('Benchmark: "%s" is the fastest.'
-    , this.filter('fastest').map('name')
-  );
-}).run();
+  console.log('Fastest is %s', this.filter('fastest').map('name'));
+}).run({ async: true });
