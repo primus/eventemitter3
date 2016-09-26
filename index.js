@@ -303,4 +303,5 @@ EventEmitter.prefixed = prefix;
 //
 if ('undefined' !== typeof module) {
   module.exports = EventEmitter;
+  module.exports.EventEmitter = EventEmitter;
 }
