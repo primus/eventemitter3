@@ -9,6 +9,10 @@ describe('EventEmitter', function tests() {
     assume(EventEmitter.prefixed).is.either([false, '~']);
   });
 
+  it('exposes a module namespace object', function() {
+    assume(EventEmitter.EventEmitter).equals(EventEmitter);
+  });
+
   it('inherits when used with `require("util").inherits`', function () {
     function Beast() {
       EventEmitter.call(this);

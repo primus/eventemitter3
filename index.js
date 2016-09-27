@@ -299,6 +299,11 @@ EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
 EventEmitter.prefixed = prefix;
 
 //
+// Allow `EventEmitter` to be imported as module namespace.
+//
+EventEmitter.EventEmitter = EventEmitter;
+
+//
 // Expose the module.
 //
 if ('undefined' !== typeof module) {
