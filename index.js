@@ -303,5 +303,7 @@ EventEmitter.prefixed = prefix;
 //
 if ('undefined' !== typeof module) {
   module.exports = EventEmitter;
-  module.exports.EventEmitter = EventEmitter;
+
+  // Allow EventEmitter to be imported as module namespace
+  EventEmitter.EventEmitter = EventEmitter;
 }
