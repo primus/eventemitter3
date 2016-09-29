@@ -46,5 +46,5 @@ export class EventEmitter {
   /**
    * Remove all listeners, or those of the specified event.
    */
-  removeAllListeners(event: string | symbol): EventEmitter;
+  removeAllListeners(event?: string | symbol): EventEmitter;
 }
