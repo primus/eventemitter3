@@ -7,7 +7,7 @@ type ListenerFn = (...args: Array<any>) => void;
  * `EventEmitter` interface.
  */
 export class EventEmitter {
-  prefixed: string;
+  static prefixed: string | boolean;
 
   /**
    * Return an array listing the events for which the emitter has registered
