@@ -18,8 +18,8 @@ export class EventEmitter {
   /**
    * Return the listeners registered for a given event.
    */
-  listeners(event: string | symbol): Array<ListenerFn>;
   listeners(event: string | symbol, exists: boolean): Array<ListenerFn> | boolean;
+  listeners(event: string | symbol): Array<ListenerFn>;
 
   /**
    * Calls each of the listeners registered for a given event.
