@@ -7,7 +7,7 @@ type ListenerFn = (...args: Array<any>) => void;
  * `EventEmitter` interface.
  */
 export class EventEmitter {
-  prefix: string;
+  prefixed: string;
 
   /**
    * Return an array listing the events for which the emitter has registered
@@ -29,22 +29,22 @@ export class EventEmitter {
   /**
    * Add a listener for a given event.
    */
-  on(event: string | symbol, fn: ListenerFn, context?: any): EventEmitter;
-  addListener(event: string | symbol, fn: ListenerFn, context?: any): EventEmitter;
+  on(event: string | symbol, fn: ListenerFn, context?: any): this;
+  addListener(event: string | symbol, fn: ListenerFn, context?: any): this;
 
   /**
    * Add a one-time listener for a given event.
    */
-  once(event: string | symbol, fn: ListenerFn, context?: any): EventEmitter;
+  once(event: string | symbol, fn: ListenerFn, context?: any): this;
 
   /**
    * Remove the listeners of a given event.
    */
-  removeListener(event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean): EventEmitter;
-  off(event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean): EventEmitter;
+  removeListener(event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean): this;
+  off(event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean): this;
 
   /**
    * Remove all listeners, or those of the specified event.
    */
-  removeAllListeners(event?: string | symbol): EventEmitter;
+  removeAllListeners(event?: string | symbol): this;
 }
