@@ -56,9 +56,14 @@ function EventEmitter() {
   this._eventsCount = 0;
 }
 
-
+/**
+ * Insert emitted event name to listener as first parameter
+ *
+ * @static
+ * @member {boolean}
+ * @api public
+ */
 EventEmitter.insertEventName = false;
-
 
 /**
  * Return an array listing the events for which the emitter has registered
