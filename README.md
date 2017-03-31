@@ -36,6 +36,13 @@ $ npm install --save eventemitter3        # npm
 $ component install primus/eventemitter3  # Component
 $ bower install eventemitter3             # Bower
 ```
+## CDN
+
+Recommended CDN:
+
+```text
+https://cdnjs.cloudflare.com/ajax/libs/eventemitter3/2.0.2/index.min.js
+```
 
 ## Usage
 
