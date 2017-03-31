@@ -9,7 +9,7 @@ matrix:
       env: SCRIPT=test
     - node_js: "4"
       env: SCRIPT=test
-    - node_js: "0.12"
+    - node_js: "0.10"
       env: SCRIPT=test
     - node_js: "4"
       env: SCRIPT=test-browser
