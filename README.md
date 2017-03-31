@@ -38,10 +38,11 @@ $ bower install eventemitter3             # Bower
 ```
 ## CDN
 
-Recommended CDN:
+Recommended CDNs:
 
 ```text
 https://cdnjs.cloudflare.com/ajax/libs/eventemitter3/2.0.2/index.min.js
+https://unpkg.com/eventemitter3@latest
 ```
 
 ## Usage
