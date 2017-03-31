@@ -37,6 +37,14 @@ $ component install primus/eventemitter3  # Component
 $ bower install eventemitter3             # Bower
 ```
 
+## CDN
+
+Recommended CDN:
+
+```text
+https://unpkg.com/eventemitter3@latest/umd/eventemitter3.min.js
+```
+
 ## Usage
 
 After installation the only thing you need to do is require the module:
