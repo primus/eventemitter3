@@ -1,6 +1,7 @@
-node_modules
-components
-build
-coverage
+node_modules/
+.nyc_output/
+components/
+coverage/
+build/
 .tern-port
 npm-debug.log

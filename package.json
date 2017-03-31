@@ -6,11 +6,9 @@
   "typings": "index.d.ts",
   "scripts": {
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
-    "test-node": "istanbul cover _mocha --report lcovonly -- test.js",
-    "coverage": "istanbul cover _mocha -- test.js",
+    "test": "nyc --reporter=html --reporter=text mocha",
     "test-browser": "zuul -- test.js",
-    "sync": "node versions.js",
-    "test": "mocha test.js"
+    "sync": "node versions.js"
   },
   "repository": {
     "type": "git",
@@ -41,8 +39,8 @@
   "pre-commit": "sync, test",
   "devDependencies": {
     "assume": "~1.4.1",
-    "istanbul": "~0.4.5",
     "mocha": "~3.2.0",
+    "nyc": "~10.2.0",
     "pre-commit": "~1.2.0",
     "zuul": "~3.11.1"
   }

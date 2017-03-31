@@ -1,27 +1,26 @@
 sudo: false
-dist: trusty
 language: node_js
 matrix:
   fast_finish: true
   include:
     - node_js: "7"
-      env: TASK=test-node
+      env: SCRIPT=test
     - node_js: "6"
-      env: TASK=test-node
+      env: SCRIPT=test
     - node_js: "4"
-      env: TASK=test-node
+      env: SCRIPT=test
     - node_js: "0.12"
-      env: TASK=test-node
+      env: SCRIPT=test
     - node_js: "4"
-      env: TASK=test-browser
+      env: SCRIPT=test-browser
 env:
   global:
     - secure: mEFulV5UWgBE9CS6LbbhqjeRmGeBSNP54NrTu8OWu5lh81qh3jXTb/AZKoQcCE0hnBjdUVAg4sz+5fZCHxVUP6bivXv4ZIxQle5sb7fWSI0PHx/WZ1YtP1ayTdjydUQZoCuJdLi2IKtWwVWnR/DNtoQEz+N5RqzaBFwBw1gEZt8=
     - secure: TgXbhcemKQTLl5+OdTMZyn3yNFgn2qqwpt8LccI8KVGfCKRHnKLOUE1PYXQi9tPRS5N+ofzHKzMVh5/2bfm3hCsihH0n6ItoWLLyd5BjcBWTp862wG4Dvgqq7dVofnf4eSVk34VYtqaKfszypRQ8UGvj/X48j5ANElU7OP4iIPg=
 script:
-  - "npm run ${TASK}"
-after_script:
-  - 'if [ "${TASK}" == "test-node" ]; then npm i coveralls@2 && cat coverage/lcov.info | coveralls; fi'
+  - "npm run ${SCRIPT}"
+after_success:
+  - 'if [ "${SCRIPT}" == "test" ]; then npm i coveralls@2 && nyc report --reporter=text-lcov | coveralls; fi'
 notifications:
   irc:
     channels:
