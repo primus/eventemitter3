@@ -42,7 +42,7 @@ Recommended CDNs:
 
 ```text
 https://cdnjs.cloudflare.com/ajax/libs/eventemitter3/2.0.2/index.min.js
-https://unpkg.com/eventemitter3@latest
+https://unpkg.com/eventemitter3@latest/umd/eventemitter3.min.js
 ```
 
 ## Usage
