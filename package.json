@@ -7,9 +7,9 @@
   "scripts": {
     "build": "mkdir -p umd && webpack --entry . --optimize-minimize --output-library EventEmitter3 --output-library-target umd --output-path umd --output-filename eventemitter3.min.js",
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
+    "prepublish": "if [ \"${TRAVIS}\" != \"true\" ]; then npm run build; fi",
     "test": "nyc --reporter=html --reporter=text mocha",
     "test-browser": "zuul -- test.js",
-    "prepublish": "npm run build",
     "sync": "node versions.js"
   },
   "repository": {
