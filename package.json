@@ -40,7 +40,7 @@
   },
   "pre-commit": "sync, test",
   "devDependencies": {
-    "assume": "~1.4.1",
+    "assume": "~1.5.0",
     "mocha": "~3.2.0",
     "nyc": "~10.2.0",
     "pre-commit": "~1.2.0",
