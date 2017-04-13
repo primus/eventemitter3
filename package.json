@@ -12,6 +12,11 @@
     "test-browser": "zuul -- test.js",
     "sync": "node versions.js"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "umd"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/primus/eventemitter3.git"
