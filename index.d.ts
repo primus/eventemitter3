@@ -6,7 +6,7 @@ type ListenerFn = (...args: Array<any>) => void;
  * Minimal `EventEmitter` interface that is molded against the Node.js
  * `EventEmitter` interface.
  */
-export class EventEmitter {
+export default class EventEmitter {
   static prefixed: string | boolean;
 
   /**
