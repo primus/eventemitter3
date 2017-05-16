@@ -306,6 +306,12 @@ EventEmitter.EventEmitter = EventEmitter;
 //
 // Expose the module.
 //
-if ('undefined' !== typeof module) {
+if (typeof define === 'function' && define.amd) {
+  define(function() {
+    return EventEmitter;
+  });
+} else if (typeof exports === 'object') {
   module.exports = EventEmitter;
+} else {
+  window.EventEmitter3 = EventEmitter;
 }
