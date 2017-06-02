@@ -47,7 +47,7 @@
   "devDependencies": {
     "assume": "~1.5.0",
     "mocha": "~3.4.0",
-    "nyc": "~10.3.0",
+    "nyc": "~11.0.1",
     "pre-commit": "~1.2.0",
     "webpack": "~2.6.0",
     "zuul": "~3.11.1"
