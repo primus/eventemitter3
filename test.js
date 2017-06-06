@@ -507,6 +507,30 @@ describe('EventEmitter', function tests() {
       assume(e.listeners('foo')).eql([]);
       assume(e._eventsCount).equals(0);
     });
+
+    it('removes a listener when removed as part handler callback', function() {
+      var e = new EventEmitter()
+        , foo = { bar: true }
+        , calledThird = 0;
+
+      function first() {
+        foo = null;
+        e.removeListener('update', second);
+      }
+      function second() {
+        assume(foo.bar).equals(true);
+      }
+      function third() {
+        calledThird++;
+      }
+      e.on('update', first);
+      e.on('update', second);
+      e.once('update', second);
+      e.on('update', third);
+      e.once('update', third);
+      e.emit('update');
+      assume(calledThird).equals(2);
+    });
   });
 
   describe('EventEmitter#removeAllListeners', function () {

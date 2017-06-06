@@ -42,6 +42,7 @@ function EE(fn, context, once) {
   this.fn = fn;
   this.context = context;
   this.once = once || false;
+  this.skip = false;
 }
 
 /**
@@ -144,6 +145,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 
     for (i = 0; i < length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+      if (listeners[i].skip) continue;
 
       switch (len) {
         case 1: listeners[i].fn.call(listeners[i].context); break;
@@ -236,6 +238,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
     }
   } else {
     for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+      if (!once && listeners[i].fn === fn) {
+        listeners[i].skip = true;
+      }
       if (
            listeners[i].fn !== fn
         || (once && !listeners[i].once)
