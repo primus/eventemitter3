@@ -8,8 +8,8 @@
     "build": "mkdir -p umd && webpack --entry . --optimize-minimize --output-library EventEmitter3 --output-library-target umd --output-path umd --output-filename eventemitter3.min.js",
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
     "prepublish": "if [ \"${TRAVIS}\" != \"true\" ]; then npm run build; fi",
-    "test": "nyc --reporter=html --reporter=text mocha",
-    "test-browser": "zuul -- test.js",
+    "test": "nyc --reporter=html --reporter=text mocha test/test.js",
+    "test-browser": "node test/browser.js",
     "sync": "node versions.js"
   },
   "files": [
@@ -49,7 +49,8 @@
     "mocha": "~3.4.0",
     "nyc": "~11.0.1",
     "pre-commit": "~1.2.0",
-    "webpack": "~2.6.0",
-    "zuul": "~3.11.1"
+    "sauce-browsers": "~1.0.0",
+    "sauce-test": "~1.3.3",
+    "webpack": "~2.6.0"
   }
 }
