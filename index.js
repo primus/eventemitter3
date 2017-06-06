@@ -40,6 +40,7 @@ if (Object.create) {
  */
 function EE(fn, context, once) {
   this.fn = fn;
+  this.fastFn = fn.bind(context);
   this.context = context;
   this.once = once || false;
 }
@@ -125,12 +126,12 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
-      case 1: return listeners.fn.call(listeners.context), true;
-      case 2: return listeners.fn.call(listeners.context, a1), true;
-      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+      case 1: return listeners.fastFn(), true;
+      case 2: return listeners.fastFn(a1), true;
+      case 3: return listeners.fastFn(a1, a2), true;
+      case 4: return listeners.fastFn(a1, a2, a3), true;
+      case 5: return listeners.fastFn(a1, a2, a3, a4), true;
+      case 6: return listeners.fastFn(a1, a2, a3, a4, a5), true;
     }
 
     for (i = 1, args = new Array(len -1); i < len; i++) {
@@ -146,10 +147,10 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
-        case 1: listeners[i].fn.call(listeners[i].context); break;
-        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
-        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
+        case 1: listeners[i].fastFn(); break;
+        case 2: listeners[i].fastFn(a1); break;
+        case 3: listeners[i].fastFn(a1, a2); break;
+        case 4: listeners[i].fastFn(a1, a2, a3); break;
         default:
           if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
             args[j - 1] = arguments[j];
