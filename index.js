@@ -57,6 +57,15 @@ function EventEmitter() {
 }
 
 /**
+ * Insert emitted event name to listener as first parameter
+ *
+ * @static
+ * @member {boolean}
+ * @api public
+ */
+EventEmitter.insertEventName = false;
+
+/**
  * Return an array listing the events for which the emitter has registered
  * listeners.
  *
@@ -125,16 +134,38 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
-      case 1: return listeners.fn.call(listeners.context), true;
-      case 2: return listeners.fn.call(listeners.context, a1), true;
-      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+      case 1: return EventEmitter.insertEventName
+          ? listeners.fn.call(listeners.context, evt)
+          : listeners.fn.call(listeners.context)
+          , true;
+      case 2: return EventEmitter.insertEventName
+	      ? listeners.fn.call(listeners.context, evt, a1)
+          : listeners.fn.call(listeners.context, a1)
+          , true;
+      case 3: return EventEmitter.insertEventName
+	      ? listeners.fn.call(listeners.context, evt, a1, a2)
+          : listeners.fn.call(listeners.context, a1, a2)
+          , true;
+      case 4: return EventEmitter.insertEventName
+	      ? listeners.fn.call(listeners.context, evt, a1, a2, a3)
+          : listeners.fn.call(listeners.context, a1, a2, a3)
+          , true;
+      case 5: return EventEmitter.insertEventName
+	      ? listeners.fn.call(listeners.context, evt, a1, a2, a3, a4)
+          : listeners.fn.call(listeners.context, a1, a2, a3, a4)
+          , true;
+      case 6: return EventEmitter.insertEventName
+	      ? listeners.fn.call(listeners.context, evt, a1, a2, a3, a4, a5)
+          : listeners.fn.call(listeners.context, a1, a2, a3, a4, a5)
+          , true;
     }
 
     for (i = 1, args = new Array(len -1); i < len; i++) {
       args[i - 1] = arguments[i];
+    }
+    
+    if (EventEmitter.insertEventName) {
+      args.splice(0, 0, evt);
     }
 
     listeners.fn.apply(listeners.context, args);
@@ -146,13 +177,29 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
-        case 1: listeners[i].fn.call(listeners[i].context); break;
-        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
-        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
+        case 1: EventEmitter.insertEventName
+	        ? listeners[i].fn.call(listeners[i].context, evt)
+            : listeners[i].fn.call(listeners[i].context);
+            break;
+        case 2: EventEmitter.insertEventName
+	        ? listeners[i].fn.call(listeners[i].context, evt, a1)
+            : listeners[i].fn.call(listeners[i].context, a1);
+            break;
+        case 3: EventEmitter.insertEventName
+	        ? listeners[i].fn.call(listeners[i].context, evt, a1, a2)
+            : listeners[i].fn.call(listeners[i].context, a1, a2);
+            break;
+        case 4: EventEmitter.insertEventName
+	        ? listeners[i].fn.call(listeners[i].context, evt, a1, a2, a3)
+            : listeners[i].fn.call(listeners[i].context, a1, a2, a3);
+            break;
         default:
           if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
             args[j - 1] = arguments[j];
+          }
+          
+          if (EventEmitter.insertEventName) {
+            args.splice(0, 0, evt);
           }
 
           listeners[i].fn.apply(listeners[i].context, args);
