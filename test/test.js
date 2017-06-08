@@ -1,7 +1,7 @@
 describe('EventEmitter', function tests() {
   'use strict';
 
-  var EventEmitter = require('./')
+  var EventEmitter = require('../')
     , assume = require('assume');
 
   it('exposes a `prefixed` property', function () {
