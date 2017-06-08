@@ -32,9 +32,7 @@ support.
 ## Installation
 
 ```bash
-$ npm install --save eventemitter3        # npm
-$ component install primus/eventemitter3  # Component
-$ bower install eventemitter3             # Bower
+$ npm install --save eventemitter3
 ```
 
 ## CDN
