@@ -1,6 +1,6 @@
 'use strict';
 
-var has = Object.prototype.hasOwnProperty
+let has = Object.prototype.hasOwnProperty
   , prefix = '~';
 
 /**
@@ -64,7 +64,7 @@ function EventEmitter() {
  * @api public
  */
 EventEmitter.prototype.eventNames = function eventNames() {
-  var names = []
+  let names = []
     , events
     , name;
 
@@ -90,14 +90,16 @@ EventEmitter.prototype.eventNames = function eventNames() {
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event, exists) {
-  var evt = prefix ? prefix + event : event
+  let evt = prefix ? prefix + event : event
     , available = this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
   if (available.fn) return [available.fn];
 
-  for (var i = 0, l = available.length, ee = new Array(l); i < l; i++) {
+  let l = available.length;
+  let ee = new Array(l);
+  for (let i = 0; i < l; i++) {
     ee[i] = available[i].fn;
   }
 
@@ -112,11 +114,11 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var evt = prefix ? prefix + event : event;
+  let evt = prefix ? prefix + event : event;
 
   if (!this._events[evt]) return false;
 
-  var listeners = this._events[evt]
+  let listeners = this._events[evt]
     , len = arguments.length
     , args
     , i;
@@ -133,16 +135,17 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
     }
 
-    for (i = 1, args = new Array(len -1); i < len; i++) {
+    let args = new Array(len - 1);
+    for (let i = 1; i < len; i++) {
       args[i - 1] = arguments[i];
     }
 
     listeners.fn.apply(listeners.context, args);
   } else {
-    var length = listeners.length
+    let length = listeners.length
       , j;
 
-    for (i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
@@ -173,7 +176,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  * @api public
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
-  var listener = new EE(fn, context || this)
+  let listener = new EE(fn, context || this)
     , evt = prefix ? prefix + event : event;
 
   if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
@@ -193,7 +196,7 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
-  var listener = new EE(fn, context || this, true)
+  let listener = new EE(fn, context || this, true)
     , evt = prefix ? prefix + event : event;
 
   if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
@@ -214,7 +217,7 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var evt = prefix ? prefix + event : event;
+  let evt = prefix ? prefix + event : event;
 
   if (!this._events[evt]) return this;
   if (!fn) {
@@ -223,7 +226,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
     return this;
   }
 
-  var listeners = this._events[evt];
+  let listeners = this._events[evt];
 
   if (listeners.fn) {
     if (
@@ -235,7 +238,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
       else delete this._events[evt];
     }
   } else {
-    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+    let events = [];
+    let length = listeners.length;
+    for (let i = 0; i < length; i++) {
       if (
            listeners[i].fn !== fn
         || (once && !listeners[i].once)
@@ -264,7 +269,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
  * @api public
  */
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-  var evt;
+  let evt;
 
   if (event) {
     evt = prefix ? prefix + event : event;
