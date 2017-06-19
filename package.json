@@ -5,7 +5,7 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "build": "mkdir -p umd && webpack --entry . --optimize-minimize --output-library EventEmitter3 --output-library-target umd --output-path umd --output-filename eventemitter3.min.js",
+    "build": "mkdir -p umd && browserify index.js -s EventEmitter3 | uglifyjs -cm -o umd/eventemitter3.min.js",
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
     "prepublish": "if [ \"${TRAVIS}\" != \"true\" ]; then npm run build; fi",
     "test": "nyc --reporter=html --reporter=text mocha test/test.js",
@@ -46,11 +46,12 @@
   "pre-commit": "sync, test",
   "devDependencies": {
     "assume": "~1.5.0",
+    "browserify": "~14.4.0",
     "mocha": "~3.4.0",
     "nyc": "~11.0.1",
     "pre-commit": "~1.2.0",
     "sauce-browsers": "~1.0.0",
     "sauce-test": "~1.3.3",
-    "webpack": "~3.0.0"
+    "uglify-js": "~3.0.18"
   }
 }
