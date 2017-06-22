@@ -56,6 +56,7 @@ function EventEmitter() {
   this._eventsCount = 0;
 }
 
+
 /**
  * Return an array listing the events for which the emitter has registered
  * listeners.
@@ -169,11 +170,12 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  * @param {String|Symbol} event The event name.
  * @param {Function} fn The listener function.
  * @param {Mixed} [context=this] The context to invoke the listener with.
+ * @param {Boolean} [once] Whether a one-time listener
  * @returns {EventEmitter} `this`.
- * @api public
+ * @api private
  */
-EventEmitter.prototype.on = function on(event, fn, context) {
-  var listener = new EE(fn, context || this)
+function _addListener(event, fn, context, once) {
+  var listener = new EE(fn, context || this, once)
     , evt = prefix ? prefix + event : event;
 
   if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
@@ -181,32 +183,20 @@ EventEmitter.prototype.on = function on(event, fn, context) {
   else this._events[evt] = [this._events[evt], listener];
 
   return this;
+}
+
+EventEmitter.prototype.on = function on(event, fn, context) {
+  return _addListener.call(this, event, fn, context);
 };
 
-/**
- * Add a one-time listener for a given event.
- *
- * @param {String|Symbol} event The event name.
- * @param {Function} fn The listener function.
- * @param {Mixed} [context=this] The context to invoke the listener with.
- * @returns {EventEmitter} `this`.
- * @api public
- */
 EventEmitter.prototype.once = function once(event, fn, context) {
-  var listener = new EE(fn, context || this, true)
-    , evt = prefix ? prefix + event : event;
-
-  if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
-  else if (!this._events[evt].fn) this._events[evt].push(listener);
-  else this._events[evt] = [this._events[evt], listener];
-
-  return this;
+  return _addListener.call(this, event, fn, context, true);
 };
 
 /**
  * Remove the listeners of a given event.
  *
- * @param {String|Symbol} event The event name.
+ * @param {String|Symbol} [event] The event name.
  * @param {Function} fn Only remove the listeners that match this function.
  * @param {Mixed} context Only remove the listeners that have this context.
  * @param {Boolean} once Only remove one-time listeners.
@@ -214,70 +204,61 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var evt = prefix ? prefix + event : event;
+  var evt;
 
-  if (!this._events[evt]) return this;
-  if (!fn) {
+  function clearEvent() {
     if (--this._eventsCount === 0) this._events = new Events();
     else delete this._events[evt];
-    return this;
   }
 
-  var listeners = this._events[evt];
-
-  if (listeners.fn) {
-    if (
-         listeners.fn === fn
-      && (!once || listeners.once)
-      && (!context || listeners.context === context)
-    ) {
-      if (--this._eventsCount === 0) this._events = new Events();
-      else delete this._events[evt];
-    }
+  if(!event) {
+    this._events = new Events();
+    this._eventsCount = 0;
+    return this;
   } else {
-    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+    evt = prefix ? prefix + event : event;
+    if (!this._events[evt]) return this;
+    if(!fn) {
+      clearEvent.call(this);
+      return this;
+    }
+    // when event && this._events[evt] && fn
+    var listeners = this._events[evt];
+
+    if (listeners.fn) {
       if (
-           listeners[i].fn !== fn
-        || (once && !listeners[i].once)
-        || (context && listeners[i].context !== context)
+          listeners.fn === fn
+        && (!once || listeners.once)
+        && (!context || listeners.context === context)
       ) {
-        events.push(listeners[i]);
+        clearEvent.call(this);
+      }
+    } else {
+      for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+        if (
+            listeners[i].fn !== fn
+          || (once && !listeners[i].once)
+          || (context && listeners[i].context !== context)
+        ) {
+          events.push(listeners[i]);
+        }
+      }
+
+      //
+      // Reset the array, or remove it completely if we have no more listeners.
+      //
+      if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+      else {
+        clearEvent.call(this);
       }
     }
 
-    //
-    // Reset the array, or remove it completely if we have no more listeners.
-    //
-    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
-    else if (--this._eventsCount === 0) this._events = new Events();
-    else delete this._events[evt];
+    return this;
   }
-
-  return this;
 };
 
-/**
- * Remove all listeners, or those of the specified event.
- *
- * @param {String|Symbol} [event] The event name.
- * @returns {EventEmitter} `this`.
- * @api public
- */
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-  var evt;
-
-  if (event) {
-    evt = prefix ? prefix + event : event;
-    if (this._events[evt]) {
-      if (--this._eventsCount === 0) this._events = new Events();
-      else delete this._events[evt];
-    }
-  } else {
-    this._events = new Events();
-    this._eventsCount = 0;
-  }
-
-  return this;
+  return this.removeListener(event);
 };
 
 //
