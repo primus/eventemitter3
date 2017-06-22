@@ -166,7 +166,8 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
 
 /**
  * Add a listener for a given event.
- *
+ * 
+ * @param {EventEmitter} `this`
  * @param {String|Symbol} event The event name.
  * @param {Function} fn The listener function.
  * @param {Mixed} [context=this] The context to invoke the listener with.
@@ -174,23 +175,23 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  * @returns {EventEmitter} `this`.
  * @api private
  */
-function _addListener(event, fn, context, once) {
-  var listener = new EE(fn, context || this, once)
+function _addListener(emitter, event, fn, context, once) {
+  var listener = new EE(fn, context || emitter, once)
     , evt = prefix ? prefix + event : event;
 
-  if (!this._events[evt]) this._events[evt] = listener, this._eventsCount++;
-  else if (!this._events[evt].fn) this._events[evt].push(listener);
-  else this._events[evt] = [this._events[evt], listener];
+  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+  else emitter._events[evt] = [emitter._events[evt], listener];
 
-  return this;
+  return emitter;
 }
 
 EventEmitter.prototype.on = function on(event, fn, context) {
-  return _addListener.call(this, event, fn, context);
+  return _addListener(this, event, fn, context, false);
 };
 
 EventEmitter.prototype.once = function once(event, fn, context) {
-  return _addListener.call(this, event, fn, context, true);
+  return _addListener(this, event, fn, context, true);
 };
 
 /**
