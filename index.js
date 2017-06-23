@@ -226,7 +226,7 @@ function clearEvent(emitter, evt) {
 /**
  * Remove the listeners of a given event.
  *
- * @param {String|Symbol} [event] The event name.
+ * @param {String|Symbol} event The event name.
  * @param {Function} fn Only remove the listeners that match this function.
  * @param {Mixed} context Only remove the listeners that have this context.
  * @param {Boolean} once Only remove one-time listeners.
@@ -234,15 +234,8 @@ function clearEvent(emitter, evt) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var evt;
+  var evt = prefix ? prefix + event : event;
 
-  if (!event) {
-    this._events = new Events();
-    this._eventsCount = 0;
-    return this;
-  }
-
-  evt = prefix ? prefix + event : event;
   if (!this._events[evt]) return this;
   if (!fn) {
     clearEvent(this, evt);
@@ -282,7 +275,19 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
   return this;
 };
 
+/**
+ * Remove all listeners, or those of the specified event.
+ *
+ * @param {String|Symbol} [event] The event name.
+ * @returns {EventEmitter} Reference to the EventEmitter instance.
+ * @api public
+ */
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+  if (!event) {
+    this._events = new Events();
+    this._eventsCount = 0;
+    return this;
+  }
   return this.removeListener(event);
 };
 
