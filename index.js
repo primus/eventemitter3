@@ -283,12 +283,19 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
  * @api public
  */
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-  if (!event) {
+  var evt;
+
+  if (event) {
+    evt = prefix ? prefix + event : event;
+    if (this._events[evt]) {
+      clearEvent(this, evt)
+    }
+  } else {
     this._events = new Events();
     this._eventsCount = 0;
-    return this;
   }
-  return this.removeListener(event);
+
+  return this;
 };
 
 //
