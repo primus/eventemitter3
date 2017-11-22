@@ -22,6 +22,11 @@ export class EventEmitter {
   listeners(event: string | symbol): Array<ListenerFn>;
 
   /**
+   * Return the number of listeners listening to a given event.
+   */
+  listenerCount(event: string | symbol): number;
+
+  /**
    * Calls each of the listeners registered for a given event.
    */
   emit(event: string | symbol, ...args: Array<any>): boolean;

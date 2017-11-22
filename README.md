@@ -17,7 +17,6 @@ differences:
   really just edge cases.
 - No `setMaxListeners` and its pointless memory leak warnings. If you want to
   add `end` listeners you should be able to do that without modules complaining.
-- No `listenerCount` method. Use `EE.listeners(event).length` instead.
 - Support for custom context for events so there is no need to use `fn.bind`.
 - The `listeners` method can do existence checking instead of returning only
   arrays.
