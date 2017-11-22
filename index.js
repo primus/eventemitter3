@@ -56,6 +56,10 @@ function EE(fn, context, once) {
  * @private
  */
 function addListener(emitter, event, fn, context, once) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('The listener must be a function');
+  }
+
   var listener = new EE(fn, context || emitter, once)
     , evt = prefix ? prefix + event : event;
 
