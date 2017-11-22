@@ -119,20 +119,18 @@ EventEmitter.prototype.eventNames = function eventNames() {
  * Return the listeners registered for a given event.
  *
  * @param {(String|Symbol)} event The event name.
- * @param {Boolean} exists Only check if there are listeners.
- * @returns {(Array|Boolean)}
+ * @returns {Array} The registered listeners.
  * @public
  */
-EventEmitter.prototype.listeners = function listeners(event, exists) {
+EventEmitter.prototype.listeners = function listeners(event) {
   var evt = prefix ? prefix + event : event
-    , available = this._events[evt];
+    , handlers = this._events[evt];
 
-  if (exists) return !!available;
-  if (!available) return [];
-  if (available.fn) return [available.fn];
+  if (!handlers) return [];
+  if (handlers.fn) return [handlers.fn];
 
-  for (var i = 0, l = available.length, ee = new Array(l); i < l; i++) {
-    ee[i] = available[i].fn;
+  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
+    ee[i] = handlers[i].fn;
   }
 
   return ee;
