@@ -304,6 +304,22 @@ describe('EventEmitter', function tests() {
     });
   });
 
+  describe('EventEmitter#on', function () {
+    it('throws an error if the listener is not a function', function () {
+      var e = new EventEmitter();
+
+      try {
+        e.on('foo', 'bar');
+      } catch (ex) {
+        assume(ex).is.instanceOf(TypeError);
+        assume(ex.message).equals('The listener must be a function');
+        return;
+      }
+
+      throw new Error('oops');
+    });
+  });
+
   describe('EventEmitter#once', function () {
     it('only emits it once', function () {
       var e = new EventEmitter()
