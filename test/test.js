@@ -42,21 +42,29 @@ describe('EventEmitter', function tests() {
       , event = Symbol('cows')
       , unknown = Symbol('moo');
 
-    e.on(event, function (arg) {
-      assume(e.listeners(unknown).length).equals(0);
+    e.on(event, function foo(arg) {
+      assume(e.listenerCount(unknown)).equals(0);
+      assume(e.listeners(unknown)).deep.equals([]);
       assume(arg).equals('bar');
 
-      e.once(unknown, function (onced) {
-        assume(e.listeners(unknown).length).equals(0);
+      function bar(onced) {
+        assume(e.listenerCount(unknown)).equals(0);
+        assume(e.listeners(unknown)).deep.equals([]);
         assume(onced).equals('foo');
         next();
-      });
+      }
 
-      assume(e.listeners(event).length).equals(1);
-      assume(e.listeners(unknown).length).equals(1);
+      e.once(unknown, bar);
+
+      assume(e.listenerCount(event)).equals(1);
+      assume(e.listeners(event)).deep.equals([foo]);
+      assume(e.listenerCount(unknown)).equals(1);
+      assume(e.listeners(unknown)).deep.equals([bar]);
 
       e.removeListener(event);
-      assume(e.listeners(event).length).equals(0);
+
+      assume(e.listenerCount(event)).equals(0);
+      assume(e.listeners(event)).deep.equals([]);
       assume(e.emit(unknown, 'foo')).equals(true);
     });
 
@@ -303,6 +311,20 @@ describe('EventEmitter', function tests() {
       assume(e.listeners('multiple', true)).equals(false);
       assume(e.listeners('on', true)).equals(false);
       assume(e.listeners('multi', true)).equals(false);
+    });
+  });
+
+  describe('EventEmitter#listenerCount', function () {
+    it('returns the number of listeners for a given event', function () {
+      var e = new EventEmitter();
+
+      assume(e.listenerCount()).equals(0);
+      assume(e.listenerCount('foo')).equals(0);
+
+      e.on('foo', function () {});
+      assume(e.listenerCount('foo')).equals(1);
+      e.on('foo', function () {});
+      assume(e.listenerCount('foo')).equals(2);
     });
   });
 

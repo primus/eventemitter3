@@ -139,6 +139,22 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
 };
 
 /**
+ * Return the number of listeners listening to a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Number} The number of listeners.
+ * @public
+ */
+EventEmitter.prototype.listenerCount = function listenerCount(event) {
+  var evt = prefix ? prefix + event : event
+    , listeners = this._events[evt];
+
+  if (!listeners) return 0;
+  if (listeners.fn) return 1;
+  return listeners.length;
+};
+
+/**
  * Calls each of the listeners registered for a given event.
  *
  * @param {(String|Symbol)} event The event name.
