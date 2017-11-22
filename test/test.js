@@ -639,18 +639,4 @@ describe('EventEmitter', function tests() {
       assume(e.eventNames()).eql([s]);
     });
   });
-
-  describe('EventEmitter#setMaxListeners', function () {
-    it('is a function', function () {
-      var e = new EventEmitter();
-
-      assume(e.setMaxListeners).is.a('function');
-    });
-
-    it('returns self when called', function () {
-      var e = new EventEmitter();
-
-      assume(e.setMaxListeners()).to.equal(e);
-    });
-  });
 });
