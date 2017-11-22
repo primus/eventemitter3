@@ -13,10 +13,10 @@ differences:
 - Domain support has been removed.
 - We do not `throw` an error when you emit an `error` event and nobody is
   listening.
-- The `newListener` event is removed as the use-cases for this functionality are
-  really just edge cases.
-- No `setMaxListeners` and its pointless memory leak warnings. If you want to
-  add `end` listeners you should be able to do that without modules complaining.
+- The `newListener` and `removeListener` events have been removed as they
+  are useful only in some uncommon use-cases.
+- The `setMaxListeners`, `getMaxListeners`, `prependListener` and
+  `preperndOnceListener` methods are not available.
 - Support for custom context for events so there is no need to use `fn.bind`.
 - The `removeListener` method removes all matching listeners, not only the
   first.
