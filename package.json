@@ -9,8 +9,7 @@
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
     "test": "nyc --reporter=html --reporter=text mocha test/test.js",
     "test-browser": "node test/browser.js",
-    "prepublishOnly": "npm run build",
-    "sync": "node versions.js"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "index.js",
@@ -43,7 +42,6 @@
   "bugs": {
     "url": "https://github.com/primus/eventemitter3/issues"
   },
-  "pre-commit": "sync, test",
   "devDependencies": {
     "assume": "~1.5.0",
     "browserify": "~14.5.0",
