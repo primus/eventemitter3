@@ -18,8 +18,6 @@ differences:
 - No `setMaxListeners` and its pointless memory leak warnings. If you want to
   add `end` listeners you should be able to do that without modules complaining.
 - Support for custom context for events so there is no need to use `fn.bind`.
-- The `listeners` method can do existence checking instead of returning only
-  arrays.
 - The `removeListener` method removes all matching listeners, not only the
   first.
 
@@ -74,22 +72,6 @@ function emitted() {
 EE.once('event-name', emitted, context);
 EE.on('another-event', emitted, context);
 EE.removeListener('another-event', emitted, context);
-```
-
-### Existence
-
-To check if there is already a listener for a given event you can supply the
-`listeners` method with an extra boolean argument. This will transform the
-output from an array, to a boolean value which indicates if there are listeners
-in place for the given event:
-
-```js
-var EE = new EventEmitter();
-EE.once('event-name', function () {});
-EE.on('another-event', function () {});
-
-EE.listeners('event-name', true); // returns true
-EE.listeners('unknown-name', true); // returns false
 ```
 
 ### Tests and benchmarks
