@@ -1,37 +1,28 @@
 'use strict';
 
-/**
- * Benchmark related modules.
- */
 var benchmark = require('benchmark');
 
-/**
- * Preparation code.
- */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../')
+  , EventEmitter3 = require('eventemitter3')
   , Drip = require('drip').EventEmitter
+  , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , CE = require('contra/emitter');
+  , Master = require('../../');
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
 }
 
-/**
- * Instances.
- */
-var ee2 = new EventEmitter2()
+var ee1 = new EventEmitter1()
+  , ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
-  , ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
   , fe = new FE()
-  , ee = EE({})
-  , ce = CE();
+  , ce = CE()
+  , ee = EE();
 
 ee.on('foo', handle);
 fe.on('foo', handle);

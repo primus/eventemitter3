@@ -1,17 +1,11 @@
 'use strict';
 
-/**
- * Benchmark related modules.
- */
 var benchmark = require('benchmark');
 
-/**
- * Preparation code.
- */
-var EventEmitter3 = require('eventemitter3')
-  , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../')
-  , FE = require('fastemitter');
+var EventEmitter1 = require('events').EventEmitter
+  , EventEmitter3 = require('eventemitter3')
+  , FE = require('fastemitter')
+  , Master = require('../../');
 
 var MAX_LISTENERS = Math.pow(2, 32) - 1;
 
@@ -19,11 +13,8 @@ function handle() {
   if (arguments.length > 100) console.log('damn');
 }
 
-/**
- * Instances.
- */
-var ee3 = new EventEmitter3()
-  , ee1 = new EventEmitter1()
+var ee1 = new EventEmitter1()
+  , ee3 = new EventEmitter3()
   , master = new Master()
   , fe = new FE();
 
@@ -38,22 +29,22 @@ for (var i = 0; i < 25; i++) {
 }
 
 //
-// EE2 doesn't correctly handle listeners as they can be removed by doing a
-// ee2.listeners('event').length = 0; kills the event emitter, same counts for
-// Drip.
-// event-emitter and contra/emitter does not implement.
+// eventemitter2 doesn't correctly handle listeners as they can be removed by
+// doing `ee2.listeners('event').length = 0;`. Same counts for Drip.
+//
+// event-emitter and contra/emitter do not implement `listeners`.
 //
 
 (
   new benchmark.Suite()
 ).add('EventEmitter1', function () {
   ee1.listeners('event');
-}).add('fastemitter', function() {
-  fe.listeners('event');
 }).add('EventEmitter3@0.1.6', function() {
   ee3.listeners('event');
 }).add('EventEmitter3(master)', function() {
   master.listeners('event');
+}).add('fastemitter', function() {
+  fe.listeners('event');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

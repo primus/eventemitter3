@@ -1,21 +1,14 @@
 'use strict';
 
-/**
- * Benchmark related modules.
- */
 var benchmark = require('benchmark');
 
-/**
- * Preparation code.
- */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../')
-  , Drip = require('drip').EventEmitter
+  , EventEmitter3 = require('eventemitter3')
+  , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , CE = require('contra/emitter');
+  , Master = require('../../');
 
 function foo() {
   if (arguments.length > 100) console.log('damn');
@@ -35,17 +28,13 @@ function baz() {
   return true;
 }
 
-/**
- * Instances.
- */
-var ee2 = new EventEmitter2()
+var ee1 = new EventEmitter1()
+  , ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
-  , ee1 = new EventEmitter1()
   , master = new Master()
-  , drip = new Drip()
   , fe = new FE()
-  , ee = EE({})
-  , ce = CE();
+  , ce = CE()
+  , ee = EE();
 
 ce.on('foo', foo).on('foo', bar).on('foo', baz);
 ee.on('foo', foo).on('foo', bar).on('foo', baz);
@@ -53,8 +42,12 @@ fe.on('foo', foo).on('foo', bar).on('foo', baz);
 ee3.on('foo', foo).on('foo', bar).on('foo', baz);
 ee2.on('foo', foo).on('foo', bar).on('foo', baz);
 ee1.on('foo', foo).on('foo', bar).on('foo', baz);
-drip.on('foo', foo).on('foo', bar).on('foo', baz);
 master.on('foo', foo).on('foo', bar).on('foo', baz);
+
+//
+// Drip is omitted as it throws an error.
+// Ref: https://github.com/qualiancy/drip/pull/4
+//
 
 (
   new benchmark.Suite()
@@ -78,11 +71,6 @@ master.on('foo', foo).on('foo', bar).on('foo', baz);
   master.emit('foo', 'bar');
   master.emit('foo', 'bar', 'baz');
   master.emit('foo', 'bar', 'baz', 'boom');
-}).add('Drip', function() {
-  drip.emit('foo');
-  drip.emit('foo', 'bar');
-  drip.emit('foo', 'bar', 'baz');
-  drip.emit('foo', 'bar', 'baz', 'boom');
 }).add('fastemitter', function() {
   fe.emit('foo');
   fe.emit('foo', 'bar');
