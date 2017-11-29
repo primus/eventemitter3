@@ -1,40 +1,40 @@
 'use strict';
 
-/**
- * Benchmark related modules.
- */
 var benchmark = require('benchmark');
 
-/**
- * Preparation code.
- */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../')
+  , EventEmitter3 = require('eventemitter3')
   , Drip = require('drip').EventEmitter
+  , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , CE = require('contra/emitter');
+  , Master = require('../../');
+
+//
+// This is used to prevent the functions below from being transformed into
+// noops.
+//
+var emitter;
 
 (
   new benchmark.Suite()
 ).add('EventEmitter1', function() {
-  new EventEmitter1();
+  emitter = new EventEmitter1();
 }).add('EventEmitter2', function() {
-  new EventEmitter2();
+  emitter = new EventEmitter2();
 }).add('EventEmitter3@0.1.6', function() {
-  new EventEmitter3();
+  emitter = new EventEmitter3();
 }).add('EventEmitter3(master)', function() {
-  new Master();
+  emitter = new Master();
 }).add('Drip', function() {
-  new Drip();
+  emitter = new Drip();
 }).add('fastemitter', function() {
-  new FE();
+  emitter = new FE();
 }).add('event-emitter', function() {
-  EE({});
+  emitter = EE();
 }).add('contra/emitter', function() {
-  CE();
+  emitter = CE();
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

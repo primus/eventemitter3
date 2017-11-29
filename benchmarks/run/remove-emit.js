@@ -1,39 +1,28 @@
 'use strict';
 
-/**
- * Benchmark related modules.
- */
 var benchmark = require('benchmark');
 
-/**
- * Preparation code.
- */
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-  , EventEmitter3 = require('eventemitter3')
   , EventEmitter1 = require('events').EventEmitter
-  , Master = require('../../')
+  , EventEmitter3 = require('eventemitter3')
   , Drip = require('drip').EventEmitter
+  , CE = require('contra/emitter')
   , EE = require('event-emitter')
-  , FE = require('fastemitter')
-  , CE = require('contra/emitter');
+  , Master = require('../../');
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
 }
 
-/**
- * Instances.
- */
-var ee2 = new EventEmitter2()
+var ee1 = new EventEmitter1()
+  , ee2 = new EventEmitter2()
   , ee3 = new EventEmitter3()
-  , ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
-  , fe = new FE()
-  , ee = EE({})
-  , ce = CE();
+  , ce = CE()
+  , ee = EE();
 
-[ce, ee, ee3, ee2, ee1, fe, drip, master].forEach(function ohai(emitter) {
+[ee1, ee2, ee3, master, drip, ee, ce].forEach(function ohai(emitter) {
   emitter.on('foo', handle);
 
   //
@@ -45,6 +34,10 @@ var ee2 = new EventEmitter2()
   else if (emitter.off) emitter.off('ohai', ohai);
   else throw new Error('No proper remove implementation');
 });
+
+//
+// FastEmitter is omitted as it throws an error.
+//
 
 (
   new benchmark.Suite()
@@ -73,11 +66,6 @@ var ee2 = new EventEmitter2()
   drip.emit('foo', 'bar');
   drip.emit('foo', 'bar', 'baz');
   drip.emit('foo', 'bar', 'baz', 'boom');
-}).add('fastemitter', function() {
-  fe.emit('foo');
-  fe.emit('foo', 'bar');
-  fe.emit('foo', 'bar', 'baz');
-  fe.emit('foo', 'bar', 'baz', 'boom');
 }).add('event-emitter', function() {
   ee.emit('foo');
   ee.emit('foo', 'bar');
