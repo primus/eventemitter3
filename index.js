@@ -171,7 +171,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
   var listeners = this._events[evt]
     , len = arguments.length
     , args
-    , i;
+    , i = 0;
 
   if (listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
@@ -185,14 +185,15 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
     }
 
-    for (i = 1, args = new Array(len -1); i < len; i++) {
-      args[i - 1] = arguments[i];
+    args = [];
+    while(++i < len) {
+      args[args.length] = arguments[i];
     }
 
     listeners.fn.apply(listeners.context, args);
   } else {
     var length = listeners.length
-      , j;
+      , j = 0;
 
     for (i = 0; i < length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
@@ -203,8 +204,11 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
         case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
         case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
         default:
-          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
-            args[j - 1] = arguments[j];
+          if (!args) {
+            args = [];
+            while(++j < len) {
+              args[args.length] = arguments[j];
+            }
           }
 
           listeners[i].fn.apply(listeners[i].context, args);
