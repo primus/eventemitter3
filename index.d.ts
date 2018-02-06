@@ -1,11 +1,3 @@
-export = EventEmitter;
-
-declare namespace EventEmitter {
-  export interface ListenerFn {
-    (...args: Array<any>): void;
-  }
-}
-
 /**
  * Minimal `EventEmitter` interface that is molded against the Node.js
  * `EventEmitter` interface.
@@ -56,3 +48,17 @@ declare class EventEmitter {
    */
   removeAllListeners(event?: string | symbol): this;
 }
+
+declare namespace EventEmitter {
+  export interface ListenerFn {
+    (...args: Array<any>): void;
+  }
+
+  export interface EventEmitterStatic {
+    new(): EventEmitter;
+  }
+
+  export const EventEmitter: EventEmitterStatic;
+}
+
+export = EventEmitter;
