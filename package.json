@@ -48,7 +48,7 @@
     "mocha": "~5.0.0",
     "nyc": "~11.4.1",
     "pre-commit": "~1.2.0",
-    "sauce-browsers": "~1.0.0",
+    "sauce-browsers": "~1.1.0",
     "sauce-test": "~1.3.3",
     "uglify-js": "~3.3.0"
   }
