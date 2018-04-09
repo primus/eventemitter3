@@ -5,11 +5,12 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "build": "mkdir -p umd && browserify index.js -s EventEmitter3 | uglifyjs -cm -o umd/eventemitter3.min.js",
+    "browserify": "rm -rf umd && mkdir umd && browserify index.js -s EventEmitter3 -o umd/eventemitter3.js",
+    "minify": "uglifyjs umd/eventemitter3.js --source-map -cm -o umd/eventemitter3.min.js",
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
     "test": "nyc --reporter=html --reporter=text mocha test/test.js",
-    "test-browser": "node test/browser.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run browserify && npm run minify",
+    "test-browser": "node test/browser.js"
   },
   "files": [
     "index.js",
