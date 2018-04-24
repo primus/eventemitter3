@@ -2,51 +2,51 @@
  * Minimal `EventEmitter` interface that is molded against the Node.js
  * `EventEmitter` interface.
  */
-declare class EventEmitter {
+declare class EventEmitter<EventTypes extends string | symbol = string | symbol> {
   static prefixed: string | boolean;
 
   /**
    * Return an array listing the events for which the emitter has registered
    * listeners.
    */
-  eventNames(): Array<string | symbol>;
+  eventNames(): Array<EventTypes>;
 
   /**
    * Return the listeners registered for a given event.
    */
-  listeners(event: string | symbol): Array<EventEmitter.ListenerFn>;
+  listeners(event: EventTypes): Array<EventEmitter.ListenerFn>;
 
   /**
    * Return the number of listeners listening to a given event.
    */
-  listenerCount(event: string | symbol): number;
+  listenerCount(event: EventTypes): number;
 
   /**
    * Calls each of the listeners registered for a given event.
    */
-  emit(event: string | symbol, ...args: Array<any>): boolean;
+  emit(event: EventTypes, ...args: Array<any>): boolean;
 
   /**
    * Add a listener for a given event.
    */
-  on(event: string | symbol, fn: EventEmitter.ListenerFn, context?: any): this;
-  addListener(event: string | symbol, fn: EventEmitter.ListenerFn, context?: any): this;
+  on(event: EventTypes, fn: EventEmitter.ListenerFn, context?: any): this;
+  addListener(event: EventTypes, fn: EventEmitter.ListenerFn, context?: any): this;
 
   /**
    * Add a one-time listener for a given event.
    */
-  once(event: string | symbol, fn: EventEmitter.ListenerFn, context?: any): this;
+  once(event: EventTypes, fn: EventEmitter.ListenerFn, context?: any): this;
 
   /**
    * Remove the listeners of a given event.
    */
-  removeListener(event: string | symbol, fn?: EventEmitter.ListenerFn, context?: any, once?: boolean): this;
-  off(event: string | symbol, fn?: EventEmitter.ListenerFn, context?: any, once?: boolean): this;
+  removeListener(event: EventTypes, fn?: EventEmitter.ListenerFn, context?: any, once?: boolean): this;
+  off(event: EventTypes, fn?: EventEmitter.ListenerFn, context?: any, once?: boolean): this;
 
   /**
    * Remove all listeners, or those of the specified event.
    */
-  removeAllListeners(event?: string | symbol): this;
+  removeAllListeners(event?: EventTypes): this;
 }
 
 declare namespace EventEmitter {
@@ -55,7 +55,7 @@ declare namespace EventEmitter {
   }
 
   export interface EventEmitterStatic {
-    new(): EventEmitter;
+    new<EventTypes extends string | symbol = string | symbol>(): EventEmitter<EventTypes>;
   }
 
   export const EventEmitter: EventEmitterStatic;
