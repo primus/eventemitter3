@@ -55,7 +55,7 @@ declare namespace EventEmitter {
   }
 
   export interface EventEmitterStatic {
-    new(): EventEmitter;
+    new<EventTypes extends string | symbol = string | symbol>(): EventEmitter<EventTypes>;
   }
 
   export const EventEmitter: EventEmitterStatic;
