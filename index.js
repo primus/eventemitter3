@@ -232,12 +232,18 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  * Add a one-time listener for a given event.
  *
  * @param {(String|Symbol)} event The event name.
- * @param {Function} fn The listener function.
+ * @param {Function} [fn] The listener function.
  * @param {*} [context=this] The context to invoke the listener with.
- * @returns {EventEmitter} `this`.
+ * @returns {EventEmitter|Promise} `this` if a listener was passed for chaining, 
+ * or a promise for the event if none was passed.
  * @public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
+  if (typeof fn !== 'function' && typeof Promise === 'function') {
+    return new Promise(function executor(resolve, reject) {
+      addListener(this, event, resolve, this, true); 
+    }.bind(this));
+  }
   return addListener(this, event, fn, context, true);
 };
 
