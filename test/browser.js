@@ -17,11 +17,15 @@ const platforms = sauceBrowsers([
   { name: 'microsoftedge', version: 'oldest..latest' }
 ]).then((platforms) => {
   return platforms.map((platform) => {
-    return {
+    const ret = {
       browserName: platform.api_name,
       version: platform.short_version,
       platform: platform.os
     };
+
+    if (ret.browserName === 'android') ret.deviceName = platform.long_name;
+
+    return ret;
   });
 });
 
