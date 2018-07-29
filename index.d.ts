@@ -47,6 +47,11 @@ declare class EventEmitter<EventTypes extends string | symbol = string | symbol>
    * Remove all listeners, or those of the specified event.
    */
   removeAllListeners(event?: EventTypes): this;
+
+  /**
+   * Removes all listeners that were added with the specified context.
+   */
+  removeListenersByContext(context?: any): this;
 }
 
 declare namespace EventEmitter {

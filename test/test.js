@@ -568,6 +568,35 @@ describe('EventEmitter', function tests() {
     });
   });
 
+  describe('EventEmitter#removeListenersByContext', function () {
+    it('removes all listeners for the specified context', function () {
+      var e = new EventEmitter();
+      var ctx1 = {};
+      var ctx2 = {};
+      var ctx3 = {};
+
+      e.on('aaa', function () { throw new Error('oops'); }, ctx1);
+      e.on('bbb', function () { throw new Error('oops'); }, ctx1);
+      e.on('aaa', function () { throw new Error('oops'); }, ctx2);
+      e.on('bbb', function () { throw new Error('oops'); }, ctx3);
+
+      assume(e.removeListenersByContext(ctx1)).equals(e);
+      assume(e.listeners('aaa').length).equals(1);
+      assume(e.listeners('bbb').length).equals(1);
+      assume(e._eventsCount).equals(2);
+
+      assume(e.removeListenersByContext(ctx2)).equals(e);
+      assume(e.listeners('aaa').length).equals(0);
+      assume(e.listeners('bbb').length).equals(1);
+      assume(e._eventsCount).equals(1);
+
+      assume(e.removeListenersByContext(ctx3)).equals(e);
+      assume(e.listeners('aaa').length).equals(0);
+      assume(e.listeners('bbb').length).equals(0);
+      assume(e._eventsCount).equals(0);
+    });
+  });
+
   describe('EventEmitter#eventNames', function () {
     it('returns an empty array when there are no events', function () {
       var e = new EventEmitter();
