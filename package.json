@@ -47,7 +47,7 @@
     "assume": "~1.5.0",
     "browserify": "~16.2.0",
     "mocha": "~5.2.0",
-    "nyc": "~13.2.0",
+    "nyc": "~13.3.0",
     "pre-commit": "~1.2.0",
     "sauce-browsers": "~2.0.0",
     "sauce-test": "~1.3.3",
