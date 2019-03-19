@@ -44,7 +44,7 @@
     "url": "https://github.com/primus/eventemitter3/issues"
   },
   "devDependencies": {
-    "assume": "~1.5.0",
+    "assume": "~2.2.0",
     "browserify": "~16.2.0",
     "mocha": "~6.0.0",
     "nyc": "~13.3.0",
