@@ -51,7 +51,7 @@ declare class EventEmitter<EventTypes extends string | symbol = string | symbol>
 
 declare namespace EventEmitter {
   export interface ListenerFn {
-    (...args: Array<any>): void;
+    (...args: Array<any>): void | Promise<void>;
   }
 
   export interface EventEmitterStatic {
