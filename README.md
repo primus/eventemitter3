@@ -18,6 +18,8 @@ differences:
 - The `setMaxListeners`, `getMaxListeners`, `prependListener` and
   `prependOnceListener` methods are not available.
 - Support for custom context for events so there is no need to use `fn.bind`.
+- There is an additional method named `removeListenersByContext`, which removes all listeners of the given
+  context.
 - The `removeListener` method removes all matching listeners, not only the
   first.
 
@@ -61,6 +63,9 @@ or `this` value that should be set for the emitted events. This means you no
 longer have the overhead of an event that required `fn.bind` in order to get a
 custom `this` value.
 
+In addition to that, we have added a new method: `EventEmitter.removeListenersByContext`,
+which will remove all listeners of the given context.
+
 ```js
 var EE = new EventEmitter()
   , context = { foo: 'bar' };
@@ -72,6 +77,7 @@ function emitted() {
 EE.once('event-name', emitted, context);
 EE.on('another-event', emitted, context);
 EE.removeListener('another-event', emitted, context);
+EE.removeListenersByContext(context);
 ```
 
 ### Tests and benchmarks

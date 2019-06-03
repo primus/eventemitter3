@@ -312,6 +312,38 @@ EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   return this;
 };
 
+/**
+ * Remove all listeners on a specific context.
+ *
+ * @param {*} context Only remove the listeners that have this context.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.removeListenersByContext = function removeListenersByContext(context) {
+  var eventNames = this.eventNames();
+  var totalListenerCount = 0;
+
+  for (var i = 0, eventsCount = eventNames.length; i < eventsCount; i++) {
+    var evt = eventNames[i];
+    var listeners = this._events[evt];
+
+    if (listeners.fn) listeners = [listeners];
+    for (var j = 0, events = [], listenersCount = listeners.length; j < listenersCount; j++) {
+      if (listeners[j].context !== context) events.push(listeners[j]);
+    }
+
+    if (events.length) {
+      this._events[evt] = events.length === 1 ? events[0] : events;
+      totalListenerCount += events.length;
+    } else {
+      clearEvent(this, evt);
+    }
+  }
+
+  this._eventsCount = totalListenerCount;
+  return this;
+};
+
 //
 // Alias methods names because people roll like that.
 //
