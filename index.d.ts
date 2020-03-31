@@ -34,6 +34,7 @@ declare class EventEmitter<
   EventTypes extends
     | string
     | symbol
+    | {}
     | { [K in keyof EventTypes]: any[] | ((...args: any[]) => void) } =
     | string
     | symbol,
