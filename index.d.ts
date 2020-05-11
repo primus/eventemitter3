@@ -39,12 +39,22 @@ declare class EventEmitter<
    */
   on<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
-    fn: EventEmitter.EventListener<EventTypes, T> | ((...args: any[]) => void),
+    fn: EventEmitter.EventListener<EventTypes, T>,
+    context?: Context
+  ): this;
+  on<T extends EventEmitter.EventNames<EventTypes>>(
+    event: T,
+    fn: Function,
     context?: Context
   ): this;
   addListener<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
     fn: EventEmitter.EventListener<EventTypes, T>,
+    context?: Context
+  ): this;
+  addListener<T extends EventEmitter.EventNames<EventTypes>>(
+    event: T,
+    fn: Function,
     context?: Context
   ): this;
 
@@ -53,7 +63,12 @@ declare class EventEmitter<
    */
   once<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
-    fn: EventEmitter.EventListener<EventTypes, T> | ((...args: any[]) => void),
+    fn: EventEmitter.EventListener<EventTypes, T>,
+    context?: Context
+  ): this;
+  once<T extends EventEmitter.EventNames<EventTypes>>(
+    event: T,
+    fn: Function,
     context?: Context
   ): this;
 
@@ -62,13 +77,25 @@ declare class EventEmitter<
    */
   removeListener<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
-    fn?: EventEmitter.EventListener<EventTypes, T> | ((...args: any[]) => void),
+    fn?: EventEmitter.EventListener<EventTypes, T>,
+    context?: Context,
+    once?: boolean
+  ): this;
+  removeListener<T extends EventEmitter.EventNames<EventTypes>>(
+    event: T,
+    fn?: Function,
     context?: Context,
     once?: boolean
   ): this;
   off<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
-    fn?: EventEmitter.EventListener<EventTypes, T> | ((...args: any[]) => void),
+    fn?: EventEmitter.EventListener<EventTypes, T>,
+    context?: Context,
+    once?: boolean
+  ): this;
+  off<T extends EventEmitter.EventNames<EventTypes>>(
+    event: T,
+    fn?: Function,
     context?: Context,
     once?: boolean
   ): this;
