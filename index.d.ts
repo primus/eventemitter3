@@ -42,19 +42,9 @@ declare class EventEmitter<
     fn: EventEmitter.EventListener<EventTypes, T>,
     context?: Context
   ): this;
-  on<T extends EventEmitter.EventNames<EventTypes>>(
-    event: T,
-    fn: Function,
-    context?: Context
-  ): this;
   addListener<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
     fn: EventEmitter.EventListener<EventTypes, T>,
-    context?: Context
-  ): this;
-  addListener<T extends EventEmitter.EventNames<EventTypes>>(
-    event: T,
-    fn: Function,
     context?: Context
   ): this;
 
@@ -64,11 +54,6 @@ declare class EventEmitter<
   once<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
     fn: EventEmitter.EventListener<EventTypes, T>,
-    context?: Context
-  ): this;
-  once<T extends EventEmitter.EventNames<EventTypes>>(
-    event: T,
-    fn: Function,
     context?: Context
   ): this;
 
@@ -81,21 +66,9 @@ declare class EventEmitter<
     context?: Context,
     once?: boolean
   ): this;
-  removeListener<T extends EventEmitter.EventNames<EventTypes>>(
-    event: T,
-    fn?: Function,
-    context?: Context,
-    once?: boolean
-  ): this;
   off<T extends EventEmitter.EventNames<EventTypes>>(
     event: T,
     fn?: EventEmitter.EventListener<EventTypes, T>,
-    context?: Context,
-    once?: boolean
-  ): this;
-  off<T extends EventEmitter.EventNames<EventTypes>>(
-    event: T,
-    fn?: Function,
     context?: Context,
     once?: boolean
   ): this;
@@ -128,16 +101,20 @@ declare namespace EventEmitter {
     ? T
     : keyof T;
 
+  export type ArgumentMap<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => void
+      ? Parameters<T[K]>
+      : T[K] extends any[]
+      ? T[K]
+      : any[];
+  };
+
   export type EventListener<
     T extends ValidEventTypes,
     K extends EventNames<T>
   > = T extends string | symbol
     ? (...args: any[]) => void
-    : T[K] extends (...args: any[]) => void
-    ? T[K]
-    : T[K] extends any[]
-    ? (...args: T[K]) => void
-    : (...args: any[]) => void;
+    : (...args: ArgumentMap<T>[K]) => void;
 
   export type EventArgs<
     T extends ValidEventTypes,
