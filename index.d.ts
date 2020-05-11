@@ -119,7 +119,10 @@ declare namespace EventEmitter {
   }
 
   export interface EventEmitterStatic {
-    new <EventTypes extends ValidEventTypes>(): EventEmitter<EventTypes>;
+    new <
+      EventTypes extends ValidEventTypes = string | symbol,
+      Context = any
+    >(): EventEmitter<EventTypes, Context>;
   }
 
   export const EventEmitter: EventEmitterStatic;
