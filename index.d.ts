@@ -91,17 +91,16 @@ declare namespace EventEmitter {
     >(): EventEmitter<EventTypes, Context>;
   }
 
-  export type ValidEventTypes<T = any> = string | symbol | T extends {
-    [K in keyof T]: any[] | ((...args: any[]) => void);
-  }
-    ? T
-    : never;
+  export type ValidEventTypes =
+    | string
+    | symbol
+    | { [K in string | symbol]: any[] | ((...args: any[]) => void) };
 
   export type EventNames<T extends ValidEventTypes> = T extends string | symbol
     ? T
     : keyof T;
 
-  export type ArgumentMap<T> = {
+  export type ArgumentMap<T extends object> = {
     [K in keyof T]: T[K] extends (...args: any[]) => void
       ? Parameters<T[K]>
       : T[K] extends any[]
@@ -114,7 +113,7 @@ declare namespace EventEmitter {
     K extends EventNames<T>
   > = T extends string | symbol
     ? (...args: any[]) => void
-    : (...args: ArgumentMap<T>[K]) => void;
+    : (...args: ArgumentMap<Exclude<T, string | symbol>>[K]) => void;
 
   export type EventArgs<
     T extends ValidEventTypes,
