@@ -94,7 +94,7 @@ declare namespace EventEmitter {
   export type ValidEventTypes =
     | string
     | symbol
-    | { [K in string | symbol]: any[] | ((...args: any[]) => void) };
+    | { [K in string | symbol]: any[] | ((...args: any[]) => void) | undefined };
 
   export type EventNames<T extends ValidEventTypes> = T extends string | symbol
     ? T
