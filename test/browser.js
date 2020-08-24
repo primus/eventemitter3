@@ -12,8 +12,8 @@ const platforms = sauceBrowsers([
   { name: 'firefox', version: ['oldest', 'latest'] },
   { name: 'internet explorer', version: 'oldest..latest' },
   { name: 'iphone', version: ['oldest', 'latest'] },
-  { name: 'safari', version: 'oldest..latest' },
-  { name: 'microsoftedge', version: 'oldest..latest' }
+  { name: 'safari', version: ['oldest', 'latest'] },
+  { name: 'microsoftedge', version: ['oldest', 'latest'] }
 ]).then((platforms) => {
   return platforms.map((platform) => {
     const ret = {
