@@ -91,6 +91,15 @@ declare namespace EventEmitter {
     >(): EventEmitter<EventTypes, Context>;
   }
 
+  /**
+   * `object` should be in either of the following forms:
+   * ```
+   * interface EventTypes {
+   *   'event-with-parameters': any[]
+   *   'event-with-example-handler': (...args: any[]) => void
+   * }
+   * ```
+   */
   export type ValidEventTypes = string | symbol | object;
 
   export type EventNames<T extends ValidEventTypes> = T extends string | symbol
@@ -105,17 +114,14 @@ declare namespace EventEmitter {
       : any[];
   };
 
-  export type Arguments<
-    T extends object,
-    K extends keyof T | string | symbol
-  > = K extends keyof T ? ArgumentMap<T>[K] : any[];
-
   export type EventListener<
     T extends ValidEventTypes,
     K extends EventNames<T>
   > = T extends string | symbol
     ? (...args: any[]) => void
-    : (...args: Arguments<Exclude<T, string | symbol>, K>) => void;
+    : (
+        ...args: ArgumentMap<Exclude<T, string | symbol>>[Extract<K, keyof T>]
+      ) => void;
 
   export type EventArgs<
     T extends ValidEventTypes,
