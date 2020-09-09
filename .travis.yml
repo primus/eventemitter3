@@ -16,7 +16,7 @@ matrix:
 script:
   - "npm run ${SCRIPT}"
 after_success:
-  - 'if [ "${SCRIPT}" == "test" ]; nyc report --reporter=text-lcov | coveralls; fi'
+  - 'if [ "${SCRIPT}" == "test" ]; then nyc report --reporter=text-lcov | coveralls; fi'
 notifications:
   irc:
     channels:
