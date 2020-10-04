@@ -1,7 +1,4 @@
 node_modules/
-components/
 coverage/
-build/
 umd/
 .tern-port
-npm-debug.log
