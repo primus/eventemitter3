@@ -29,12 +29,12 @@ const platforms = sauceBrowsers([
 });
 
 run(path.join(__dirname, 'test.js'), 'saucelabs', {
+  jobInfo: { name: pkg.name, build: process.env.GITHUB_RUN_ID },
   html: path.join(__dirname, 'index.html'),
   accessKey: process.env.SAUCE_ACCESS_KEY,
   username: process.env.SAUCE_USERNAME,
   browserify: true,
   disableSSL: true,
-  name: pkg.name,
   parallel: 5,
   platforms
 }).done((results) => {
