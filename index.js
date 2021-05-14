@@ -120,6 +120,19 @@ EventEmitter.prototype.eventNames = function eventNames() {
 };
 
 /**
+ * Determine if a listening event exists
+ * 
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Boolean} `true` if the event had listeners, else `false`.
+ * @public 
+ */
+EventEmitter.prototype.existEvent = function existEvents(event) {
+  var evt = prefix ? prefix + event : event;
+
+  return !!this._events[evt];
+};
+
+/**
  * Return the listeners registered for a given event.
  *
  * @param {(String|Symbol)} event The event name.

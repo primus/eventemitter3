@@ -15,6 +15,11 @@ declare class EventEmitter<
   eventNames(): Array<EventEmitter.EventNames<EventTypes>>;
 
   /**
+   * Determine if a listening event exists
+   */
+  existEvent(event: EventEmitter.EventNames<EventTypes>): Boolean
+
+  /**
    * Return the listeners registered for a given event.
    */
   listeners<T extends EventEmitter.EventNames<EventTypes>>(

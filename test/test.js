@@ -639,4 +639,25 @@ describe('EventEmitter', function tests() {
       assume(e.eventNames()).eql([s]);
     });
   });
+
+  describe('EventEmitter#existEvent', function () {
+    it('returns an false when there are no events', function () {
+      var e = new EventEmitter();
+
+      assume(e.existEvent('foo')).eql(false);
+
+      e.on('foo', function () {});
+      e.removeAllListeners('foo');
+
+      assume(e.existEvent()).eql(false);
+    });
+
+    it('returns an true when there are events', function () {
+      var e = new EventEmitter();
+
+      e.on('foo', function () {});
+
+      assume(e.existEvent('foo')).eql(true);
+    });
+  });
 });
