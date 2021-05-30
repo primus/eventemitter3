@@ -20,16 +20,10 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
-      - run:
-          echo ::set-output name=job_id::$(node -e
-          "console.log(crypto.randomBytes(16).toString('hex'))")
-        id: get_job_id
       - uses: coverallsapp/github-action@v1.1.2
+        if: matrix.node == 12
         with:
-          flag-name:
-            ${{ steps.get_job_id.outputs.job_id }} (Node.js ${{ matrix.node }})
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel: true
   test-browser:
     runs-on: ubuntu-latest
     env:
@@ -42,11 +36,3 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm run test-browser
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
