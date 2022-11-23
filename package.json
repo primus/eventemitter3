@@ -2,12 +2,21 @@
   "name": "eventemitter3",
   "version": "4.0.7",
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
-  "main": "index.js",
   "exports": {
-    "import": "./index.mjs",
-    "require": "./index.js"
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./umd/eventemitter3.js": {
+      "import": "./umd/eventemitter3.js",
+      "require": "./umd/eventemitter3.js",
+      "types": "./index.d.ts"
+    },
+    "./package.json": "./package.json"
   },
-  "typings": "index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "browserify": "rimraf -rf umd && mkdir umd && browserify index.js -s EventEmitter3 -o umd/eventemitter3.js",
     "minify": "uglifyjs umd/eventemitter3.js --source-map -cm -o umd/eventemitter3.min.js",
