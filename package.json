@@ -13,7 +13,6 @@
     "minify": "uglifyjs umd/eventemitter3.js --source-map -cm -o umd/eventemitter3.min.js",
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
     "test": "c8 --reporter=lcov --reporter=text mocha test/test.js",
-    "test:esm": "c8 --reporter=lcov --reporter=text mocha test/test.mjs",
     "prepublishOnly": "npm run browserify && npm run minify",
     "test-browser": "node test/browser.js"
   },
