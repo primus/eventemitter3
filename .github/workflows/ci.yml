@@ -20,6 +20,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
+      - run: npm run test:esm
       - uses: coverallsapp/github-action@1.1.3
         if: matrix.node == 18
         with:
