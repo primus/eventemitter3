@@ -9,20 +9,28 @@ export default [{
   },
   plugins: [commonjs()]
 }, {
+  input: './index.mjs',
+  output: {
+    compact: true,
+    file: 'dist/eventemitter3.esm.min.js',
+    format: 'es'
+  },
+  plugins: [commonjs(), terser()]
+}, {
   input: './index.js',
   output: {
+    file: 'dist/eventemitter3.umd.js',
     format: 'umd',
-    name: 'EventEmitter3',
-    file: 'dist/eventemitter3.umd.js'
+    name: 'EventEmitter3'
   },
   plugins: [commonjs()]
 }, {
   input: './index.js',
   output: {
     compact: true,
+    file: 'dist/eventemitter3.umd.min.js',
     format: 'umd',
-    name: 'EventEmitter3',
-    file: 'dist/eventemitter3.umd.min.js'
+    name: 'EventEmitter3'
   },
   plugins: [commonjs(), terser()]
 }];
