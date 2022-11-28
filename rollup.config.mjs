@@ -13,7 +13,8 @@ export default [{
   output: {
     compact: true,
     file: 'dist/eventemitter3.esm.min.js',
-    format: 'es'
+    format: 'es',
+    sourcemap: true
   },
   plugins: [commonjs(), terser()]
 }, {
@@ -30,7 +31,8 @@ export default [{
     compact: true,
     file: 'dist/eventemitter3.umd.min.js',
     format: 'umd',
-    name: 'EventEmitter3'
+    name: 'EventEmitter3',
+    sourcemap: true
   },
   plugins: [commonjs(), terser()]
 }];
