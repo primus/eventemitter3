@@ -37,7 +37,7 @@ $ npm install --save eventemitter3
 Recommended CDN:
 
 ```text
-https://unpkg.com/eventemitter3@latest/umd/eventemitter3.min.js
+https://unpkg.com/eventemitter3@latest/dist/eventemitter3.umd.min.js
 ```
 
 ## Usage
