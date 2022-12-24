@@ -53,7 +53,7 @@
     "url": "https://github.com/primus/eventemitter3/issues"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-terser": "^0.1.0",
     "assume": "^2.2.0",
     "c8": "^7.3.1",
