@@ -163,52 +163,25 @@ EventEmitter.prototype.listenerCount = function listenerCount(event) {
  * @returns {Boolean} `true` if the event had listeners, else `false`.
  * @public
  */
-EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+EventEmitter.prototype.emit = function emit(event, ...args) {
   var evt = prefix ? prefix + event : event;
 
   if (!this._events[evt]) return false;
 
-  var listeners = this._events[evt]
-    , len = arguments.length
-    , args
-    , i;
+  var listeners = this._events[evt];
 
   if (listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
-    switch (len) {
-      case 1: return listeners.fn.call(listeners.context), true;
-      case 2: return listeners.fn.call(listeners.context, a1), true;
-      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
-    }
-
-    for (i = 1, args = new Array(len -1); i < len; i++) {
-      args[i - 1] = arguments[i];
-    }
-
     listeners.fn.apply(listeners.context, args);
   } else {
     var length = listeners.length
-      , j;
+      , i;
 
     for (i = 0; i < length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
-      switch (len) {
-        case 1: listeners[i].fn.call(listeners[i].context); break;
-        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
-        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
-        default:
-          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
-            args[j - 1] = arguments[j];
-          }
-
-          listeners[i].fn.apply(listeners[i].context, args);
-      }
+      listeners[i].fn.apply(listeners[i].context, args);
     }
   }
 
