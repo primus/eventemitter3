@@ -4,9 +4,9 @@
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "types": "./index.d.ts"
+      "require": "./index.js"
     },
     "./package.json": "./package.json"
   },
