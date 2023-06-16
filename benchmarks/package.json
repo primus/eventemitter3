@@ -17,7 +17,7 @@
     "eventemitter2": "latest",
     "eventemitter3": "0.1.6",
     "fastemitter": "latest",
-    "emittery": "latest"
+    "emittery": "latest",
     "events": "latest"
   }
 }
