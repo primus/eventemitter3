@@ -21,7 +21,7 @@ var ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
   , ce = CE()
-  , ee = EE();
+  , ee = EE()
   , et = new ET();
 
 [ee1, ee2, ee3, master, drip, ee, ce, et].forEach(function ohai(emitter) {

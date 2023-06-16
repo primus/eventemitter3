@@ -23,7 +23,7 @@ var ee1 = new EventEmitter1()
   , drip = new Drip()
   , fe = new FE()
   , ce = CE()
-  , ee = EE(),
+  , ee = EE()
   , et = new ET();
 
 et.on('foo', handle);
