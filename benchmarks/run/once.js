@@ -10,7 +10,7 @@
     , CE = require('contra/emitter')
     , EE = require('event-emitter')
     , FE = require('fastemitter')
-    , ET = require('emittery')
+    , ET = (await import('emittery')).default
     , Master = require('../../');
 
   function handle() {
