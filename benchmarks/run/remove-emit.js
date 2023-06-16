@@ -9,7 +9,7 @@
     , Drip = require('drip').EventEmitter
     , CE = require('contra/emitter')
     , EE = require('event-emitter')
-    , ET = (await require('emittery')).default
+    , ET = (await import('emittery')).default
     , Master = require('../../');
 
   function handle() {
