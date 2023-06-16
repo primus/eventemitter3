@@ -54,7 +54,7 @@
     ce.on('foo', handle);
     ce.off('foo', handle);
   }).add('Emittery', function () {
-    et.on('foo', handler);
+    et.on('foo', handle);
     et.off('foo', handle);
   }).on('cycle', function cycle(e) {
     console.log(e.target.toString());
