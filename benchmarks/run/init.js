@@ -9,6 +9,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
+  , ET = require('emittery')
   , Master = require('../../');
 
 //
@@ -35,6 +36,8 @@ var emitter;
   emitter = EE();
 }).add('contra/emitter', function() {
   emitter = CE();
+}).add('Emittery', function() {
+  emitter = new ET();
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

@@ -9,6 +9,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
+  , ET = require('emittery')
   , Master = require('../../');
 
 function handle() {
@@ -22,8 +23,10 @@ var ee1 = new EventEmitter1()
   , drip = new Drip()
   , fe = new FE()
   , ce = CE()
-  , ee = EE();
+  , ee = EE(),
+  , et = new ET();
 
+et.on('foo', handle);
 ee.on('foo', handle);
 fe.on('foo', handle);
 ee3.on('foo', handle);
@@ -75,6 +78,11 @@ ce.on('foo', handle);
   ce.emit('foo', 'bar');
   ce.emit('foo', 'bar', 'baz');
   ce.emit('foo', 'bar', 'baz', 'boom');
+}).add('Emittery', function() {
+  et.emit('foo');
+  et.emit('foo', 'bar');
+  et.emit('foo', 'bar', 'baz');
+  et.emit('foo', 'bar', 'baz', 'boom');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

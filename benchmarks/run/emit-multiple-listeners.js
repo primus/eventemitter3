@@ -8,6 +8,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
+  , ET = require('emittery')
   , Master = require('../../');
 
 function foo() {
@@ -34,8 +35,10 @@ var ee1 = new EventEmitter1()
   , master = new Master()
   , fe = new FE()
   , ce = CE()
-  , ee = EE();
+  , ee = EE()
+  , et = new ET();
 
+et.on('foo', foo).on('foo', bar).on('foo', baz);
 ce.on('foo', foo).on('foo', bar).on('foo', baz);
 ee.on('foo', foo).on('foo', bar).on('foo', baz);
 fe.on('foo', foo).on('foo', bar).on('foo', baz);
@@ -86,6 +89,11 @@ master.on('foo', foo).on('foo', bar).on('foo', baz);
   ce.emit('foo', 'bar');
   ce.emit('foo', 'bar', 'baz');
   ce.emit('foo', 'bar', 'baz', 'boom');
+}).add('Emittery', function() {
+  et.emit('foo');
+  et.emit('foo', 'bar');
+  et.emit('foo', 'bar', 'baz');
+  et.emit('foo', 'bar', 'baz', 'boom');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

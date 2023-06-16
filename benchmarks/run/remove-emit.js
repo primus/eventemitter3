@@ -8,6 +8,7 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , Drip = require('drip').EventEmitter
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
+  , ET = require('emittery')
   , Master = require('../../');
 
 function handle() {
@@ -21,8 +22,9 @@ var ee1 = new EventEmitter1()
   , drip = new Drip()
   , ce = CE()
   , ee = EE();
+  , et = new ET();
 
-[ee1, ee2, ee3, master, drip, ee, ce].forEach(function ohai(emitter) {
+[ee1, ee2, ee3, master, drip, ee, ce, et].forEach(function ohai(emitter) {
   emitter.on('foo', handle);
 
   //
@@ -76,6 +78,11 @@ var ee1 = new EventEmitter1()
   ce.emit('foo', 'bar');
   ce.emit('foo', 'bar', 'baz');
   ce.emit('foo', 'bar', 'baz', 'boom');
+}).add('Emittery', function() {
+  et.emit('foo');
+  et.emit('foo', 'bar');
+  et.emit('foo', 'bar', 'baz');
+  et.emit('foo', 'bar', 'baz', 'boom');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {
