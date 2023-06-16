@@ -13,7 +13,6 @@
     "benchmark": "2.1.x",
     "contra": "latest",
     "drip": "latest",
-    "emittery": "^1.0.1",
     "event-emitter": "latest",
     "eventemitter2": "latest",
     "eventemitter3": "0.1.6",
