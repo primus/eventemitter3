@@ -39,7 +39,7 @@
     , ee = EE()
     , et = new ET();
 
-  et.on('foo', foo).on('foo', bar).on('foo', baz);
+  et.on('foo', foo);et.on('foo', bar);et.on('foo', baz);
   ce.on('foo', foo).on('foo', bar).on('foo', baz);
   ee.on('foo', foo).on('foo', bar).on('foo', baz);
   fe.on('foo', foo).on('foo', bar).on('foo', baz);
