@@ -27,7 +27,7 @@
     , fe = new FE()
     , ce = CE()
     , ee = EE()
-    , et = ET()
+    , et = new ET()
     , j, i;
 
   for (i = 0; i < 10; i++) {
