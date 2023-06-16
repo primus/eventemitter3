@@ -3,7 +3,7 @@
 (async () => {
   var benchmark = require('benchmark');
 
-  var EventEmitter1 = require('events').EventEmitter
+  var EventEmitter1 = require('node:events').EventEmitter
     , EventEmitter3 = require('eventemitter3')
     , FE = require('fastemitter')
     , ET = (await import('emittery')).default

@@ -4,7 +4,7 @@
   var benchmark = require('benchmark');
 
   var EventEmitter2 = require('eventemitter2').EventEmitter2
-    , EventEmitter1 = require('events').EventEmitter
+    , EventEmitter1 = require('node:events').EventEmitter
     , EventEmitter3 = require('eventemitter3')
     , Drip = require('drip').EventEmitter
     , CE = require('contra/emitter')
