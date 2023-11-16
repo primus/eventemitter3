@@ -16,6 +16,8 @@
     "event-emitter": "latest",
     "eventemitter2": "latest",
     "eventemitter3": "0.1.6",
-    "fastemitter": "latest"
+    "fastemitter": "latest",
+    "browserify-events": "npm:events@3.3.0",
+    "tseep": "latest"
   }
 }
