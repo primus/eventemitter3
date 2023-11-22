@@ -5,7 +5,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
+      "import": "./wrapper.mjs",
       "require": "./index.js"
     },
     "./package.json": "./package.json"
@@ -22,7 +22,7 @@
   },
   "files": [
     "index.js",
-    "index.mjs",
+    "wrapper.mjs",
     "index.d.ts",
     "dist"
   ],
