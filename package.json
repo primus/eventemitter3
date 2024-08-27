@@ -5,6 +5,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
+      "browser": "./dist/eventemitter3.esm.js",
       "import": "./index.mjs",
       "require": "./index.js"
     },
