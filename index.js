@@ -1,5 +1,13 @@
 'use strict';
 
+var Global = void 0
+  || typeof globalThis !== 'undefined' && globalThis
+  || typeof self !== 'undefined' && self
+  || Function('return this')();
+
+var Object = Global.Object,
+    Array = Global.Array;
+
 var has = Object.prototype.hasOwnProperty
   , prefix = '~';
 
@@ -174,7 +182,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     , i;
 
   if (listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+    if (listeners.once) this.removeListener(event, listeners.fn, void 0, true);
 
     switch (len) {
       case 1: return listeners.fn.call(listeners.context), true;
@@ -195,7 +203,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       , j;
 
     for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, void 0, true);
 
       switch (len) {
         case 1: listeners[i].fn.call(listeners[i].context); break;
