@@ -8,6 +8,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
+  , BrowserifyEmitter = require('browserify-events')
+  , Tseep = require('tseep').EventEmitter
   , Master = require('../../');
 
 function foo() {
@@ -33,12 +35,16 @@ var ee1 = new EventEmitter1()
   , ee3 = new EventEmitter3()
   , master = new Master()
   , fe = new FE()
+  , be = new BrowserifyEmitter()
+  , te = new Tseep()
   , ce = CE()
   , ee = EE();
 
 ce.on('foo', foo).on('foo', bar).on('foo', baz);
 ee.on('foo', foo).on('foo', bar).on('foo', baz);
 fe.on('foo', foo).on('foo', bar).on('foo', baz);
+be.on('foo', foo).on('foo', bar).on('foo', baz);
+te.on('foo', foo).on('foo', bar).on('foo', baz);
 ee3.on('foo', foo).on('foo', bar).on('foo', baz);
 ee2.on('foo', foo).on('foo', bar).on('foo', baz);
 ee1.on('foo', foo).on('foo', bar).on('foo', baz);
@@ -76,6 +82,16 @@ master.on('foo', foo).on('foo', bar).on('foo', baz);
   fe.emit('foo', 'bar');
   fe.emit('foo', 'bar', 'baz');
   fe.emit('foo', 'bar', 'baz', 'boom');
+}).add('browserify-events', function() {
+  be.emit('foo');
+  be.emit('foo', 'bar');
+  be.emit('foo', 'bar', 'baz');
+  be.emit('foo', 'bar', 'baz', 'boom');
+}).add('tseep', function() {
+  te.emit('foo');
+  te.emit('foo', 'bar');
+  te.emit('foo', 'bar', 'baz');
+  te.emit('foo', 'bar', 'baz', 'boom');
 }).add('event-emitter', function() {
   ee.emit('foo');
   ee.emit('foo', 'bar');

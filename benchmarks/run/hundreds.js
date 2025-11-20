@@ -9,6 +9,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
+  , BrowserifyEmitter = require('browserify-events')
+  , Tseep = require('tseep').EventEmitter
   , Master = require('../../');
 
 function foo() {
@@ -23,6 +25,8 @@ var ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
   , fe = new FE()
+  , be = new BrowserifyEmitter()
+  , te = new Tseep()
   , ce = CE()
   , ee = EE()
   , j, i;
@@ -32,6 +36,8 @@ for (i = 0; i < 10; i++) {
     ce.on('event:' + i, foo);
     ee.on('event:' + i, foo);
     fe.on('event:' + i, foo);
+    be.on('event:' + i, foo);
+    te.on('event:' + i, foo);
     ee1.on('event:' + i, foo);
     ee2.on('event:' + i, foo);
     ee3.on('event:' + i, foo);
@@ -65,6 +71,14 @@ for (i = 0; i < 10; i++) {
 }).add('fastemitter', function() {
   for (i = 0; i < 10; i++) {
     fe.emit('event:' + i);
+  }
+}).add('browserify-events', function() {
+  for (i = 0; i < 10; i++) {
+    be.emit('event:' + i);
+  }
+}).add('tseep', function() {
+  for (i = 0; i < 10; i++) {
+    te.emit('event:' + i);
   }
 }).add('event-emitter', function() {
   for (i = 0; i < 10; i++) {

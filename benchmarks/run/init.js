@@ -9,6 +9,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
+  , BrowserifyEmitter = require('browserify-events')
+  , Tseep = require('tseep').EventEmitter
   , Master = require('../../');
 
 //
@@ -31,6 +33,10 @@ var emitter;
   emitter = new Drip();
 }).add('fastemitter', function() {
   emitter = new FE();
+}).add('browserify-events', function() {
+  emitter = new BrowserifyEmitter();
+}).add('tseep', function() {
+  emitter = new Tseep();
 }).add('event-emitter', function() {
   emitter = EE();
 }).add('contra/emitter', function() {

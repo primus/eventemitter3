@@ -61,6 +61,6 @@
     "pre-commit": "^1.2.0",
     "rollup": "^4.5.2",
     "sauce-browsers": "^3.0.0",
-    "sauce-test": "^1.3.3"
+    "sauce-test": "git+https://github.com/Romick2005/sauce-test.git"
   }
 }
