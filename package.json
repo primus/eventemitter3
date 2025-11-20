@@ -4,6 +4,10 @@
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "exports": {
     ".": {
+      "browser": {
+        "import": "./dist/eventemitter3.esm.js",
+        "require": "./dist/eventemitter3.umd.js"
+      },
       "import": "./index.mjs",
       "require": "./index.js"
     },
