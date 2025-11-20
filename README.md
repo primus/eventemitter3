@@ -74,18 +74,11 @@ EE.removeListener('another-event', emitted, context);
 
 ### Tests and benchmarks
 
-This module is well tested. You can run:
-
-- `npm test` to run the tests under Node.js.
-- `npm run test-browser` to run the tests in real browsers via Sauce Labs.
-
-We also have a set of benchmarks to compare EventEmitter3 with some available
-alternatives. To run the benchmarks run `npm run benchmark`.
+To run tests run `npm test`. To run the benchmarks run `npm run benchmark`.
 
 Tests and benchmarks are not included in the npm package. If you want to play
-with them you have to clone the GitHub repository.
-Note that you will have to run an additional `npm i` in the benchmarks folder
-before `npm run benchmark`.
+with them you have to clone the GitHub repository. Note that you will have to
+run an additional `npm i` in the benchmarks folder before `npm run benchmark`.
 
 ## License
 
