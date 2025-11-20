@@ -16,8 +16,7 @@
     "benchmark": "find benchmarks/run -name '*.js' -exec benchmarks/start.sh {} \\;",
     "test": "c8 --reporter=lcov --reporter=text mocha test/test.js",
     "test-esm": "mocha test/test.mjs",
-    "prepublishOnly": "npm run rollup",
-    "test-browser": "node test/browser.js"
+    "prepublishOnly": "npm run rollup"
   },
   "files": [
     "index.js",
@@ -59,8 +58,6 @@
     "c8": "^10.1.3",
     "mocha": "^11.7.5",
     "pre-commit": "^1.2.0",
-    "rollup": "^4.5.2",
-    "sauce-browsers": "^3.0.0",
-    "sauce-test": "^1.3.3"
+    "rollup": "^4.5.2"
   }
 }

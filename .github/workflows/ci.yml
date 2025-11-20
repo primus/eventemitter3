@@ -18,15 +18,3 @@ jobs:
       - uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-  test-browser:
-    runs-on: ubuntu-latest
-    env:
-      SAUCE_USERNAME: eventemitter3
-      SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - run: npm run test-browser

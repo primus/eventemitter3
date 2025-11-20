@@ -2,8 +2,6 @@
 
 [![Version npm](https://img.shields.io/npm/v/eventemitter3.svg?style=flat-square)](https://www.npmjs.com/package/eventemitter3)[![CI](https://img.shields.io/github/actions/workflow/status/primus/eventemitter3/ci.yml?branch=master&label=CI&style=flat-square)](https://github.com/primus/eventemitter3/actions?query=workflow%3ACI+branch%3Amaster)[![Coverage Status](https://img.shields.io/coveralls/primus/eventemitter3/master.svg?style=flat-square)](https://coveralls.io/r/primus/eventemitter3?branch=master)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/eventemitter3.svg)](https://saucelabs.com/u/eventemitter3)
-
 EventEmitter3 is a high performance EventEmitter. It has been micro-optimized
 for various of code paths making this, one of, if not the fastest EventEmitter
 available for Node.js and browsers. The module is API compatible with the
