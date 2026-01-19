@@ -1,6 +1,6 @@
 {
   "name": "eventemitter3",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
   "exports": {
     ".": {
