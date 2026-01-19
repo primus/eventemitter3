@@ -23,7 +23,6 @@
     "index.mjs",
     "index.d.ts",
     "index.d.mts",
-    "shared-types.d.ts",
     "dist"
   ],
   "repository": {
