@@ -2,7 +2,7 @@
  * Minimal `EventEmitter` interface that is molded against the Node.js
  * `EventEmitter` interface.
  */
-export class EventEmitter<
+export declare class EventEmitter<
   EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
   Context extends any = any
 > {
@@ -79,7 +79,7 @@ export class EventEmitter<
   removeAllListeners(event?: EventEmitter.EventNames<EventTypes>): this;
 }
 
-export namespace EventEmitter {
+export declare namespace EventEmitter {
   export interface ListenerFn<Args extends any[] = any[]> {
     (...args: Args): void;
   }
