@@ -131,4 +131,5 @@ declare namespace EventEmitter {
   export const EventEmitter: EventEmitterStatic;
 }
 
-module.exports = EventEmitter;
+export { EventEmitter }
+export default EventEmitter;
