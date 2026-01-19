@@ -1,2 +1,6 @@
-export * from "./shared-types.d.ts";
-export { EventEmitter as default } from "./shared-types.d.ts";
+import type { EventEmitter as EE } from "./shared-types.d.ts";
+
+declare const EventEmitter: typeof EE;
+
+export { EventEmitter };
+export default EventEmitter;
