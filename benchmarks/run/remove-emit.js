@@ -8,7 +8,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , Drip = require('drip').EventEmitter
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
-  , Master = require('../../');
+  , Master = require('../../')
+  , BuiltIn = require('node:events').EventEmitter;
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -20,9 +21,10 @@ var ee1 = new EventEmitter1()
   , master = new Master()
   , drip = new Drip()
   , ce = CE()
-  , ee = EE();
+  , ee = EE()
+  , bi = new BuiltIn();
 
-[ee1, ee2, ee3, master, drip, ee, ce].forEach(function ohai(emitter) {
+[ee1, ee2, ee3, master, drip, ee, ce, bi].forEach(function ohai(emitter) {
   emitter.on('foo', handle);
 
   //
@@ -76,6 +78,11 @@ var ee1 = new EventEmitter1()
   ce.emit('foo', 'bar');
   ce.emit('foo', 'bar', 'baz');
   ce.emit('foo', 'bar', 'baz', 'boom');
+}).add('built-in', function() {
+  bi.emit('foo');
+  bi.emit('foo', 'bar');
+  bi.emit('foo', 'bar', 'baz');
+  bi.emit('foo', 'bar', 'baz', 'boom');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

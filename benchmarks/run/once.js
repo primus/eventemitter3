@@ -9,7 +9,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , Master = require('../../');
+  , Master = require('../../')
+  , BuiltIn = require('node:events').EventEmitter;
 
 function handle() {
   if (arguments.length > 100) console.log('damn');
@@ -22,7 +23,8 @@ var ee1 = new EventEmitter1()
   , drip = new Drip()
   , fe = new FE()
   , ce = CE()
-  , ee = EE();
+  , ee = EE()
+  , bi = new BuiltIn();
 
 (
   new benchmark.Suite()
@@ -42,6 +44,8 @@ var ee1 = new EventEmitter1()
   ee.once('foo', handle).emit('foo');
 }).add('contra/emitter', function() {
   ce.once('foo', handle).emit('foo');
+}).add('built-in', function() {
+  bi.once('foo', handle).emit('foo');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

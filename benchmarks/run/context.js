@@ -9,7 +9,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , Master = require('../../');
+  , Master = require('../../')
+  , BuiltIn = require('node:events').EventEmitter;
 
 var ctx = { foo: 'bar' };
 
@@ -24,7 +25,8 @@ var ee1 = new EventEmitter1()
   , drip = new Drip()
   , fe = new FE()
   , ce = CE()
-  , ee = EE();
+  , ee = EE()
+  , bi = new BuiltIn();
 
 ee3.on('foo', handle, ctx);
 ee2.on('foo', handle.bind(ctx));
@@ -34,6 +36,7 @@ master.on('foo', handle, ctx);
 ee.on('foo', handle.bind(ctx));
 fe.on('foo', handle.bind(ctx));
 ce.on('foo', handle.bind(ctx));
+bi.on('foo', handle.bind(ctx));
 
 (
   new benchmark.Suite()
@@ -77,6 +80,11 @@ ce.on('foo', handle.bind(ctx));
   ce.emit('foo', 'bar');
   ce.emit('foo', 'bar', 'baz');
   ce.emit('foo', 'bar', 'baz', 'boom');
+}).add('built-in', function() {
+  bi.emit('foo');
+  bi.emit('foo', 'bar');
+  bi.emit('foo', 'bar', 'baz');
+  bi.emit('foo', 'bar', 'baz', 'boom');
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {

@@ -9,7 +9,8 @@ var EventEmitter2 = require('eventemitter2').EventEmitter2
   , CE = require('contra/emitter')
   , EE = require('event-emitter')
   , FE = require('fastemitter')
-  , Master = require('../../');
+  , Master = require('../../')
+  , BuiltIn = require('node:events').EventEmitter;
 
 //
 // This is used to prevent the functions below from being transformed into
@@ -35,6 +36,8 @@ var emitter;
   emitter = EE();
 }).add('contra/emitter', function() {
   emitter = CE();
+}).add('built-in', function() {
+  emitter = new BuiltIn();
 }).on('cycle', function cycle(e) {
   console.log(e.target.toString());
 }).on('complete', function completed() {
