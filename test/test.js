@@ -524,6 +524,25 @@ describe('EventEmitter', function tests() {
   });
 
   describe('EventEmitter#removeAllListeners', function () {
+    it('only removes listeners for an empty-string event name', function () {
+      var e = new EventEmitter();
+      var calls = 0;
+
+      e.on('', function () { throw new Error('empty event remains'); });
+      e.on('other', function () { calls++; });
+
+      assume(e.removeAllListeners('')).equals(e);
+      assume(e.listenerCount('')).equals(0);
+      assume(e.listenerCount('other')).equals(1);
+      assume(e._eventsCount).equals(1);
+      assume(e.emit('')).equals(false);
+      assume(e.emit('other')).equals(true);
+      assume(calls).equals(1);
+
+      e.removeAllListeners('');
+      assume(e.listenerCount('other')).equals(1);
+    });
+
     it('removes all events for the specified events', function () {
       var e = new EventEmitter();
 

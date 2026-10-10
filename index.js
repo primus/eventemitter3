@@ -301,7 +301,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   var evt;
 
-  if (event) {
+  if (event !== undefined) {
     evt = prefix ? prefix + event : event;
     if (this._events[evt]) clearEvent(this, evt);
   } else {
