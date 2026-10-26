@@ -3,6 +3,27 @@ describe('EventEmitter', function tests() {
 
   var EventEmitter = require('../')
     , assume = require('assume');
+  ['on', 'once'].forEach(function (method) {
+    it('calls a later once listener only once when an earlier ' + method + ' listener re-emits', function () {
+      var emitter = new EventEmitter()
+        , nested = false
+        , calls = [];
+
+      emitter[method]('event', function () {
+        if (!nested) {
+          nested = true;
+          emitter.emit('event', 'nested');
+        }
+      });
+      emitter.once('event', function (value) {
+        calls.push(value);
+      });
+
+      emitter.emit('event', 'outer');
+      assume(calls).deep.equals(['nested']);
+      assume(emitter.listenerCount('event')).equals(method === 'on' ? 1 : 0);
+    });
+  });
 
   it('exposes a `prefixed` property', function () {
     assume(EventEmitter.prefixed).is.either([false, '~']);

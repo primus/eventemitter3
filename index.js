@@ -174,7 +174,10 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
     , i;
 
   if (listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+    if (listeners.once) {
+      listeners.fired = true;
+      this.removeListener(event, listeners.fn, undefined, true);
+    }
 
     switch (len) {
       case 1: return listeners.fn.call(listeners.context), true;
@@ -195,7 +198,11 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       , j;
 
     for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+      if (listeners[i].once) {
+        if (listeners[i].fired) continue;
+        listeners[i].fired = true;
+        this.removeListener(event, listeners[i].fn, undefined, true);
+      }
 
       switch (len) {
         case 1: listeners[i].fn.call(listeners[i].context); break;
