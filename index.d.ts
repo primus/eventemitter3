@@ -1,3 +1,8 @@
+// Keep the event map available for inference from derived emitters.
+type EventNameList<T extends EventEmitter.ValidEventTypes> = Array<
+  EventEmitter.EventNames<T>
+>;
+
 /**
  * Minimal `EventEmitter` interface that is molded against the Node.js
  * `EventEmitter` interface.
@@ -12,7 +17,7 @@ declare class EventEmitter<
    * Return an array listing the events for which the emitter has registered
    * listeners.
    */
-  eventNames(): Array<EventEmitter.EventNames<EventTypes>>;
+  eventNames(): EventNameList<EventTypes>;
 
   /**
    * Return the listeners registered for a given event.
