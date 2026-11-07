@@ -72,6 +72,24 @@ EE.on('another-event', emitted, context);
 EE.removeListener('another-event', emitted, context);
 ```
 
+### TypeScript event arguments
+
+When a subclass inherits `eventNames()`, use a conditional type to recover its
+event map and `EventEmitter.EventArgs` to get the arguments for a specific event.
+
+```ts
+import EventEmitter from 'eventemitter3';
+
+interface PickerEvents {
+  fileSelected: [File];
+}
+
+class FilePicker extends EventEmitter<PickerEvents> {}
+
+type EventsOf<T> = T extends EventEmitter<infer Events> ? Events : never;
+type FileSelectedArgs = EventEmitter.EventArgs<EventsOf<FilePicker>, 'fileSelected'>;
+```
+
 ### Tests and benchmarks
 
 To run tests run `npm test`. To run the benchmarks run `npm run benchmark`.
